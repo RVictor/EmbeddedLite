@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EmbLite_Workspace Name="EmbeddedLite" Database="./EmbeddedLite.tags">
+  <Ctags>
+    <Option Name="Macros">WXUNUSED,wxT,WXMAKINGDLL,WXUSINGDLL,WXMAKINGDLL_FNB,WXUSINGDLL_FNB,WXDLLEXPORT,WXDLLIMPEXP_CORE,WXDLLIMPORT</Option>
+    <Option Name="Language">C++</Option>
+    <Option Name="FileSpec">*.cpp;*.c;*.cxx;*.cc;*.h;*.hpp</Option>
+    <Option Name="ParseComments">yes</Option>
+  </Ctags>
+  <Project Name="wxsqlite3" Path="sdk/wxsqlite3/wxsqlite3.project" Active="No"/>
+  <Project Name="wxscintilla" Path="sdk/wxscintilla/wxscintilla.project" Active="No"/>
+  <Project Name="plugin_sdk" Path="Plugin/plugin_sdk.project" Active="No"/>
+  <Project Name="sqlite3" Path="sqlite3/sqlite3.project"/>
+  <Project Name="EmbLite" Path="EmbLite/EmbLite.project" Active="No"/>
+  <Project Name="DebuggerGDB" Path="Debugger/DebuggerGDB.project" Active="No"/>
+  <Project Name="Interfaces" Path="Interfaces/Interfaces.project" Active="No"/>
+  <Project Name="CodeFormatter" Path="plugins/CodeFormatter/CodeFormatter.project" Active="No"/>
+  <Project Name="Gizmos" Path="plugins/Gizmos/Gizmos.project" Active="No"/>
+  <Project Name="Cscope" Path="plugins/cscope/Cscope.project" Active="No"/>
+  <Project Name="Copyright" Path="plugins/Copyright/Copyright.project" Active="No"/>
+  <Project Name="ExternalTools" Path="plugins/ExternalTools/ExternalTools.project" Active="No"/>
+  <Project Name="wxFormBuilder" Path="plugins/wxformbuilder/wxFormBuilder.project" Active="No"/>
+  <Project Name="abbreviation" Path="plugins/abbreviation/abbreviation.project" Active="No"/>
+  <Project Name="ContinuousBuild" Path="plugins/ContinuousBuild/ContinuousBuild.project" Active="No"/>
+  <Project Name="Subversion2" Path="plugins/Subversion2/Subversion2.project" Active="No"/>
+  <Project Name="SymbolView" Path="plugins/SymbolView/SymbolView.project" Active="No"/>
+  <Project Name="emblite_indexer" Path="sdk/emblite_indexer/emblite_indexer.project" Active="No"/>
+  <Project Name="LiteEditor" Path="LiteEditor/LiteEditor.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Win Release Unicode" Selected="yes">
+      <Project Name="wxsqlite3" ConfigName="WinReleaseUnicode"/>
+      <Project Name="wxscintilla" ConfigName="WinReleaseUnicode"/>
+      <Project Name="wxFormBuilder" ConfigName="WinReleaseUnicode"/>
+      <Project Name="SymbolView" ConfigName="WinReleaseUnicode"/>
+      <Project Name="Subversion2" ConfigName="WinReleaseUnicode"/>
+      <Project Name="sqlite3" ConfigName="WinReleaseUnicode"/>
+      <Project Name="plugin_sdk" ConfigName="WinReleaseUnicode"/>
+      <Project Name="LiteEditor" ConfigName="WinReleaseUnicode"/>
+      <Project Name="Interfaces" ConfigName="Common"/>
+      <Project Name="Gizmos" ConfigName="WinReleaseUnicode"/>
+      <Project Name="ExternalTools" ConfigName="WinReleaseUnicode"/>
+      <Project Name="emblite_indexer" ConfigName="WinReleaseUnicode"/>
+      <Project Name="DebuggerGDB" ConfigName="WinReleaseUnicode"/>
+      <Project Name="Cscope" ConfigName="WinReleaseUnicode"/>
+      <Project Name="Copyright" ConfigName="WinReleaseUnicode"/>
+      <Project Name="ContinuousBuild" ConfigName="WinReleaseUnicode"/>
+      <Project Name="EmbLite" ConfigName="WinReleaseUnicode"/>
+      <Project Name="CodeFormatter" ConfigName="WinReleaseUnicode"/>
+      <Project Name="abbreviation" ConfigName="WinReleaseUnicode"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Win Debug Unicode" Selected="no">
+      <Project Name="wxsqlite3" ConfigName="WinDebugUnicode"/>
+      <Project Name="wxscintilla" ConfigName="WinDebugUnicode"/>
+      <Project Name="wxFormBuilder" ConfigName="WinDebugUnicode"/>
+      <Project Name="SymbolView" ConfigName="WinDebugUnicode"/>
+      <Project Name="Subversion2" ConfigName="WinDebugUnicode"/>
+      <Project Name="sqlite3" ConfigName="WinDebugUnicode"/>
+      <Project Name="plugin_sdk" ConfigName="WinDebugUnicode"/>
+      <Project Name="LiteEditor" ConfigName="WinDebugUnicode"/>
+      <Project Name="Interfaces" ConfigName="Debug"/>
+      <Project Name="Gizmos" ConfigName="WinDebugUnicode"/>
+      <Project Name="ExternalTools" ConfigName="WinDebugUnicode"/>
+      <Project Name="emblite_indexer" ConfigName="WinDebugUnicode"/>
+      <Project Name="DebuggerGDB" ConfigName="WinDebugUnicode"/>
+      <Project Name="Cscope" ConfigName="WinDebugUnicode"/>
+      <Project Name="Copyright" ConfigName="WinDebugUnicode"/>
+      <Project Name="ContinuousBuild" ConfigName="WinDebugUnicode"/>
+      <Project Name="EmbLite" ConfigName="WinDebugUnicode"/>
+      <Project Name="CodeFormatter" ConfigName="WinDebugUnicode"/>
+      <Project Name="abbreviation" ConfigName="WinDebugUnicode"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Debug Unicode" Selected="no">
+      <Project Name="wxsqlite3" ConfigName="DebugUnicode"/>
+      <Project Name="wxscintilla" ConfigName="DebugUnicode"/>
+      <Project Name="wxFormBuilder" ConfigName="DebugUnicode"/>
+      <Project Name="SymbolView" ConfigName="DebugUnicode"/>
+      <Project Name="Subversion2" ConfigName="DebugUnicode"/>
+      <Project Name="sqlite3" ConfigName="DebugUnicode"/>
+      <Project Name="plugin_sdk" ConfigName="DebugUnicode"/>
+      <Project Name="LiteEditor" ConfigName="DebugUnicode"/>
+      <Project Name="Interfaces" ConfigName="Debug"/>
+      <Project Name="Gizmos" ConfigName="DebugUnicode"/>
+      <Project Name="ExternalTools" ConfigName="DebugUnicode"/>
+      <Project Name="emblite_indexer" ConfigName="DebugUnicode"/>
+      <Project Name="DebuggerGDB" ConfigName="DebugUnicode"/>
+      <Project Name="Cscope" ConfigName="DebugUnicode"/>
+      <Project Name="Copyright" ConfigName="DebugUnicode"/>
+      <Project Name="ContinuousBuild" ConfigName="DebugUnicode"/>
+      <Project Name="EmbLite" ConfigName="DebugUnicode"/>
+      <Project Name="CodeFormatter" ConfigName="DebugUnicode"/>
+      <Project Name="abbreviation" ConfigName="DebugUnicode"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release Unicode" Selected="yes">
+      <Project Name="wxsqlite3" ConfigName="ReleaseUnicode"/>
+      <Project Name="wxscintilla" ConfigName="ReleaseUnicode"/>
+      <Project Name="wxFormBuilder" ConfigName="ReleaseUnicode"/>
+      <Project Name="UnitTestPP" ConfigName="ReleaseUnicode"/>
+      <Project Name="SymbolView" ConfigName="ReleaseUnicode"/>
+      <Project Name="Subversion2" ConfigName="ReleaseUnicode"/>
+      <Project Name="sqlite3" ConfigName="ReleaseUnicode"/>
+      <Project Name="snipwiz" ConfigName="ReleaseUnicode"/>
+      <Project Name="QMakePlugin" ConfigName="ReleaseUnicode"/>
+      <Project Name="plugin_sdk" ConfigName="ReleaseUnicode"/>
+      <Project Name="LiteEditor" ConfigName="ReleaseUnicode"/>
+      <Project Name="Interfaces" ConfigName="Common"/>
+      <Project Name="Gizmos" ConfigName="ReleaseUnicode"/>
+      <Project Name="ExternalTools" ConfigName="ReleaseUnicode"/>
+      <Project Name="DebuggerGDB" ConfigName="ReleaseUnicode"/>
+      <Project Name="Cscope" ConfigName="ReleaseUnicode"/>
+      <Project Name="CppChecker" ConfigName="ReleaseUnicode"/>
+      <Project Name="Copyright" ConfigName="ReleaseUnicode"/>
+      <Project Name="ContinuousBuild" ConfigName="ReleaseUnicode"/>
+      <Project Name="emblite_indexer" ConfigName="ReleaseUnicode"/>
+      <Project Name="EmbLite" ConfigName="ReleaseUnicode"/>
+      <Project Name="CodeFormatter" ConfigName="ReleaseUnicode"/>
+      <Project Name="abbreviation" ConfigName="ReleaseUnicode"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</EmbLite_Workspace>

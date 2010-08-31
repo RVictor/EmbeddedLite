@@ -1,0 +1,17 @@
+*.mk
+*.o
+*.o.d
+*.session
+*.tags
+*.map
+build/*
+*.user
+*.obj
+*.exe
+*.lib
+*.dll
+*.map
+*.ncb
+*.suo
+*.user
+*.aps

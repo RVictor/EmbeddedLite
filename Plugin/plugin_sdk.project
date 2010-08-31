@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeLite_Project Name="plugin_sdk">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00060001N0012DebugUnicode0000000000000001N0014ReleaseUnicode0000000000000001N0015WinDebugUnicode0000000000000001N0011WinDebug_290000000000000001N0017WinReleaseUnicode0000000000000001N0013WinRelease_29000000000000]]>
+    </Plugin>
+  </Plugins>
+  <VirtualDirectory Name="src">
+    <File Name="async_executable_cmd.cpp"/>
+    <File Name="build_config.cpp"/>
+    <File Name="buildmanager.cpp"/>
+    <File Name="clean_request.cpp"/>
+    <File Name="compile_request.cpp"/>
+    <File Name="configuration_mapping.cpp"/>
+    <File Name="lexer_configuration.cpp"/>
+    <File Name="optionsconfig.cpp"/>
+    <File Name="project.cpp"/>
+    <File Name="project_settings.cpp"/>
+    <File Name="regex_processor.cpp"/>
+    <File Name="search_thread.cpp"/>
+    <File Name="workspace.cpp"/>
+    <File Name="volumelocatorthread.cpp"/>
+    <File Name="stringsearcher.cpp"/>
+    <File Name="stringsearcher.h"/>
+    <File Name="dockablepanemenumanager.cpp"/>
+    <File Name="dockablepanemenumanager.h"/>
+    <File Name="custombuildrequest.cpp"/>
+    <File Name="custombuildrequest.h"/>
+    <File Name="build_config_common.cpp"/>
+    <File Name="localworkspace.h"/>
+    <File Name="localworkspace.cpp"/>
+    <File Name="shell_command.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="include">
+    <File Name="async_executable_cmd.h"/>
+    <File Name="buildmanager.h"/>
+    <File Name="clean_request.h"/>
+    <File Name="compile_request.h"/>
+    <File Name="compiler.h"/>
+    <File Name="configuration_mapping.h"/>
+    <File Name="configuration_object.h"/>
+    <File Name="lexer_configuration.h"/>
+    <File Name="optionsconfig.h"/>
+    <File Name="project.h"/>
+    <File Name="project_settings.h"/>
+    <File Name="regex_processor.h"/>
+    <File Name="search_thread.h"/>
+    <File Name="workspace.h"/>
+    <File Name="volumelocatorthread.h"/>
+    <File Name="queuecommand.cpp"/>
+    <File Name="queuecommand.h"/>
+    <File Name="shell_command.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Commons">
+    <File Name="xmlutils.cpp"/>
+    <File Name="sync_queue.cpp"/>
+    <File Name="macros.h"/>
+    <File Name="xmlutils.h"/>
+    <File Name="sync_queue.h"/>
+    <File Name="globals.h"/>
+    <File Name="globals.cpp"/>
+    <File Name="exelocator.h"/>
+    <File Name="exelocator.cpp"/>
+    <File Name="dynamiclibrary.h"/>
+    <File Name="dynamiclibrary.cpp"/>
+    <File Name="conffilelocator.cpp"/>
+    <File Name="conffilelocator.h"/>
+    <File Name="string_client_data.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Builders">
+    <File Name="builder.h"/>
+    <File Name="builder_gnumake.h"/>
+    <File Name="builder.cpp"/>
+    <File Name="builder_gnumake.cpp"/>
+    <File Name="builder_gnumake_onestep.h"/>
+    <File Name="builder_gnumake_onestep.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="importer">
+    <File Name="vcimporter.h"/>
+    <File Name="vcimporter.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Debugger">
+    <File Name="debuggermanager.cpp"/>
+    <File Name="debuggermanager.h"/>
+    <File Name="debuggersettings.h"/>
+    <File Name="debuggersettings.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="configuration">
+    <File Name="attribute_style.h"/>
+    <File Name="build_settings_config.cpp"/>
+    <File Name="editor_config.cpp"/>
+    <File Name="compiler.cpp"/>
+    <File Name="build_config.h"/>
+    <File Name="editor_config.h"/>
+    <File Name="build_settings_config.h"/>
+    <File Name="build_system.h"/>
+    <File Name="build_system.cpp"/>
+    <File Name="sessionmanager.h"/>
+    <File Name="sessionmanager.cpp"/>
+    <File Name="configtool.cpp"/>
+    <File Name="configtool.h"/>
+    <File Name="debuggerconfigtool.h"/>
+    <File Name="debuggerconfigtool.cpp"/>
+    <File Name="configurationtoolbase.cpp"/>
+    <File Name="configurationtoolbase.h"/>
+    <File Name="environmentconfig.cpp"/>
+    <File Name="environmentconfig.h"/>
+    <File Name="evnvarlist.cpp"/>
+    <File Name="evnvarlist.h"/>
+    <File Name="pluginconfig.cpp"/>
+    <File Name="pluginconfig.h"/>
+    <File Name="pluginsdata.cpp"/>
+    <File Name="pluginsdata.h"/>
+    <File Name="plugindata.cpp"/>
+    <File Name="plugindata.h"/>
+    <File Name="commentconfigdata.cpp"/>
+    <File Name="commentconfigdata.h"/>
+    <File Name="quickdebuginfo.cpp"/>
+    <File Name="quickdebuginfo.h"/>
+    <File Name="windowattrmanager.cpp"/>
+    <File Name="windowattrmanager.h"/>
+    <File Name="tagsmanagementconf.cpp"/>
+    <File Name="tagsmanagementconf.h"/>
+    <File Name="build_config_common.h"/>
+    <File Name="includepathlocator.cpp"/>
+    <File Name="includepathlocator.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="ProcessControl">
+    <File Name="pipedprocess.h"/>
+    <File Name="pipedprocess.cpp"/>
+    <File Name="consolefinder.cpp"/>
+    <File Name="consolefinder.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="GUI">
+    <VirtualDirectory Name="Controls">
+      <File Name="virtualdirtreectrl.cpp"/>
+      <File Name="virtualdirtreectrl.h"/>
+      <File Name="filepicker.cpp"/>
+      <File Name="filepicker.h"/>
+      <File Name="dirpicker.cpp"/>
+      <File Name="dirpicker.h"/>
+      <File Name="progressctrl.cpp"/>
+      <File Name="progressctrl.h"/>
+      <File Name="virtualdirectoryselectorbase.h"/>
+      <File Name="virtualdirectoryselector.cpp"/>
+      <File Name="virtualdirectoryselector.h"/>
+      <File Name="virtualdirectoryselectorbase.cpp"/>
+      <File Name="windowstack.h"/>
+      <File Name="windowstack.cpp"/>
+      <File Name="outputviewcontrolbar.cpp"/>
+      <File Name="outputviewcontrolbar.h"/>
+      <File Name="listctrl_improved.h"/>
+      <File Name="listctrl_improved.cpp"/>
+      <File Name="cl_editor_tip_window.cpp"/>
+      <File Name="cl_editor_tip_window.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Dialogs">
+      <File Name="threebuttondlg.h"/>
+      <File Name="threebuttonbasedlg.cpp"/>
+      <File Name="threebuttonbasedlg.h"/>
+      <File Name="threebuttondlg.cpp"/>
+      <File Name="nameanddescdlg.h"/>
+      <File Name="nameanddescbasedlg.cpp"/>
+      <File Name="nameanddescbasedlg.h"/>
+      <File Name="nameanddescdlg.cpp"/>
+      <File Name="opentypevlistctrl.cpp"/>
+      <File Name="opentypevlistctrl.h"/>
+      <File Name="macrosdlg.h"/>
+      <File Name="macrosbasedlg.cpp"/>
+      <File Name="macrosbasedlg.h"/>
+      <File Name="macrosdlg.cpp"/>
+      <File Name="renamefilebasedlg.cpp"/>
+      <File Name="renamefilebasedlg.h"/>
+      <File Name="renamefiledlg.h"/>
+      <File Name="renamefiledlg.cpp"/>
+      <File Name="openresourcedialogbase.cpp"/>
+      <File Name="openresourcedialogbase.h"/>
+      <File Name="open_resource_dialog.h"/>
+      <File Name="open_resource_dialog.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Notebook">
+      <File Name="custom_notebook.cpp"/>
+      <File Name="custom_notebook.h"/>
+      <File Name="custom_tab.cpp"/>
+      <File Name="custom_tab.h"/>
+      <File Name="custom_tabcontainer.cpp"/>
+      <File Name="custom_tabcontainer.h"/>
+      <File Name="drawingutils.cpp"/>
+      <File Name="drawingutils.h"/>
+      <File Name="dropbutton.cpp"/>
+      <File Name="dropbutton.h"/>
+      <File Name="notebooknavdialog.cpp"/>
+      <File Name="notebooknavdialog.h"/>
+      <File Name="dockablepane.cpp"/>
+      <File Name="dockablepane.h"/>
+      <File Name="detachedpanesinfo.cpp"/>
+      <File Name="detachedpanesinfo.h"/>
+      <File Name="closetab-active.xpm.alpha"/>
+      <File Name="closetab.xpm"/>
+      <File Name="closetab.xpm.alpha"/>
+      <File Name="closetab-active.xpm"/>
+      <File Name="tabicons.h"/>
+      <File Name="tabicons.cpp"/>
+      <File Name="notebookcustomdlgbase.h"/>
+      <File Name="notebookcustomdlg.cpp"/>
+      <File Name="notebookcustomdlg.h"/>
+      <File Name="notebookcustomdlgbase.cpp"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="TokenScanner">
+    <File Name="cpptoken.cpp"/>
+    <File Name="cpptoken.h"/>
+    <File Name="cppwordscanner.cpp"/>
+    <File Name="cppwordscanner.h"/>
+    <File Name="stringaccessor.cpp"/>
+    <File Name="stringaccessor.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="JobQueue">
+    <File Name="jobqueue.cpp"/>
+    <File Name="jobqueue.h"/>
+    <File Name="job.h"/>
+    <File Name="job.cpp"/>
+  </VirtualDirectory>
+  <Dependencies/>
+  <VirtualDirectory Name="BrowsingRecords">
+    <File Name="browse_record.h"/>
+    <File Name="navigationmanager.h"/>
+    <File Name="navigationmanager.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Images">
+    <File Name="overlaytool.cpp"/>
+    <File Name="overlaytool.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="formbuilder">
+    <File Name="renamefilebasedlg.fbp"/>
+    <File Name="openresourcedialogbase.fbp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Terminal">
+    <File Name="wxterminalbase.h"/>
+    <File Name="wxterminal.cpp"/>
+    <File Name="wxterminal.h"/>
+    <File Name="wxterminalbase.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="md5">
+    <File Name="wxmd5.cpp"/>
+    <File Name="wxmd5.h"/>
+    <File Name="md5.h"/>
+    <File Name="md5_global.h"/>
+    <File Name="md5c.c"/>
+  </VirtualDirectory>
+  <Dependencies Name="WinDebug_29"/>
+  <Dependencies Name="WinReleaseUnicode"/>
+  <Dependencies Name="DebugUnicode"/>
+  <Dependencies Name="WinDebugUnicode"/>
+  <Dependencies Name="ReleaseUnicode"/>
+  <Settings Type="Static Library">
+    <Configuration Name="DebugUnicode" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;$(shell wx-config --cxxflags --debug=yes --unicode=yes);$(shell pkg-config --cflags gtk+-2.0)" Required="yes" PreCompiledHeader="">
+        <IncludePath Value="."/>
+        <IncludePath Value="../include"/>
+        <IncludePath Value="./include"/>
+        <IncludePath Value="../EmbLite"/>
+        <IncludePath Value="../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../Interfaces"/>
+        <IncludePath Value="../sdk/wxflatnotebook/include"/>
+        <Preprocessor Value="__WX__"/>
+        <Preprocessor Value="WXUSINGDLL"/>
+      </Compiler>
+      <Linker Options=" " Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../build/$(ConfigurationName)/lib/libplugin_sdkud.a" IntermediateDirectory="../build/$(ConfigurationName)/obj/$(ProjectName)" Command="" CommandArguments="" WorkingDirectory="../build/$(ConfigurationName)" PauseExecWhenProcTerminates="yes"/>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+    </Configuration>
+    <Configuration Name="ReleaseUnicode" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="$(shell wx-config --cxxflags --unicode=yes --debug=no);-O2;$(shell pkg-config --cflags gtk+-2.0);-fPIC" Required="yes" PreCompiledHeader="">
+        <IncludePath Value="."/>
+        <IncludePath Value="../include"/>
+        <IncludePath Value="./include"/>
+        <IncludePath Value="../EmbLite"/>
+        <IncludePath Value="../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../Interfaces"/>
+        <IncludePath Value="../sdk/wxflatnotebook/include"/>
+        <Preprocessor Value="__WX__"/>
+        <Preprocessor Value="WXUSINGDLL"/>
+      </Compiler>
+      <Linker Options=" " Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../build/$(ConfigurationName)/lib/libplugin_sdku.a" IntermediateDirectory="../build/$(ConfigurationName)/obj/$(ProjectName)" Command="" CommandArguments="" WorkingDirectory="../build/$(ConfigurationName)" PauseExecWhenProcTerminates="yes"/>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+    </Configuration>
+    <Configuration Name="WinDebugUnicode" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="$(shell wx-config --cxxflags --debug=yes --unicode=yes);-g;-Wall" Required="yes" PreCompiledHeader="">
+        <IncludePath Value="."/>
+        <IncludePath Value="../include"/>
+        <IncludePath Value="./include"/>
+        <IncludePath Value="../EmbLite"/>
+        <IncludePath Value="../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../Interfaces"/>
+        <IncludePath Value="../sdk/wxflatnotebook/include"/>
+        <Preprocessor Value="__WX__"/>
+        <Preprocessor Value="WXUSINGDLL"/>
+        <Preprocessor Value="_UNICODE"/>
+        <Preprocessor Value="UNICODE"/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="yes"/>
+      <General OutputFile="../build/$(ConfigurationName)/lib/libplugin_sdkud.a" IntermediateDirectory="../build/$(ConfigurationName)/obj/$(ProjectName)" Command="" CommandArguments="" WorkingDirectory="../build/$(ConfigurationName)" PauseExecWhenProcTerminates="yes"/>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+    </Configuration>
+    <Configuration Name="WinDebug_29" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="$(shell wx-config --cxxflags --unicode=yes --debug=yes);-g" Required="yes" PreCompiledHeader="">
+        <IncludePath Value="."/>
+        <IncludePath Value="./include"/>
+        <IncludePath Value="../EmbLite"/>
+        <IncludePath Value="../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../Interfaces"/>
+        <IncludePath Value="../sdk/wxflatnotebook/include"/>
+        <Preprocessor Value="__WX__"/>
+        <Preprocessor Value="WXUSINGDLL"/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="yes"/>
+      <General OutputFile="../lib/gcc_lib/libplugin_sdku.a" IntermediateDirectory="./WinDebug_29" Command="" CommandArguments="" WorkingDirectory="" PauseExecWhenProcTerminates="yes"/>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+    </Configuration>
+    <Configuration Name="WinReleaseUnicode" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-Wall;$(shell wx-config --cxxflags --debug=no --unicode=yes)" Required="yes" PreCompiledHeader="">
+        <IncludePath Value="."/>
+        <IncludePath Value="../include"/>
+        <IncludePath Value="./include"/>
+        <IncludePath Value="../EmbLite"/>
+        <IncludePath Value="../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../Interfaces"/>
+        <IncludePath Value="../sdk/wxflatnotebook/include"/>
+        <Preprocessor Value="__WX__"/>
+        <Preprocessor Value="WXUSINGDLL"/>
+        <Preprocessor Value="_UNICODE"/>
+        <Preprocessor Value="UNICODE"/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="yes"/>
+      <General OutputFile="../build/$(ConfigurationName)/lib/libplugin_sdku.a" IntermediateDirectory="../build/$(ConfigurationName)/obj/$(ProjectName)" Command="" CommandArguments="" WorkingDirectory="../build/$(ConfigurationName)" PauseExecWhenProcTerminates="yes"/>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+    </Configuration>
+    <GlobalSettings>
+      <Compiler Options="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+  </Settings>
+</CodeLite_Project>
