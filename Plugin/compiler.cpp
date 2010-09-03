@@ -61,6 +61,8 @@ Compiler::Compiler(wxXmlNode *node)
 		} else {
 			m_generateDependeciesFile = XmlUtils::ReadBool(node, wxT("GenerateDependenciesFiles"));
 		}
+		
+  SetBuildToolsBaseDir(XmlUtils::ReadString(node, wxT("BuildToolsBaseDir")));
 
 		wxXmlNode *child = node->GetChildren();
 		while (child) {
@@ -213,6 +215,8 @@ wxXmlNode *Compiler::ToXml() const
 	wxXmlNode *node = new wxXmlNode(NULL, wxXML_ELEMENT_NODE, wxT("Compiler"));
 	node->AddProperty(wxT("Name"), m_name);
 	node->AddProperty(wxT("GenerateDependenciesFiles"), BoolToString(m_generateDependeciesFile));
+
+	node->AddProperty(wxT("BuildToolsBaseDir"), GetBuildToolsBaseDir());
 
 	std::map<wxString, wxString>::const_iterator iter = m_switches.begin();
 	for (; iter != m_switches.end(); iter++) {

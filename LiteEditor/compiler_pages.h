@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Aug 25 2009)
+// C++ code generated with wxFormBuilder (version Dec 17 2009)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -74,15 +74,15 @@ class CompilerToolsBase : public wxPanel
 	private:
 	
 	protected:
+		wxStaticText* m_stTxtBuildToolsBaseDir;
+		wxTextCtrl* m_textCtrlBuildToolsBaseDir;
+		wxStaticLine* m_staticline6;
 		wxStaticText* m_staticText9;
 		wxTextCtrl* m_textCompilerName;
-
-		wxStaticText* m_staticTextAsmName;
-		wxTextCtrl* m_textAssemblerName;
-
 		wxStaticText* m_staticText25;
 		wxTextCtrl* m_textCtrlCCompilerName;
-
+		wxStaticText* m_staticTextAsmName;
+		wxTextCtrl* m_textAssemblerName;
 		wxStaticText* m_staticText11;
 		wxTextCtrl* m_textLinkerName;
 		wxStaticText* m_staticText12;
@@ -96,7 +96,7 @@ class CompilerToolsBase : public wxPanel
 	
 	public:
 		
-		CompilerToolsBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxTAB_TRAVERSAL );
+		CompilerToolsBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 544,296 ), long style = wxTAB_TRAVERSAL );
 		~CompilerToolsBase();
 	
 };
@@ -214,7 +214,7 @@ class CompilerCompilerOptionsBase : public wxPanel
 ///////////////////////////////////////////////////////////////////////////////
 /// Class CompilerAssemblerOptionsBase
 ///////////////////////////////////////////////////////////////////////////////
-class CompilerAssemblerOptionsBase: public wxPanel 
+class CompilerAssemblerOptionsBase : public wxPanel 
 {
 	private:
 	
@@ -225,7 +225,7 @@ class CompilerAssemblerOptionsBase: public wxPanel
 		wxButton* m_buttonDeleteAssemblerOption;
 		
 		// Virtual event handlers, overide them in your derived class
-		virtual void OnAssemblerOptionActivated( wxListEvent& event ) { event.Skip(); }
+		virtual void OnAssemberOptionActivated( wxListEvent& event ) { event.Skip(); }
 		virtual void OnAssemblerOptionDeSelected( wxListEvent& event ) { event.Skip(); }
 		virtual void OnAssemblerOptionSelected( wxListEvent& event ) { event.Skip(); }
 		virtual void OnNewAssemblerOption( wxCommandEvent& event ) { event.Skip(); }
@@ -234,8 +234,7 @@ class CompilerAssemblerOptionsBase: public wxPanel
 	
 	public:
 		
-		CompilerAssemblerOptionsBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, 
-      const wxSize& size = wxSize( 500,300 ), long style = wxTAB_TRAVERSAL );
+		CompilerAssemblerOptionsBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = wxTAB_TRAVERSAL );
 		~CompilerAssemblerOptionsBase();
 	
 };
@@ -294,6 +293,31 @@ class CompilerOptionDlgBase : public wxDialog
 };
 
 ///////////////////////////////////////////////////////////////////////////////
+/// Class AssemblerOptionDlgBase
+///////////////////////////////////////////////////////////////////////////////
+class AssemblerOptionDlgBase : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText26;
+		wxTextCtrl* m_textCtrl18;
+		wxStaticText* m_staticText27;
+		wxTextCtrl* m_textCtrl19;
+		wxStaticLine* m_staticline4;
+		wxButton* m_buttonOK;
+		wxButton* m_buttonCancel;
+	
+	public:
+		wxString m_sName; 
+		wxString m_sHelp; 
+		
+		AssemblerOptionDlgBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 256,140 ), long style = wxDEFAULT_DIALOG_STYLE );
+		~AssemblerOptionDlgBase();
+	
+};
+
+///////////////////////////////////////////////////////////////////////////////
 /// Class CompilerPatternDlgBase
 ///////////////////////////////////////////////////////////////////////////////
 class CompilerPatternDlgBase : public wxDialog 
@@ -322,65 +346,6 @@ class CompilerPatternDlgBase : public wxDialog
 		
 		CompilerPatternDlgBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 348,160 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
 		~CompilerPatternDlgBase();
-	
-};
-
-
-///////////////////////////////////////////////////////////////////////////////
-/// Class AssemblerOptionDlgBase
-///////////////////////////////////////////////////////////////////////////////
-class AssemblerOptionDlgBase : public wxDialog 
-{
-	private:
-	
-	protected:
-		wxStaticText* m_staticText26;
-		wxTextCtrl* m_textCtrl18;
-		wxStaticText* m_staticText27;
-		wxTextCtrl* m_textCtrl19;
-		wxStaticLine* m_staticline4;
-		wxButton* m_buttonOK;
-		wxButton* m_buttonCancel;
-	
-	public:
-		wxString m_sName; 
-		wxString m_sHelp; 
-		
-		AssemblerOptionDlgBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, 
-      const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 256,140 ), long style = wxDEFAULT_DIALOG_STYLE );
-		AssemblerOptionDlgBase();
-	
-};
-
-///////////////////////////////////////////////////////////////////////////////
-/// Class AssemblerPatternDlgBase
-///////////////////////////////////////////////////////////////////////////////
-class AssemblerPatternDlgBase : public wxDialog 
-{
-	private:
-	
-	protected:
-		wxStaticText* m_staticText5;
-		wxTextCtrl* m_textPattern;
-		wxStaticText* m_staticText6;
-		wxTextCtrl* m_textFileIndex;
-		wxStaticText* m_staticText7;
-		wxTextCtrl* m_textLineNumber;
-		wxStaticLine* m_staticline5;
-		wxButton* m_buttonOK;
-		wxButton* m_buttonCancel;
-		
-		// Virtual event handlers, overide them in your derived class
-		virtual void OnSubmit( wxCommandEvent& event ) { event.Skip(); }
-		
-	
-	public:
-		wxString m_pattern; 
-		wxString m_fileIdx; 
-		wxString m_lineIdx; 
-		
-		AssemblerPatternDlgBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 348,160 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
-		AssemblerPatternDlgBase();
 	
 };
 

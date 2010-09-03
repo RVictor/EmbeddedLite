@@ -99,6 +99,7 @@ protected:
 	wxString m_globalLibPath;
 	wxString m_pathVariable;
 	bool m_generateDependeciesFile;
+	wxString m_strBuildToolsBaseDir;
 
 public:
 	typedef std::map<wxString, wxString>::const_iterator ConstIterator;
@@ -185,6 +186,16 @@ public:
 	}
 	const wxString& GetPathVariable() const {
 		return m_pathVariable;
+	}
+
+	void SetBuildToolsBaseDir(const wxString& pathVariable) 
+	{
+		m_strBuildToolsBaseDir = pathVariable;
+	}
+	
+	const wxString& GetBuildToolsBaseDir() const 
+	{
+		return m_strBuildToolsBaseDir;
 	}
 
 	void SetFileTypes(const std::map<wxString, Compiler::CmpFileTypeInfo>& fileTypes) {

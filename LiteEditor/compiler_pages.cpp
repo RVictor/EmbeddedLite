@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Aug 25 2009)
+// C++ code generated with wxFormBuilder (version Dec 17 2009)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -131,10 +131,29 @@ CompilerPatternsBase::~CompilerPatternsBase()
 	m_btnDelWarnPattern->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( CompilerPatternsBase::OnWarningPatternSelectedUI ), NULL, this );
 	m_btnUpdateWarnPattern->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CompilerPatternsBase::OnBtnUpdateWarnPattern ), NULL, this );
 	m_btnUpdateWarnPattern->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( CompilerPatternsBase::OnWarningPatternSelectedUI ), NULL, this );
+	
 }
 
 CompilerToolsBase::CompilerToolsBase( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style )
 {
+	wxBoxSizer* bSizer25;
+	bSizer25 = new wxBoxSizer( wxVERTICAL );
+	
+	wxBoxSizer* bSizer26;
+	bSizer26 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_stTxtBuildToolsBaseDir = new wxStaticText( this, wxID_ANY, _("$(BuildToolsBaseDir):"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_stTxtBuildToolsBaseDir->Wrap( -1 );
+	bSizer26->Add( m_stTxtBuildToolsBaseDir, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	m_textCtrlBuildToolsBaseDir = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer26->Add( m_textCtrlBuildToolsBaseDir, 1, wxALIGN_CENTER_VERTICAL|wxALL|wxEXPAND|wxLEFT|wxRIGHT, 5 );
+	
+	bSizer25->Add( bSizer26, 0, wxEXPAND, 5 );
+	
+	m_staticline6 = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
+	bSizer25->Add( m_staticline6, 0, wxEXPAND | wxALL, 5 );
+	
 	wxFlexGridSizer* fgSizer4;
 	fgSizer4 = new wxFlexGridSizer( 7, 2, 0, 0 );
 	fgSizer4->AddGrowableCol( 1 );
@@ -147,19 +166,20 @@ CompilerToolsBase::CompilerToolsBase( wxWindow* parent, wxWindowID id, const wxP
 	
 	m_textCompilerName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer4->Add( m_textCompilerName, 0, wxBOTTOM|wxRIGHT|wxLEFT|wxEXPAND, 5 );
-
-	m_staticTextAsmName = new wxStaticText( this, wxID_ANY, _("Assembler Name:"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticTextAsmName->Wrap( -1 );
-	fgSizer4->Add(m_staticTextAsmName, 0, wxALIGN_CENTER_VERTICAL|wxBOTTOM|wxRIGHT|wxLEFT, 5);
-	m_textAssemblerName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
-	fgSizer4->Add(m_textAssemblerName, 0, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5);
-
+	
 	m_staticText25 = new wxStaticText( this, wxID_ANY, _("C Compiler Name:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText25->Wrap( -1 );
 	fgSizer4->Add( m_staticText25, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_textCtrlCCompilerName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer4->Add( m_textCtrlCCompilerName, 0, wxALL|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	m_staticTextAsmName = new wxStaticText( this, wxID_ANY, _("Assembler Name:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticTextAsmName->Wrap( -1 );
+	fgSizer4->Add( m_staticTextAsmName, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	m_textAssemblerName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer4->Add( m_textAssemblerName, 0, wxALL|wxEXPAND, 5 );
 	
 	m_staticText11 = new wxStaticText( this, wxID_ANY, _("Linker Name:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText11->Wrap( -1 );
@@ -200,9 +220,10 @@ CompilerToolsBase::CompilerToolsBase( wxWindow* parent, wxWindowID id, const wxP
 	
 	fgSizer4->Add( m_textCtrlPathVariable, 1, wxALL|wxEXPAND, 5 );
 	
-	this->SetSizer( fgSizer4 );
+	bSizer25->Add( fgSizer4, 1, wxEXPAND, 5 );
+	
+	this->SetSizer( bSizer25 );
 	this->Layout();
-	fgSizer4->Fit( this );
 }
 
 CompilerToolsBase::~CompilerToolsBase()
@@ -234,6 +255,7 @@ CompilerSwitchesBase::~CompilerSwitchesBase()
 	// Disconnect Events
 	m_listSwitches->Disconnect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( CompilerSwitchesBase::OnItemActivated ), NULL, this );
 	m_listSwitches->Disconnect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( CompilerSwitchesBase::OnItemSelected ), NULL, this );
+	
 }
 
 CompilerFileTypesBase::CompilerFileTypesBase( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style )
@@ -284,6 +306,7 @@ CompilerFileTypesBase::~CompilerFileTypesBase()
 	m_listCtrlFileTypes->Disconnect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( CompilerFileTypesBase::OnFileTypeSelected ), NULL, this );
 	m_buttonNewFileType->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CompilerFileTypesBase::OnNewFileType ), NULL, this );
 	m_buttonDeleteFileType->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CompilerFileTypesBase::OnDeleteFileType ), NULL, this );
+	
 }
 
 CompilerAdvanceBase::CompilerAdvanceBase( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style )
@@ -429,14 +452,10 @@ CompilerCompilerOptionsBase::~CompilerCompilerOptionsBase()
 	m_listCompilerOptions->Disconnect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( CompilerCompilerOptionsBase::OnCompilerOptionSelected ), NULL, this );
 	m_buttonCompilerOption->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CompilerCompilerOptionsBase::OnNewCompilerOption ), NULL, this );
 	m_buttonDeleteCompilerOption->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CompilerCompilerOptionsBase::OnDeleteCompilerOption ), NULL, this );
+	
 }
 
-/* -----------------------------------------------------------------------------
-
------------------------------------------------------------------------------ */
-
-CompilerAssemblerOptionsBase::CompilerAssemblerOptionsBase
-  (wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style)
+CompilerAssemblerOptionsBase::CompilerAssemblerOptionsBase( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style )
 {
 	wxBoxSizer* bSizer10;
 	bSizer10 = new wxBoxSizer( wxVERTICAL );
@@ -469,7 +488,7 @@ CompilerAssemblerOptionsBase::CompilerAssemblerOptionsBase
 	this->Layout();
 	
 	// Connect Events
-	m_listAssemblerOptions->Connect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( CompilerAssemblerOptionsBase::OnAssemblerOptionActivated ), NULL, this );
+	m_listAssemblerOptions->Connect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( CompilerAssemblerOptionsBase::OnAssemberOptionActivated ), NULL, this );
 	m_listAssemblerOptions->Connect( wxEVT_COMMAND_LIST_ITEM_DESELECTED, wxListEventHandler( CompilerAssemblerOptionsBase::OnAssemblerOptionDeSelected ), NULL, this );
 	m_listAssemblerOptions->Connect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( CompilerAssemblerOptionsBase::OnAssemblerOptionSelected ), NULL, this );
 	m_buttonAssemblerOption->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CompilerAssemblerOptionsBase::OnNewAssemblerOption ), NULL, this );
@@ -479,16 +498,13 @@ CompilerAssemblerOptionsBase::CompilerAssemblerOptionsBase
 CompilerAssemblerOptionsBase::~CompilerAssemblerOptionsBase()
 {
 	// Disconnect Events
-	m_listAssemblerOptions->Disconnect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( CompilerAssemblerOptionsBase::OnAssemblerOptionActivated ), NULL, this );
+	m_listAssemblerOptions->Disconnect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( CompilerAssemblerOptionsBase::OnAssemberOptionActivated ), NULL, this );
 	m_listAssemblerOptions->Disconnect( wxEVT_COMMAND_LIST_ITEM_DESELECTED, wxListEventHandler( CompilerAssemblerOptionsBase::OnAssemblerOptionDeSelected ), NULL, this );
 	m_listAssemblerOptions->Disconnect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( CompilerAssemblerOptionsBase::OnAssemblerOptionSelected ), NULL, this );
 	m_buttonAssemblerOption->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CompilerAssemblerOptionsBase::OnNewAssemblerOption ), NULL, this );
 	m_buttonDeleteAssemblerOption->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CompilerAssemblerOptionsBase::OnDeleteAssemblerOption ), NULL, this );
+	
 }
-
-/* -----------------------------------------------------------------------------
-
------------------------------------------------------------------------------ */
 
 CompilerLinkerOptionsBase::CompilerLinkerOptionsBase( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style )
 {
@@ -538,6 +554,7 @@ CompilerLinkerOptionsBase::~CompilerLinkerOptionsBase()
 	m_listLinkerOptions->Disconnect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( CompilerLinkerOptionsBase::OnLinkerOptionSelected ), NULL, this );
 	m_buttonLinkerOption->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CompilerLinkerOptionsBase::OnNewLinkerOption ), NULL, this );
 	m_buttonDeleteLinkerOption->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CompilerLinkerOptionsBase::OnDeleteLinkerOption ), NULL, this );
+	
 }
 
 CompilerOptionDlgBase::CompilerOptionDlgBase( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
@@ -592,6 +609,61 @@ CompilerOptionDlgBase::CompilerOptionDlgBase( wxWindow* parent, wxWindowID id, c
 }
 
 CompilerOptionDlgBase::~CompilerOptionDlgBase()
+{
+}
+
+AssemblerOptionDlgBase::AssemblerOptionDlgBase( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	
+	wxBoxSizer* bSizer23;
+	bSizer23 = new wxBoxSizer( wxVERTICAL );
+	
+	wxFlexGridSizer* fgSizer7;
+	fgSizer7 = new wxFlexGridSizer( 2, 2, 0, 0 );
+	fgSizer7->SetFlexibleDirection( wxBOTH );
+	fgSizer7->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	m_staticText26 = new wxStaticText( this, wxID_ANY, _("Switch"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText26->Wrap( -1 );
+	fgSizer7->Add( m_staticText26, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	m_textCtrl18 = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_textCtrl18->SetValidator( wxTextValidator( wxFILTER_NONE, &m_sName ) );
+	
+	fgSizer7->Add( m_textCtrl18, 0, wxALL|wxEXPAND, 5 );
+	
+	m_staticText27 = new wxStaticText( this, wxID_ANY, _("Help"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText27->Wrap( -1 );
+	fgSizer7->Add( m_staticText27, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	m_textCtrl19 = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_textCtrl19->SetValidator( wxTextValidator( wxFILTER_NONE, &m_sHelp ) );
+	
+	fgSizer7->Add( m_textCtrl19, 0, wxALL|wxEXPAND, 5 );
+	
+	bSizer23->Add( fgSizer7, 1, wxEXPAND, 5 );
+	
+	m_staticline4 = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
+	bSizer23->Add( m_staticline4, 0, wxEXPAND | wxALL, 5 );
+	
+	wxBoxSizer* bSizer24;
+	bSizer24 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_buttonOK = new wxButton( this, wxID_OK, _("OK"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_buttonOK->SetDefault(); 
+	bSizer24->Add( m_buttonOK, 0, wxALL, 5 );
+	
+	m_buttonCancel = new wxButton( this, wxID_CANCEL, _("cancel"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer24->Add( m_buttonCancel, 0, wxALL, 5 );
+	
+	bSizer23->Add( bSizer24, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	this->SetSizer( bSizer23 );
+	this->Layout();
+}
+
+AssemblerOptionDlgBase::~AssemblerOptionDlgBase()
 {
 }
 
@@ -663,139 +735,5 @@ CompilerPatternDlgBase::~CompilerPatternDlgBase()
 {
 	// Disconnect Events
 	m_buttonOK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CompilerPatternDlgBase::OnSubmit ), NULL, this );
+	
 }
-
-/* -----------------------------------------------------------------------------
-
------------------------------------------------------------------------------ */
-
-AssemblerOptionDlgBase::AssemblerOptionDlgBase
-  (wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style):
-  wxDialog( parent, id, title, pos, size, style )
-{
-	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-	
-	wxBoxSizer* bSizer23;
-	bSizer23 = new wxBoxSizer( wxVERTICAL );
-	
-	wxFlexGridSizer* fgSizer7;
-	fgSizer7 = new wxFlexGridSizer( 2, 2, 0, 0 );
-	fgSizer7->AddGrowableCol( 1 );
-	fgSizer7->SetFlexibleDirection( wxBOTH );
-	fgSizer7->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
-	m_staticText26 = new wxStaticText( this, wxID_ANY, _("Switch"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText26->Wrap( -1 );
-	fgSizer7->Add( m_staticText26, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	m_textCtrl18 = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	m_textCtrl18->SetValidator( wxTextValidator( wxFILTER_NONE, &m_sName ) );
-	
-	fgSizer7->Add( m_textCtrl18, 0, wxALL|wxEXPAND, 5 );
-	
-	m_staticText27 = new wxStaticText( this, wxID_ANY, _("Help"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText27->Wrap( -1 );
-	fgSizer7->Add( m_staticText27, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	m_textCtrl19 = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	m_textCtrl19->SetValidator( wxTextValidator( wxFILTER_NONE, &m_sHelp ) );
-	
-	fgSizer7->Add( m_textCtrl19, 0, wxALL|wxEXPAND, 5 );
-	
-	bSizer23->Add( fgSizer7, 1, wxEXPAND, 5 );
-	
-	m_staticline4 = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
-	bSizer23->Add( m_staticline4, 0, wxEXPAND | wxALL, 5 );
-	
-	wxBoxSizer* bSizer24;
-	bSizer24 = new wxBoxSizer( wxHORIZONTAL );
-	
-	m_buttonOK = new wxButton( this, wxID_OK, _("OK"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_buttonOK->SetDefault(); 
-	bSizer24->Add( m_buttonOK, 0, wxALL, 5 );
-	
-	m_buttonCancel = new wxButton( this, wxID_CANCEL, _("cancel"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer24->Add( m_buttonCancel, 0, wxALL, 5 );
-	
-	bSizer23->Add( bSizer24, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
-	
-	this->SetSizer( bSizer23 );
-	this->Layout();
-}
-
-AssemblerOptionDlgBase::AssemblerOptionDlgBase()
-{
-}
-
-AssemblerPatternDlgBase::AssemblerPatternDlgBase
-  (wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style):
-  wxDialog( parent, id, title, pos, size, style )
-{
-	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-	
-	wxBoxSizer* bSizerError;
-	bSizerError = new wxBoxSizer( wxVERTICAL );
-	
-	wxFlexGridSizer* fgSizer41;
-	fgSizer41 = new wxFlexGridSizer( 2, 2, 0, 0 );
-	fgSizer41->AddGrowableCol( 1 );
-	fgSizer41->SetFlexibleDirection( wxBOTH );
-	fgSizer41->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
-	m_staticText5 = new wxStaticText( this, wxID_ANY, _("Regex Pattern:"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText5->Wrap( -1 );
-	fgSizer41->Add( m_staticText5, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxRIGHT|wxLEFT, 5 );
-	
-	m_textPattern = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	m_textPattern->SetValidator( wxTextValidator( wxFILTER_NONE, &m_pattern ) );
-	
-	fgSizer41->Add( m_textPattern, 0, wxEXPAND|wxALL, 5 );
-	
-	m_staticText6 = new wxStaticText( this, wxID_ANY, _("File Index in Pattern:"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText6->Wrap( -1 );
-	fgSizer41->Add( m_staticText6, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxRIGHT|wxLEFT, 5 );
-	
-	m_textFileIndex = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	m_textFileIndex->SetValidator( wxTextValidator( wxFILTER_NUMERIC, &m_fileIdx ) );
-	
-	fgSizer41->Add( m_textFileIndex, 0, wxEXPAND|wxALL, 5 );
-	
-	m_staticText7 = new wxStaticText( this, wxID_ANY, _("Line Number in Pattern:"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText7->Wrap( -1 );
-	fgSizer41->Add( m_staticText7, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxRIGHT|wxLEFT, 5 );
-	
-	m_textLineNumber = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	m_textLineNumber->SetValidator( wxTextValidator( wxFILTER_NUMERIC, &m_lineIdx ) );
-	
-	fgSizer41->Add( m_textLineNumber, 0, wxEXPAND|wxALL, 5 );
-	
-	bSizerError->Add( fgSizer41, 1, wxEXPAND, 5 );
-	
-	m_staticline5 = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
-	bSizerError->Add( m_staticline5, 0, wxEXPAND | wxALL, 5 );
-	
-	wxBoxSizer* bSizer24;
-	bSizer24 = new wxBoxSizer( wxHORIZONTAL );
-	
-	m_buttonOK = new wxButton( this, wxID_ANY, _("OK"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_buttonOK->SetDefault(); 
-	bSizer24->Add( m_buttonOK, 0, wxALL, 5 );
-	
-	m_buttonCancel = new wxButton( this, wxID_CANCEL, _("cancel"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer24->Add( m_buttonCancel, 0, wxALL, 5 );
-	
-	bSizerError->Add( bSizer24, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
-	
-	this->SetSizer( bSizerError );
-	this->Layout();
-	
-	// Connect Events
-	m_buttonOK->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(AssemblerPatternDlgBase::OnSubmit), NULL, this );
-}
-
-AssemblerPatternDlgBase::AssemblerPatternDlgBase()
-{
-	// Disconnect Events
-	m_buttonOK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(AssemblerPatternDlgBase::OnSubmit), NULL, this );
-}
-
