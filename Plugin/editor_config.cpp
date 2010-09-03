@@ -122,6 +122,7 @@ bool EditorConfig::Load(const wxString& strConfigDir)
 	}
 
 	// Check the embeddedlite-version for this file
+/*rvv
 	wxString version;
 	bool found = m_doc->GetRoot()->GetPropVal(wxT("Version"), &version);
 	if ( userSettingsLoaded ) {
@@ -131,7 +132,7 @@ bool EditorConfig::Load(const wxString& strConfigDir)
 			}
 		}
 	}
-
+*/
 	// load EmbeddedLite lexers
 	LoadLexers(false);
 
