@@ -45,7 +45,7 @@
         <Library Value="libsqlite3.a"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="../../build/$(ConfigurationName)/debuggers/libDebugger.so" IntermediateDirectory="../../build/$(ConfigurationName)/obj/$(ProjectName)" Command="" CommandArguments="" WorkingDirectory="../../build/$(ConfigurationName)" PauseExecWhenProcTerminates="yes"/>
+      <General OutputFile="../build/$(ConfigurationName)/debuggers/libDebugger.so" IntermediateDirectory="../build/$(ConfigurationName)/obj/$(ProjectName)" Command="" CommandArguments="" WorkingDirectory="../build/$(ConfigurationName)" PauseExecWhenProcTerminates="yes"/>
       <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
         <PostConnectCommands/>
         <StartupCommands/>
@@ -85,7 +85,7 @@
         <Library Value="libsqlite3.a"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="../../build/$(ConfigurationName)/debuggers/Debugger.so" IntermediateDirectory="../../build/$(ConfigurationName)/obj/$(ProjectName)" Command="" CommandArguments="" WorkingDirectory="../../build/$(ConfigurationName)" PauseExecWhenProcTerminates="yes"/>
+      <General OutputFile="../build/$(ConfigurationName)/debuggers/Debugger.so" IntermediateDirectory="../build/$(ConfigurationName)/obj/$(ProjectName)" Command="" CommandArguments="" WorkingDirectory="../build/$(ConfigurationName)" PauseExecWhenProcTerminates="yes"/>
       <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
         <PostConnectCommands/>
         <StartupCommands/>
