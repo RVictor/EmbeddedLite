@@ -63,7 +63,7 @@ ExtractSolidArchivesOnStartup
 {No}
 
 Icon
-{Modern/Small/SetupModernSmall01.gif}
+{/home/victor/src/EmbeddedLite/LiteEditor/res/ChipC.png}
 
 IgnoreDirectories
 {}
@@ -72,7 +72,7 @@ IgnoreFiles
 {}
 
 Image
-{Modern/SetupModern01.gif}
+{/home/victor/src/EmbeddedLite/install/Windows/Splash.png}
 
 IncludeDebugging
 {Yes}
@@ -236,7 +236,7 @@ test
 {Testing Switch Yes No {} {run uninstaller without uninstalling any files}}
 
 }
-FileGroup ::CCFA1DFF-8694-AD13-29EA-3FA75EEE62D5 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-5-x86 FreeBSD-6-x86 FreeBSD-7-x86 HPUX-hppa Linux-x86 Linux-x86_64 Solaris-sparc Solaris-x86 Windows TarArchive ZipArchive} -name {Program Files} -parent FileGroups
+FileGroup ::CCFA1DFF-8694-AD13-29EA-3FA75EEE62D5 -setup Install -active Yes -platforms Linux-x86 -name {Program Files} -parent FileGroups
 File ::13B7360F-F7E5-7830-E4C6-1CCBE8DAED39 -type dir -directory <%InstallDir%> -name /home/victor/src/EmbeddedLite/build/ReleaseUnicode -parent CCFA1DFF-8694-AD13-29EA-3FA75EEE62D5
 File ::599AE30B-A4AB-8E2E-26FD-1EF8ED37E49D -name EmbeddedLite -parent 13B7360F-F7E5-7830-E4C6-1CCBE8DAED39
 File ::3536B81D-2C4A-0C3F-D8A5-D385528E898C -name emblite_indexer -parent 13B7360F-F7E5-7830-E4C6-1CCBE8DAED39
@@ -246,7 +246,7 @@ File ::5C5F0ABC-38BD-CB57-0098-B1A37BB977BC -name libplugin_sdku.a -parent 4B826
 File ::0961AC32-721A-936C-F13C-7F448BC4BC6C -name libsqlite3.a -parent 4B826180-BC54-E1F4-A37C-8BD9368CEE47
 File ::A57A277C-15E7-6ADC-5F2E-293F24BE4A78 -name libwxscintillau.a -parent 4B826180-BC54-E1F4-A37C-8BD9368CEE47
 File ::BCB26FB0-D0D4-D012-6A39-6974F13C25B1 -name libwxsqlite3u.a -parent 4B826180-BC54-E1F4-A37C-8BD9368CEE47
-File ::360F4FDA-0167-675F-1EC4-A782D1802EF4 -type dir -name obj -parent 13B7360F-F7E5-7830-E4C6-1CCBE8DAED39
+File ::360F4FDA-0167-675F-1EC4-A782D1802EF4 -type dir -name obj -active 0 -parent 13B7360F-F7E5-7830-E4C6-1CCBE8DAED39
 File ::74F3F1D8-F56F-8C73-88F9-61E5DE2CDCB0 -type dir -name abbreviation -parent 360F4FDA-0167-675F-1EC4-A782D1802EF4
 File ::30CDF339-0A60-470A-A574-6CDAEA21C377 -name abbreviation.o -parent 74F3F1D8-F56F-8C73-88F9-61E5DE2CDCB0
 File ::D9F626BE-675A-E259-F474-8E639F935F5E -name abbreviation.o.d -parent 74F3F1D8-F56F-8C73-88F9-61E5DE2CDCB0
@@ -1470,14 +1470,23 @@ File ::D39DAC76-F2DF-3E6A-CA15-2B15BA2BDB1B -name src_XPM.o.d -parent 514BAB37-B
 File ::BEF00E51-DC90-ACA4-D05F-69AF6F8E98D0 -type dir -name wxsqlite3 -parent 360F4FDA-0167-675F-1EC4-A782D1802EF4
 File ::8EE86C14-9687-6E60-CC2B-B8C9428B7C8E -name src_wxsqlite3.o -parent BEF00E51-DC90-ACA4-D05F-69AF6F8E98D0
 File ::B4AD25B2-D191-868B-FCED-5F2BDA1E4E41 -name src_wxsqlite3.o.d -parent BEF00E51-DC90-ACA4-D05F-69AF6F8E98D0
+File ::10D72665-5B50-C01C-EBE3-99EC8A91ED23 -type dir -name DebuggerGDB -parent 360F4FDA-0167-675F-1EC4-A782D1802EF4
 File ::E7C77C98-9034-34E7-B340-766D9EF8E3E3 -type dir -name plugins -parent 13B7360F-F7E5-7830-E4C6-1CCBE8DAED39
 File ::EE8BAFDE-F8EF-0773-14E8-DB50145B1964 -name abbreviation.so -parent E7C77C98-9034-34E7-B340-766D9EF8E3E3
-File ::E99BA6F9-0255-130C-6513-D0EFC2CEDBD0 -name Subversion2.so -parent E7C77C98-9034-34E7-B340-766D9EF8E3E3
+File ::E99BA6F9-0255-130C-6513-D0EFC2CEDBD0 -name Subversion2.so -active 0 -parent E7C77C98-9034-34E7-B340-766D9EF8E3E3
 File ::568AE943-D197-1695-3495-E1295E2DE81C -name SymbolView.so -parent E7C77C98-9034-34E7-B340-766D9EF8E3E3
-File ::8492B064-7326-B5EA-EBE2-394ED652F767 -name wxFormBuilder.so -parent E7C77C98-9034-34E7-B340-766D9EF8E3E3
-Component ::9CCEABA7-BD75-DE35-2C0C-F747CAF88FA9 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-5-x86 FreeBSD-6-x86 FreeBSD-7-x86 HPUX-hppa Linux-x86 Linux-x86_64 Solaris-sparc Solaris-x86 Windows} -name {Default Component} -parent Components
-SetupType ::4AC5AADF-55EA-84D4-DA0C-ACA4F74D4C07 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-5-x86 FreeBSD-6-x86 FreeBSD-7-x86 HPUX-hppa Linux-x86 Linux-x86_64 Solaris-sparc Solaris-x86 Windows} -name Typical -parent SetupTypes
-SetupType ::46410DC1-BB7F-E404-DA1F-F3C04C6C4CC5 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-5-x86 FreeBSD-6-x86 FreeBSD-7-x86 HPUX-hppa Linux-x86 Linux-x86_64 Solaris-sparc Solaris-x86 Windows} -name Custom -parent SetupTypes
+File ::8492B064-7326-B5EA-EBE2-394ED652F767 -name wxFormBuilder.so -active 0 -parent E7C77C98-9034-34E7-B340-766D9EF8E3E3
+File ::E092FCBF-7E2F-F199-3643-2FE6098161EA -name cscope.so -parent E7C77C98-9034-34E7-B340-766D9EF8E3E3
+File ::ABAD98A8-77B5-3EBF-5FC5-0CF0C26597A1 -name ContinuousBuild.so -parent E7C77C98-9034-34E7-B340-766D9EF8E3E3
+File ::EDB018C0-CED6-0992-0BE6-8C766FBFBFC3 -name ExternalTools.so -parent E7C77C98-9034-34E7-B340-766D9EF8E3E3
+File ::247D69C0-5C7C-4157-23C4-54CAC37A1FAC -name CodeFormatter.so -parent E7C77C98-9034-34E7-B340-766D9EF8E3E3
+File ::C736613D-ED7E-6D1F-1CD9-2B78F47C5353 -name Gizmos.so -parent E7C77C98-9034-34E7-B340-766D9EF8E3E3
+File ::92930A64-CF66-7A25-56C0-840C61482228 -name Copyright.so -parent E7C77C98-9034-34E7-B340-766D9EF8E3E3
+File ::148DEAFA-E5B0-F229-3237-5C842DE2F1E7 -type dir -name debuggers -parent 13B7360F-F7E5-7830-E4C6-1CCBE8DAED39
+File ::D3B4F74B-152F-2742-E816-9FEFC7FB3A09 -name Debugger.so -parent 148DEAFA-E5B0-F229-3237-5C842DE2F1E7
+Component ::9CCEABA7-BD75-DE35-2C0C-F747CAF88FA9 -setup Install -active Yes -platforms {Linux-x86 Windows} -name {Program Files} -parent Components
+SetupType ::4AC5AADF-55EA-84D4-DA0C-ACA4F74D4C07 -setup Install -active Yes -platforms {Linux-x86 Windows} -name Typical -parent SetupTypes
+SetupType ::46410DC1-BB7F-E404-DA1F-F3C04C6C4CC5 -setup Install -active Yes -platforms {Linux-x86 Windows} -name Custom -parent SetupTypes
 
 InstallComponent F6F93E12-3097-A3B4-8171-FBBE113FE98C -setup Install -type pane -title {Welcome Screen} -component Welcome -active Yes -parent StandardInstall
 InstallComponent 8336BE7E-253E-9BA4-36D9-22E23BADF62C -setup Install -type pane -conditions {AB6AE753-F110-32A2-6A00-2EB42CE6BB5B 24800CB8-2475-4AFA-6ABE-2C6EDCB994EA} -title {Select Destination} -component SelectDestination -active Yes -parent StandardInstall
@@ -2038,6 +2047,9 @@ array set Properties {
 8336BE7E-253E-9BA4-36D9-22E23BADF62C,Caption,subst
 {1}
 
+8336BE7E-253E-9BA4-36D9-22E23BADF62C,Conditions
+{2 conditions}
+
 8336BE7E-253E-9BA4-36D9-22E23BADF62C,Destination,subst
 {1}
 
@@ -2102,7 +2114,7 @@ array set Properties {
 {CCFA1DFF-8694-AD13-29EA-3FA75EEE62D5}
 
 9CCEABA7-BD75-DE35-2C0C-F747CAF88FA9,Name
-{Default Component}
+{Program Files}
 
 9CCEABA7-BD75-DE35-2C0C-F747CAF88FA9,RequiredComponent
 {Yes}
@@ -2353,6 +2365,9 @@ CB5A296E-382D-A3C0-7780-BAB46B47638E,VirtualText
 CCFA1DFF-8694-AD13-29EA-3FA75EEE62D5,Destination
 {<%InstallDir%>}
 
+CCFA1DFF-8694-AD13-29EA-3FA75EEE62D5,FileSize
+{69214048}
+
 CCFA1DFF-8694-AD13-29EA-3FA75EEE62D5,Name
 {Program Files}
 
@@ -2598,6 +2613,9 @@ F6F93E12-3097-A3B4-8171-FBBE113FE98C,CancelButton,subst
 
 F6F93E12-3097-A3B4-8171-FBBE113FE98C,Caption,subst
 {1}
+
+F6F93E12-3097-A3B4-8171-FBBE113FE98C,Conditions
+{0 conditions}
 
 F6F93E12-3097-A3B4-8171-FBBE113FE98C,Message,subst
 {1}
@@ -2939,7 +2957,7 @@ Linux-x86,FallBackToConsole
 {Yes}
 
 Linux-x86,InstallDir
-{<%Home%>/<%ShortAppName%>}
+{<%ProgramFolder%>}
 
 Linux-x86,InstallMode
 {Standard}
@@ -2969,7 +2987,7 @@ Linux-x86,PromptForRoot
 {Yes}
 
 Linux-x86,RequireRoot
-{No}
+{Yes}
 
 Linux-x86,RootInstallDir
 {/usr/local/<%ShortAppName%>}

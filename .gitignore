@@ -5,6 +5,7 @@
 *.tags
 *.map
 build/*
+output/*
 *.user
 *.obj
 *.exe
@@ -15,3 +16,6 @@ build/*
 *.suo
 *.user
 *.aps
+*.log
+install/Linux/EmbeddedLite/build/*
+install/Linux/EmbeddedLite/output/*
