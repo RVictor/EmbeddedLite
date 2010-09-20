@@ -1,0 +1,12 @@
+Package: embeddedlite
+Version: 1.0-139
+Architecture: i386
+Section: devel
+Priority: Optional
+Maintainer: Victor Ridtchenko <info@embeddedlite.rvictor.de>
+Depends: libwxgtk2.8-0
+#Standards-Version: 3.8.3
+Homepage: http://www.embeddedlite.rvictor.de/
+Description: Free cross-platform C/C++ IDE for developers of embedded applications.
+  Free cross-platform C/C++ IDE for developers of embedded applications.
+

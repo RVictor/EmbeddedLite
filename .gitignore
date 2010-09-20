@@ -17,5 +17,6 @@ output/*
 *.user
 *.aps
 *.log
+*.deb
 install/Linux/EmbeddedLite/build/*
 install/Linux/EmbeddedLite/output/*
