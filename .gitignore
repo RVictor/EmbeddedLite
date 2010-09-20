@@ -20,3 +20,4 @@ output/*
 *.deb
 install/Linux/EmbeddedLite/build/*
 install/Linux/EmbeddedLite/output/*
+install/Linux/deb/debian/usr/*
