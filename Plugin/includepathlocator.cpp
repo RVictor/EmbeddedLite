@@ -16,6 +16,7 @@ IncludePathLocator::~IncludePathLocator()
 
 void IncludePathLocator::Locate(wxArrayString& paths, wxArrayString &excludePaths, const wxString& strConfigDir)
 {
+#if 0 //rvv: do nothing...
 	// try to locate QMAKE
 	wxFileConfig  qmakeConf(wxEmptyString, wxEmptyString, strConfigDir + wxT("/qmake.ini"));      //todo?
 	wxString      groupName;
@@ -143,4 +144,5 @@ void IncludePathLocator::Locate(wxArrayString& paths, wxArrayString &excludePath
 		}
 	}
 #endif	
+#endif // 0 //rvv: do nothing...
 }
