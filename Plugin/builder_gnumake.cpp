@@ -32,6 +32,7 @@
 #include "buildmanager.h"
 #include "wx/sstream.h"
 #include "globals.h"
+#include <wx/log.h>
 
 wxStopWatch g_sw;
 
@@ -1311,7 +1312,8 @@ wxString BuilderGnuMake::GetSingleFileCmd(const wxString &project, const wxStrin
 	target << bldConf->GetIntermediateDirectory() << wxT("/") << fn.GetName() << cmp->GetObjectSuffix();
 
 	cmd = GetProjectMakeCommand(proj, confToBuild, target, false, false);
-	return EnvironmentConfig::Instance()->ExpandVariables(cmd);
+
+  return EnvironmentConfig::Instance()->ExpandVariables(ExpandVariables(cmd, proj, NULL));
 }
 
 wxString BuilderGnuMake::GetPreprocessFileCmd(const wxString &project, const wxString &confToBuild, const wxString &fileName, wxString &errMsg)
@@ -1321,6 +1323,12 @@ wxString BuilderGnuMake::GetPreprocessFileCmd(const wxString &project, const wxS
 	wxString cmd;
 	BuildConfigPtr bldConf = WorkspaceST::Get()->GetProjBuildConf(project, confToBuild);
 	if (!bldConf) {
+		return wxEmptyString;
+	}
+
+  ProjectPtr proj = WorkspaceST::Get()->FindProjectByName(project, errMsg);
+	if (NULL == proj)
+  {
 		return wxEmptyString;
 	}
 
@@ -1345,7 +1353,7 @@ wxString BuilderGnuMake::GetPreprocessFileCmd(const wxString &project, const wxS
 	tareget << bldConf->GetIntermediateDirectory() << wxT("/") << fn.GetName() << cmp->GetPreprocessSuffix();
 	cmd << buildTool << wxT(" ") << FixPath(project + wxT(".mk")) << wxT(" ") << tareget;     //rvv
 
-	return EnvironmentConfig::Instance()->ExpandVariables(cmd);
+	return EnvironmentConfig::Instance()->ExpandVariables(ExpandVariables(cmd, proj, NULL));
 }
 
 wxString BuilderGnuMake::GetCdCmd(const wxFileName &path1, const wxFileName &path2)
