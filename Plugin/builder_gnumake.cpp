@@ -65,18 +65,21 @@ FixPath(const wxString& strPath)
 #endif
 
 
-static wxString GetMakeDirCmd(BuildConfigPtr bldConf, const wxString &relPath = wxEmptyString)
+static wxString
+GetMakeDirCmd(BuildConfigPtr bldConf, const wxString &relPath = wxEmptyString)
 {
 	wxString intermediateDirectory (bldConf->GetIntermediateDirectory());
 	wxString relativePath          (relPath);
 
 	intermediateDirectory.Replace(wxT("\\"), wxT("/"));
 	intermediateDirectory.Trim().Trim(false);
-	if(intermediateDirectory.StartsWith(wxT("./")) && relativePath == wxT("./")) {
+	if (intermediateDirectory.StartsWith(wxT("./")) && (relativePath == wxT("./"))) 
+	{
 		relativePath.Clear();
 	}
 
-	if(intermediateDirectory.StartsWith(wxT("./")) && relativePath.IsEmpty() == false) {
+	if (intermediateDirectory.StartsWith(wxT("./")) && !relativePath.IsEmpty()) 
+	{
 		intermediateDirectory = intermediateDirectory.Mid(2);
 	}
 
@@ -85,7 +88,9 @@ static wxString GetMakeDirCmd(BuildConfigPtr bldConf, const wxString &relPath = 
 //rvv		text << wxT("@$(MakeDirCommand) \"") << relativePath << intermediateDirectory << wxT("\"");
     wxString strFullName = FixPath(relativePath + intermediateDirectory);
 		text << wxT("@$(MakeDirCommand) ") << strFullName;
-	} else {
+	}
+	else 
+  {
 		//other OSs
 		text << wxT("@test -d ") << relativePath << intermediateDirectory << wxT(" || $(MakeDirCommand) ") << relativePath << intermediateDirectory;
 	}
@@ -708,7 +713,7 @@ void BuilderGnuMake::CreateFileTargets(ProjectPtr proj, const wxString &confToBu
 				subDirs.Add(relPath);
 			}
 
-			compilationLine.Replace(wxT("$(FilePath)"),     relPath);
+			compilationLine.Replace(wxT("$(FilePath)"), relPath);
 			compilationLine.Replace(wxT("\\"), wxT("/"));
 
 			if (ft.kind == Compiler::CmpFileKindSource) {
@@ -735,19 +740,19 @@ void BuilderGnuMake::CreateFileTargets(ProjectPtr proj, const wxString &confToBu
 
 				// set the file rule
 				text << objectName << wxT(": ") << rel_paths.at(i).GetFullPath(wxPATH_UNIX) << wxT(" ") << dependFile << wxT("\n");
-				text << wxT("\t") << GetMakeDirCmd(bldConf, relPath) << wxT("\n");
+				text << wxT("\t") << GetMakeDirCmd(bldConf, relPath) << wxT("\n");    //rvv:!!!
 				text << wxT("\t") << compilationLine << wxT("\n");
 
 				wxString compilerMacro = DoGetCompilerMacro(rel_paths.at(i).GetFullPath(wxPATH_UNIX));
 				if (generateDependenciesFiles) {
 					text << dependFile << wxT(": ") << rel_paths.at(i).GetFullPath(wxPATH_UNIX) << wxT("\n");
-					text << wxT("\t") << GetMakeDirCmd(bldConf, relPath) << wxT("\n");
+					text << wxT("\t") << GetMakeDirCmd(bldConf, relPath) << wxT("\n");    //rvv:!!!
 					text << wxT("\t") << wxT("@") << compilerMacro << wxT(" $(CmpOptions) $(IncludePath) -MT") << objectName <<wxT(" -MF") << dependFile << wxT(" -MM ") << FixPath(absFileName) << wxT("\n\n");    //rvv
 				}
 
 				if (supportPreprocessOnlyFiles) {
 					text << preprocessedFile << wxT(": ") << rel_paths.at(i).GetFullPath(wxPATH_UNIX) << wxT("\n");
-					text << wxT("\t") << GetMakeDirCmd(bldConf, relPath) << wxT("\n");
+					text << wxT("\t") << GetMakeDirCmd(bldConf, relPath) << wxT("\n");    //rvv:!!!
 					text << wxT("\t") << wxT("@") << compilerMacro << wxT(" $(CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) ") << preprocessedFile << wxT(" ") << FixPath(absFileName) << wxT("\n\n");   //rvv
 				}
 
@@ -1034,8 +1039,10 @@ void BuilderGnuMake::CreateConfigsVariables(ProjectPtr proj, BuildConfigPtr bldC
 	text << wxT("ProjectName            :=") << proj->GetName() << wxT("\n");
 	text << wxT("BuildToolsBaseDir      :=") << cmp->GetBuildToolsBaseDir() << wxT("\n");
 	text << wxT("ConfigurationName      :=") << name << wxT("\n");
-	text << wxT("WorkspacePath          := \"") << WorkspaceST::Get()->GetWorkspaceFileName().GetPath() << wxT("\"\n");
-  text << wxT("ProjectPath            := \"") << proj->GetFileName().GetPath() << wxT("\"\n");
+	text << wxT("WorkspacePath          := ") << FixPath(WorkspaceST::Get()->GetWorkspaceFileName().GetPath()) << wxT("\n");
+  text << wxT("ProjectPath            := ") << FixPath(proj->GetFileName().GetPath()) << wxT("\n");
+//rvv:2	text << wxT("WorkspacePath          := \"") << WorkspaceST::Get()->GetWorkspaceFileName().GetPath() << wxT("\"\n");
+//rvv:2  text << wxT("ProjectPath            := \"") << proj->GetFileName().GetPath() << wxT("\"\n");
 //rvv		text << wxT("WorkspacePath          := \"") << WorkspaceST::Get()->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME, wxPATH_UNIX) << wxT("\"\n");
 //rvv		text << wxT("ProjectPath            := \"") << proj->GetFileName().GetPath(wxPATH_GET_VOLUME, wxPATH_UNIX) << wxT("\"\n");
 	text << wxT("IntermediateDirectory  :=") << bldConf->GetIntermediateDirectory() << wxT("\n");
