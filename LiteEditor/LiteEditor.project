@@ -371,6 +371,7 @@
     <File Name="newversionbasedlg.h"/>
     <File Name="newversiondlg.h"/>
     <File Name="newversiondlg.cpp"/>
+    <File Name="../include/elversion.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Controls">
     <File Name="checktreectrl.cpp"/>

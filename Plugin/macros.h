@@ -96,7 +96,8 @@ const wxString SEARCH_IN_CURR_FILE_PROJECT = wxT("Current File's Project");
 // terminal macro
 #ifdef __WXGTK__
 //rvv #define TERMINAL_CMD  wxString::Format(wxT("%s/codelite_xterm '$(TITLE)' '$(CMD)'"), wxFileName(wxStandardPaths::Get().GetExecutablePath()).GetPath().c_str())
-#define TERMINAL_CMD  wxString::Format(wxT("%s/xterm -T '$(TITLE)' -e '$(CMD)'"), wxFileName(wxStandardPaths::Get().GetExecutablePath()).GetPath().c_str())
+//rvv-2 #define TERMINAL_CMD  wxString::Format(wxT("%s/xterm -T '$(TITLE)' -e '$(CMD)'"), wxFileName(wxStandardPaths::Get().GetExecutablePath()).GetPath().c_str())
+#define TERMINAL_CMD  wxT("xterm -T '$(TITLE)' -e '$(CMD)'")
 #elif defined(__WXMAC__)
 #define TERMINAL_CMD  wxString::Format(wxT("%s/OpenTerm '$(CMD)'"), wxStandardPaths::Get().GetDataDir().c_str())
 #else
