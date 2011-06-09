@@ -40,7 +40,7 @@ void SvnUpdateHandler::Process(const wxString& output)
 		// Retag workspace only if no conflict were found
 		// send an event to the main frame indicating that a re-tag is required
 		if( GetPlugin()->GetSettings().GetFlags() & SvnRetagWorkspace ) {
-			wxCommandEvent e(wxEVT_COMMAND_MENU_SELECTED, XRCID("retag_workspace"));
+			wxCommandEvent e(wxEVT_COMMAND_MENU_SELECTED, XRCID("retag_solution"));
 			GetPlugin()->GetManager()->GetTheApp()->GetTopWindow()->GetEventHandler()->AddPendingEvent(e);
 		}
 	}
@@ -74,7 +74,7 @@ void SvnPatchHandler::Process(const wxString& output)
 	// Retag workspace only if no conflict were found
 	// send an event to the main frame indicating that a re-tag is required
 	if( GetPlugin()->GetSettings().GetFlags() & SvnRetagWorkspace ) {
-		wxCommandEvent e(wxEVT_COMMAND_MENU_SELECTED, XRCID("retag_workspace"));
+		wxCommandEvent e(wxEVT_COMMAND_MENU_SELECTED, XRCID("retag_solution"));
 		GetPlugin()->GetManager()->GetTheApp()->GetTopWindow()->GetEventHandler()->AddPendingEvent(e);
 	}
 

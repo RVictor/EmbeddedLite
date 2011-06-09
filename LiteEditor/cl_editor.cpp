@@ -1,12 +1,12 @@
 /**
   \file cl_editor.cpp
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -2715,7 +2715,7 @@ void LEditor::RemoveDebuggerContextMenu(wxMenu *menu)
 	}
 
 	wxMenuItem *item = menu->FindItem(XRCID("debugger_watches"));
-	while ( item )  {
+	while (item)  {
 		if (item) {
 			menu->Destroy(item);
 		}
@@ -3324,7 +3324,7 @@ void LEditor::OnChange(wxScintillaEvent& event)
 						// the removal will take place after the actual deletion of the
 						// character, so we set it to be position before
 						e.SetInt( PositionBefore(where) );
-						AddPendingEvent( e );
+						AddPendingEvent(e);
 					}
 				}
 			}
@@ -3383,15 +3383,15 @@ bool LEditor::DoFindAndSelect(const wxString& _pattern, const wxString& what, in
 
 	bool realPattern( false );
 	wxString pattern ( _pattern );
-	pattern.StartsWith ( wxT ( "/^" ), &pattern );
+	pattern.StartsWith ( wxT ( "/^"), &pattern );
 	if ( _pattern.Length() != pattern.Length() ) {
 		realPattern = true;
 	}
 
-	if ( pattern.EndsWith ( wxT ( "$/" ) ) ) {
+	if ( pattern.EndsWith ( wxT ( "$/") ) ) {
 		pattern = pattern.Left ( pattern.Len()-2 );
 		realPattern = true;
-	} else if ( pattern.EndsWith ( wxT ( "/" ) ) ) {
+	} else if ( pattern.EndsWith ( wxT ( "/") ) ) {
 		pattern = pattern.Left ( pattern.Len()-1 );
 		realPattern = true;
 	}
@@ -3468,7 +3468,7 @@ bool LEditor::DoFindAndSelect(const wxString& _pattern, const wxString& what, in
 			}
 
 		} else {
-			wxLogMessage ( wxT ( "Failed to find[" ) + pattern + wxT ( "]" ) );
+			wxLogMessage ( wxT ( "Failed to find[") + pattern + wxT ( "]") );
 
 			// match failed, restore the caret
 			SetCurrentPos ( curr_pos );

@@ -33,13 +33,13 @@ NewVersionDlg::NewVersionDlg( wxWindow* parent )
 
 void NewVersionDlg::OnOk( wxCommandEvent& event )
 {
-	wxUnusedVar( event );
+	wxUnusedVar(event);
 	EndModal(wxID_OK);
 }
 
 void NewVersionDlg::OnCancel( wxCommandEvent& event )
 {
-	wxUnusedVar( event );
+	wxUnusedVar(event);
 	EndModal(wxID_CANCEL);
 }
 

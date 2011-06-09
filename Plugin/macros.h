@@ -89,15 +89,14 @@ const wxString BUILD_START_MSG      = wxT("----------Build Started--------\n");
 const wxString BUILD_END_MSG        = wxT("----------Build Ended----------\n");
 const wxString BUILD_PROJECT_PREFIX = wxT("----------Building project:[ ");
 const wxString CLEAN_PROJECT_PREFIX = wxT("----------Cleaning project:[ ");
-const wxString SEARCH_IN_WORKSPACE  = wxT("Entire Workspace");
+const wxString SEARCH_IN_WORKSPACE  = wxT("Entire Solution");
 const wxString SEARCH_IN_PROJECT    = wxT("Active Project");
 const wxString SEARCH_IN_CURR_FILE_PROJECT = wxT("Current File's Project");
 
 // terminal macro
 #ifdef __WXGTK__
 //rvv #define TERMINAL_CMD  wxString::Format(wxT("%s/codelite_xterm '$(TITLE)' '$(CMD)'"), wxFileName(wxStandardPaths::Get().GetExecutablePath()).GetPath().c_str())
-//rvv-2 #define TERMINAL_CMD  wxString::Format(wxT("%s/xterm -T '$(TITLE)' -e '$(CMD)'"), wxFileName(wxStandardPaths::Get().GetExecutablePath()).GetPath().c_str())
-#define TERMINAL_CMD  wxT("xterm -T '$(TITLE)' -e '$(CMD)'")
+#define TERMINAL_CMD  wxString::Format(wxT("%s/xterm -T '$(TITLE)' -e '$(CMD)'"), wxFileName(wxStandardPaths::Get().GetExecutablePath()).GetPath().c_str())
 #elif defined(__WXMAC__)
 #define TERMINAL_CMD  wxString::Format(wxT("%s/OpenTerm '$(CMD)'"), wxStandardPaths::Get().GetDataDir().c_str())
 #else

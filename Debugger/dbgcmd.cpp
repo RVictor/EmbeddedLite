@@ -871,7 +871,7 @@ bool DbgCmdListThreads::ProcessOutput(const wxString& line)
 
 	// Notify the observer
 	e.m_updateReason  = DBG_UR_LISTTHRAEDS;
-	m_observer->DebuggerUpdate( e );
+	m_observer->DebuggerUpdate(e);
 	return true;
 }
 
@@ -972,7 +972,7 @@ bool DbgCmdWatchMemory::ProcessOutput(const wxString& line)
 	e.m_updateReason = DBG_UR_WATCHMEMORY;
 	e.m_evaluated  = output;
 	e.m_expression = m_address;
-	m_observer->DebuggerUpdate( e );
+	m_observer->DebuggerUpdate(e);
 	return true;
 }
 
@@ -1042,7 +1042,7 @@ bool DbgCmdCreateVarObj::ProcessOutput(const wxString& line)
 			e.m_variableObject = vo;
 			e.m_expression = m_expression;
 			e.m_userReason = m_userReason;
-			m_observer->DebuggerUpdate( e );
+			m_observer->DebuggerUpdate(e);
 		}
 	}
 	return true;
@@ -1126,7 +1126,7 @@ bool DbgCmdListChildren::ProcessOutput(const wxString& line)
 		e.m_updateReason = DBG_UR_LISTCHILDREN;
 		e.m_expression = m_variable;
 		e.m_userReason = m_userReason;
-		m_observer->DebuggerUpdate( e );
+		m_observer->DebuggerUpdate(e);
 	}
 	return true;
 }
@@ -1153,7 +1153,7 @@ bool DbgCmdEvalVarObj::ProcessOutput(const wxString& line)
 			e.m_evaluated     = display_line;
 			e.m_userReason    = m_userReason;
 			e.m_displayFormat = m_displayFormat;
-			m_observer->DebuggerUpdate( e );
+			m_observer->DebuggerUpdate(e);
 		}
 		return true;
 	}

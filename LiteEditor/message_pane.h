@@ -1,5 +1,20 @@
-#ifndef __message_pane__
-#define __message_pane__
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
+#ifndef _MESSAGE_PANEL_H_
+#define _MESSAGE_PANEL_H_
 
 /**
 @file
@@ -60,7 +75,7 @@ public:
 };
 
 /** Implementing MessagePaneBase */
-class MessagePane : public MessagePaneBase
+class CMessagePanel : public MessagePaneBase
 {
 	MessagePaneData m_messages;
 	
@@ -82,9 +97,9 @@ protected:
 	
 public:
 	/** Constructor */
-	MessagePane( wxWindow* parent );
+	CMessagePanel( wxWindow* parent );
 
 	void ShowMessage(const wxString &message, bool showHideButton = true, const wxBitmap &bmp = wxNullBitmap, const ButtonDetails& btn1 = ButtonDetails(), const ButtonDetails& btn2 = ButtonDetails(), const ButtonDetails& btn3 = ButtonDetails());
 };
 
-#endif // __message_pane__
+#endif // _MESSAGE_PANEL_H_

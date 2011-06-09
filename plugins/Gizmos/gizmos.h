@@ -66,7 +66,7 @@ public:
 	virtual void OnNewWxProjectUI(wxUpdateUIEvent &e);
 
 	//event handlers
-	virtual void OnGizmos       (wxCommandEvent  &e);
+	virtual void OnGizmos       (wxCommandEvent &e);
 #if USE_AUI_TOOLBAR
 	virtual void OnGizmosAUI    (wxAuiToolBarEvent &e);
 #endif

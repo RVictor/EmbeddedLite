@@ -44,7 +44,7 @@
 
 #define OPEN_CONFIG_MGR_STR wxT("<Open Configuration Manager...>")
 
-WorkspacePane::WorkspacePane(wxWindow *parent, const wxString &caption, wxAuiManager *mgr)
+CSolutionPanel::CSolutionPanel(wxWindow *parent, const wxString &caption, wxAuiManager *mgr)
     : wxPanel(parent)
     , m_caption(caption)
     , m_mgr(mgr)
@@ -53,7 +53,7 @@ WorkspacePane::WorkspacePane(wxWindow *parent, const wxString &caption, wxAuiMan
     Connect();
 }
 
-WorkspacePane::~WorkspacePane()
+CSolutionPanel::~CSolutionPanel()
 {
 }
 
@@ -64,7 +64,8 @@ WorkspacePane::~WorkspacePane()
 		m_book->AddPage(win, name, name, wxNullBitmap, true);\
 	}
 
-void WorkspacePane::CreateGUIControls()
+void
+CSolutionPanel::CreateGUIControls()
 {
 	wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
 	SetSizer(mainSizer);
@@ -77,25 +78,25 @@ void WorkspacePane::CreateGUIControls()
 	mainSizer->Add(hsz, 0, wxEXPAND|wxTOP|wxBOTTOM, 5);
 
 	wxArrayString choices;
-	m_workspaceConfig = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, choices);
-	m_workspaceConfig->Enable(false);
-	m_workspaceConfig->Append(OPEN_CONFIG_MGR_STR);
-	ConnectChoice(m_workspaceConfig, WorkspacePane::OnConfigurationManagerChoice);
-	hsz->Add(m_workspaceConfig, 1, wxEXPAND| wxALL, 1);
+	m_pSolutionConfig = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, choices);
+	m_pSolutionConfig->Enable(false);
+	m_pSolutionConfig->Append(OPEN_CONFIG_MGR_STR);
+	ConnectChoice(m_pSolutionConfig, CSolutionPanel::OnConfigurationManagerChoice);
+	hsz->Add(m_pSolutionConfig, 1, wxEXPAND| wxALL, 1);
 	
 #ifdef __WXMAC__
-	m_workspaceConfig->SetWindowVariant(wxWINDOW_VARIANT_SMALL);
+	m_pSolutionConfig->SetWindowVariant(wxWINDOW_VARIANT_SMALL);
 #endif
 
     // add notebook for tabs
 	long bookStyle = wxVB_LEFT|wxVB_FIXED_WIDTH;
-	EditorConfigST::Get()->GetLongValue(wxT("WorkspaceView"), bookStyle);
+	EditorConfigST::Get()->GetLongValue(wxT("SolutionView"), bookStyle);
 	m_book = new Notebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, bookStyle);
 
-	// Calculate the widthest tab (the one with the 'Workspcae' label)
+	// Calculate the widthest tab (the one with the 'Solution' label)
 	int xx, yy;
 	wxFont fnt = wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT);
-	wxWindow::GetTextExtent(wxT("Workspace"), &xx, &yy, NULL, NULL, &fnt);
+	wxWindow::GetTextExtent(wxT("Solution"), &xx, &yy, NULL, NULL, &fnt);
 	m_book->SetFixedTabWidth(xx + 20);
 
     m_book->SetAuiManager(m_mgr, m_caption);
@@ -106,48 +107,48 @@ void WorkspacePane::CreateGUIControls()
 	EditorConfigST::Get()->ReadObject(wxT("DetachedPanesList"), &dpi);
 	wxArrayString detachedPanes = dpi.GetPanes();
 
-	m_workspaceTab = new WorkspaceTab(m_book, wxT("Workspace"));
-	ADD_WORKSPACE_PAGE(m_workspaceTab, m_workspaceTab->GetCaption());
+	m_pSolutionTab = new CSolutionTab(m_book, wxT("Solution"));
+	ADD_WORKSPACE_PAGE(m_pSolutionTab, m_pSolutionTab->GetCaption());
 
-	m_explorer = new FileExplorer(m_book, wxT("Explorer"));
-	ADD_WORKSPACE_PAGE(m_explorer, m_explorer->GetCaption());
-
+	m_pFileSystemBrowser = new CFileSystemBrowser(m_book, wxT("File system"));
+	ADD_WORKSPACE_PAGE(m_pFileSystemBrowser, m_pFileSystemBrowser->GetCaption());
+/*rvv
 	m_winStack = new WindowStack(m_book, wxID_ANY);
 	ADD_WORKSPACE_PAGE(m_winStack, wxT("Outline"));
 
-	m_openWindowsPane = new OpenWindowsPanel(m_book, wxT("Tabs"));
-	ADD_WORKSPACE_PAGE(m_openWindowsPane, m_openWindowsPane->GetCaption());
+	m_pOpenWindowsPanel = new OpenWindowsPanel(m_book, wxT("Tabs"));
+	ADD_WORKSPACE_PAGE(m_pOpenWindowsPanel, m_pOpenWindowsPanel->GetCaption());
 
 	if (m_book->GetPageCount() > 0) {
 		m_book->SetSelection((size_t)0);
 	}
-
+*/
 	m_mgr->Update();
 }
 
-void WorkspacePane::Connect()
+void CSolutionPanel::Connect()
 {
-	wxTheApp->Connect(wxEVT_WORKSPACE_LOADED,         wxCommandEventHandler(WorkspacePane::OnWorkspaceConfig),     NULL, this);
-	wxTheApp->Connect(wxEVT_WORKSPACE_CONFIG_CHANGED, wxCommandEventHandler(WorkspacePane::OnWorkspaceConfig),     NULL, this);
-	wxTheApp->Connect(wxEVT_WORKSPACE_CLOSED,         wxCommandEventHandler(WorkspacePane::OnWorkspaceClosed),     NULL, this);
-	wxTheApp->Connect(wxEVT_PROJ_FILE_ADDED,          wxCommandEventHandler(WorkspacePane::OnProjectFileAdded),    NULL, this);
-	wxTheApp->Connect(wxEVT_PROJ_FILE_REMOVED,        wxCommandEventHandler(WorkspacePane::OnProjectFileRemoved),  NULL, this);
-	wxTheApp->Connect(wxEVT_SYNBOL_TREE_UPDATE_ITEM,  wxCommandEventHandler(WorkspacePane::OnSymbolsUpdated),      NULL, this);
-	wxTheApp->Connect(wxEVT_SYNBOL_TREE_DELETE_ITEM,  wxCommandEventHandler(WorkspacePane::OnSymbolsDeleted),      NULL, this);
-	wxTheApp->Connect(wxEVT_SYNBOL_TREE_ADD_ITEM,     wxCommandEventHandler(WorkspacePane::OnSymbolsAdded),        NULL, this);
-	wxTheApp->Connect(wxEVT_FILE_RETAGGED,            wxCommandEventHandler(WorkspacePane::OnFileRetagged),        NULL, this);
-	wxTheApp->Connect(wxEVT_ACTIVE_EDITOR_CHANGED,    wxCommandEventHandler(WorkspacePane::OnActiveEditorChanged), NULL, this);
-	wxTheApp->Connect(wxEVT_EDITOR_CLOSING,           wxCommandEventHandler(WorkspacePane::OnEditorClosing),       NULL, this);
-	wxTheApp->Connect(wxEVT_ALL_EDITORS_CLOSED,       wxCommandEventHandler(WorkspacePane::OnAllEditorsClosed),    NULL, this);
+	wxTheApp->Connect(wxEVT_WORKSPACE_LOADED,         wxCommandEventHandler(CSolutionPanel::OnSolutionConfig),     NULL, this);
+	wxTheApp->Connect(wxEVT_WORKSPACE_CONFIG_CHANGED, wxCommandEventHandler(CSolutionPanel::OnSolutionConfig),     NULL, this);
+	wxTheApp->Connect(wxEVT_WORKSPACE_CLOSED,         wxCommandEventHandler(CSolutionPanel::OnSolutionClosed),     NULL, this);
+	wxTheApp->Connect(wxEVT_PROJ_FILE_ADDED,          wxCommandEventHandler(CSolutionPanel::OnProjectFileAdded),    NULL, this);
+	wxTheApp->Connect(wxEVT_PROJ_FILE_REMOVED,        wxCommandEventHandler(CSolutionPanel::OnProjectFileRemoved),  NULL, this);
+	wxTheApp->Connect(wxEVT_SYNBOL_TREE_UPDATE_ITEM,  wxCommandEventHandler(CSolutionPanel::OnSymbolsUpdated),      NULL, this);
+	wxTheApp->Connect(wxEVT_SYNBOL_TREE_DELETE_ITEM,  wxCommandEventHandler(CSolutionPanel::OnSymbolsDeleted),      NULL, this);
+	wxTheApp->Connect(wxEVT_SYNBOL_TREE_ADD_ITEM,     wxCommandEventHandler(CSolutionPanel::OnSymbolsAdded),        NULL, this);
+	wxTheApp->Connect(wxEVT_FILE_RETAGGED,            wxCommandEventHandler(CSolutionPanel::OnFileRetagged),        NULL, this);
+	wxTheApp->Connect(wxEVT_ACTIVE_EDITOR_CHANGED,    wxCommandEventHandler(CSolutionPanel::OnActiveEditorChanged), NULL, this);
+	wxTheApp->Connect(wxEVT_EDITOR_CLOSING,           wxCommandEventHandler(CSolutionPanel::OnEditorClosing),       NULL, this);
+	wxTheApp->Connect(wxEVT_ALL_EDITORS_CLOSED,       wxCommandEventHandler(CSolutionPanel::OnAllEditorsClosed),    NULL, this);
 
-    wxTheApp->Connect(XRCID("configuration_manager"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler (WorkspacePane::OnConfigurationManager),   NULL, this);
-    wxTheApp->Connect(XRCID("configuration_manager"), wxEVT_UPDATE_UI,             wxUpdateUIEventHandler(WorkspacePane::OnConfigurationManagerUI), NULL, this);
+    wxTheApp->Connect(XRCID("configuration_manager"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler (CSolutionPanel::OnConfigurationManager),   NULL, this);
+    wxTheApp->Connect(XRCID("configuration_manager"), wxEVT_UPDATE_UI,             wxUpdateUIEventHandler(CSolutionPanel::OnConfigurationManagerUI), NULL, this);
 }
 
 
 extern wxImageList* CreateSymbolTreeImages();
 
-void WorkspacePane::ShowCurrentOutline()
+void CSolutionPanel::ShowCurrentOutline()
 {
     LEditor *editor = Frame::Get()->GetMainBook()->GetActiveEditor();
     if (!editor || editor->GetProjectName().IsEmpty()) {
@@ -168,19 +169,19 @@ void WorkspacePane::ShowCurrentOutline()
     }
 }
 
-void WorkspacePane::OnActiveEditorChanged(wxCommandEvent& e)
+void CSolutionPanel::OnActiveEditorChanged(wxCommandEvent& e)
 {
     e.Skip();
     ShowCurrentOutline();
 }
 
-void WorkspacePane::OnAllEditorsClosed(wxCommandEvent& e)
+void CSolutionPanel::OnAllEditorsClosed(wxCommandEvent& e)
 {
     e.Skip();
     m_winStack->Clear();
 }
 
-void WorkspacePane::OnEditorClosing(wxCommandEvent& e)
+void CSolutionPanel::OnEditorClosing(wxCommandEvent& e)
 {
     e.Skip();
     IEditor *editor = (IEditor*) e.GetClientData();
@@ -189,7 +190,7 @@ void WorkspacePane::OnEditorClosing(wxCommandEvent& e)
     }
 }
 
-void WorkspacePane::OnFileRetagged(wxCommandEvent& e)
+void CSolutionPanel::OnFileRetagged(wxCommandEvent& e)
 {
     e.Skip();
     std::vector<wxFileName> *files = (std::vector<wxFileName>*) e.GetClientData();
@@ -204,13 +205,13 @@ void WorkspacePane::OnFileRetagged(wxCommandEvent& e)
     }
 }
 
-void WorkspacePane::OnProjectFileAdded(wxCommandEvent& e)
+void CSolutionPanel::OnProjectFileAdded(wxCommandEvent& e)
 {
     e.Skip();
     ShowCurrentOutline(); // in case the active editor's file is now tagged
 }
 
-void WorkspacePane::OnProjectFileRemoved(wxCommandEvent& e)
+void CSolutionPanel::OnProjectFileRemoved(wxCommandEvent& e)
 {
     e.Skip();
     wxArrayString *files = (wxArrayString*) e.GetClientData();
@@ -222,7 +223,7 @@ void WorkspacePane::OnProjectFileRemoved(wxCommandEvent& e)
     }
 }
 
-void WorkspacePane::OnSymbolsAdded(wxCommandEvent& e)
+void CSolutionPanel::OnSymbolsAdded(wxCommandEvent& e)
 {
     e.Skip();
     ParseThreadEventData *data = (ParseThreadEventData*) e.GetClientData();
@@ -234,7 +235,7 @@ void WorkspacePane::OnSymbolsAdded(wxCommandEvent& e)
     }
 }
 
-void WorkspacePane::OnSymbolsDeleted(wxCommandEvent& e)
+void CSolutionPanel::OnSymbolsDeleted(wxCommandEvent& e)
 {
     e.Skip();
     ParseThreadEventData *data = (ParseThreadEventData*) e.GetClientData();
@@ -246,7 +247,7 @@ void WorkspacePane::OnSymbolsDeleted(wxCommandEvent& e)
     }
 }
 
-void WorkspacePane::OnSymbolsUpdated(wxCommandEvent& e)
+void CSolutionPanel::OnSymbolsUpdated(wxCommandEvent& e)
 {
     e.Skip();
     ParseThreadEventData *data = (ParseThreadEventData*) e.GetClientData();
@@ -258,42 +259,42 @@ void WorkspacePane::OnSymbolsUpdated(wxCommandEvent& e)
     }
 }
 
-void WorkspacePane::OnWorkspaceConfig(wxCommandEvent& e)
+void CSolutionPanel::OnSolutionConfig(wxCommandEvent& e)
 {
     e.Skip();
 
-    BuildMatrixPtr matrix = WorkspaceST::Get()->GetBuildMatrix();
+    BuildMatrixPtr matrix = SolutionST::Get()->GetBuildMatrix();
 	std::list<WorkspaceConfigurationPtr> confs = matrix->GetConfigurations();
 
-	m_workspaceConfig->Freeze();
-    m_workspaceConfig->Enable(true);
-	m_workspaceConfig->Clear();
+	m_pSolutionConfig->Freeze();
+    m_pSolutionConfig->Enable(true);
+	m_pSolutionConfig->Clear();
 	for (std::list<WorkspaceConfigurationPtr>::iterator iter = confs.begin() ; iter != confs.end(); iter++) {
-		m_workspaceConfig->Append((*iter)->GetName());
+		m_pSolutionConfig->Append((*iter)->GetName());
 	}
-	if (m_workspaceConfig->GetCount() > 0) {
-        m_workspaceConfig->SetStringSelection(matrix->GetSelectedConfigurationName());
+	if (m_pSolutionConfig->GetCount() > 0) {
+        m_pSolutionConfig->SetStringSelection(matrix->GetSelectedConfigurationName());
 	}
-	m_workspaceConfig->Append(OPEN_CONFIG_MGR_STR);
-	m_workspaceConfig->Thaw();
+	m_pSolutionConfig->Append(OPEN_CONFIG_MGR_STR);
+	m_pSolutionConfig->Thaw();
 }
 
-void WorkspacePane::OnWorkspaceClosed(wxCommandEvent& e)
+void CSolutionPanel::OnSolutionClosed(wxCommandEvent& e)
 {
     e.Skip();
-    m_workspaceConfig->Clear();
-    m_workspaceConfig->Enable(false);
+    m_pSolutionConfig->Clear();
+    m_pSolutionConfig->Enable(false);
     m_winStack->Clear();
 }
 
-void WorkspacePane::OnConfigurationManagerUI(wxUpdateUIEvent& e)
+void CSolutionPanel::OnConfigurationManagerUI(wxUpdateUIEvent& e)
 {
 	e.Enable(ManagerST::Get()->IsWorkspaceOpen());
 }
 
-void WorkspacePane::OnConfigurationManagerChoice(wxCommandEvent &event)
+void CSolutionPanel::OnConfigurationManagerChoice(wxCommandEvent &event)
 {
-	wxString selection = m_workspaceConfig->GetStringSelection();
+	wxString selection = m_pSolutionConfig->GetStringSelection();
 	if(selection == OPEN_CONFIG_MGR_STR){
 		wxCommandEvent e(wxEVT_COMMAND_MENU_SELECTED, XRCID("configuration_manager"));
 		e.SetEventObject(this);
@@ -312,12 +313,12 @@ void WorkspacePane::OnConfigurationManagerChoice(wxCommandEvent &event)
 
 }
 
-void WorkspacePane::OnConfigurationManager(wxCommandEvent& e)
+void CSolutionPanel::OnConfigurationManager(wxCommandEvent& e)
 {
 	wxUnusedVar(e);
 	ConfigurationManagerDlg dlg(this);
 	dlg.ShowModal();
 
 	BuildMatrixPtr matrix = ManagerST::Get()->GetWorkspaceBuildMatrix();
-	m_workspaceConfig->SetStringSelection(matrix->GetSelectedConfigurationName());
+	m_pSolutionConfig->SetStringSelection(matrix->GetSelectedConfigurationName());
 }

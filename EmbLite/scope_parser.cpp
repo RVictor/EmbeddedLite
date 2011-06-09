@@ -32,7 +32,6 @@ static char yysccsid[] = "@(#)yaccpar	1.9 (Berkeley) 02/21/93";
 #define yyname cl_scope_name
 #define yyrule cl_scope_rule
 #define YYPREFIX "cl_scope_"
-/* Copyright Eran Ifrah(c)*/
 /*************** Includes and Defines *****************************/
 #include "string"
 #include "vector"

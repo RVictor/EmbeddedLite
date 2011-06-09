@@ -1,12 +1,12 @@
 /**
   \file gizmos.cpp
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -35,12 +35,12 @@
 
 
 static wxString MI_NEW_WX_PROJECT      = wxT("Create new wxWidgets project...");
-static wxString MI_NEW_CODELITE_PLUGIN = wxT("Create new EmbeddedLite plugin...");
+static wxString MI_NEW_EMBEDDEDLITE_PLUGIN = wxT("Create new EmbeddedLite plugin...");
 static wxString MI_NEW_NEW_CLASS       = wxT("Create new C++ class...");
 
 enum {
 	ID_MI_NEW_WX_PROJECT = 9000,
-	ID_MI_NEW_CODELITE_PLUGIN,
+	ID_MI_NEW_EMBEDDEDLITE_PLUGIN,
 	ID_MI_NEW_NEW_CLASS
 };
 
@@ -194,8 +194,8 @@ clToolBar *GizmosPlugin::CreateToolBar(wxWindow *parent)
 #endif
 	m_mgr->GetTheApp()->Connect(XRCID("gizmos_options"), wxEVT_UPDATE_UI,             wxUpdateUIEventHandler(GizmosPlugin::OnGizmosUI), NULL, (wxEvtHandler*)this);
 
-	m_mgr->GetTheApp()->Connect(ID_MI_NEW_CODELITE_PLUGIN, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(GizmosPlugin::OnNewPlugin), NULL, (wxEvtHandler*)this);
-	m_mgr->GetTheApp()->Connect(ID_MI_NEW_CODELITE_PLUGIN, wxEVT_UPDATE_UI, wxUpdateUIEventHandler(GizmosPlugin::OnNewPluginUI), NULL, (wxEvtHandler*)this);
+	m_mgr->GetTheApp()->Connect(ID_MI_NEW_EMBEDDEDLITE_PLUGIN, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(GizmosPlugin::OnNewPlugin), NULL, (wxEvtHandler*)this);
+	m_mgr->GetTheApp()->Connect(ID_MI_NEW_EMBEDDEDLITE_PLUGIN, wxEVT_UPDATE_UI, wxUpdateUIEventHandler(GizmosPlugin::OnNewPluginUI), NULL, (wxEvtHandler*)this);
 
 
 	m_mgr->GetTheApp()->Connect(ID_MI_NEW_NEW_CLASS, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(GizmosPlugin::OnNewClass), NULL, (wxEvtHandler*)this);
@@ -210,7 +210,7 @@ void GizmosPlugin::CreatePluginMenu(wxMenu *pluginsMenu)
 {
 	wxMenu *menu = new wxMenu();
 	wxMenuItem *item(NULL);
-	item = new wxMenuItem(menu, ID_MI_NEW_CODELITE_PLUGIN, _("New EmbeddedLite Plugin Wizard..."), wxEmptyString, wxITEM_NORMAL);
+	item = new wxMenuItem(menu, ID_MI_NEW_EMBEDDEDLITE_PLUGIN, _("New EmbeddedLite Plugin Wizard..."), wxEmptyString, wxITEM_NORMAL);
 	menu->Append(item);
 	item = new wxMenuItem(menu, ID_MI_NEW_NEW_CLASS, _("New Class Wizard..."), wxEmptyString, wxITEM_NORMAL);
 	menu->Append(item);
@@ -576,8 +576,8 @@ void GizmosPlugin::CreateClass(const NewClassInfo &info)
 
 	// We have a .cpp and an .h file, and there may well be a :src and an :include folder available
 	// So try to place the files appropriately. If that fails, dump both in the selected folder
-	if (! m_mgr->AddFilesToVirtualFolderIntelligently(info.virtualDirectory, paths) )
-		m_mgr->AddFilesToVirtualFolder(info.virtualDirectory, paths);
+	if (! m_mgr->AddFilesToGroupFolderIntelligently(info.virtualDirectory, paths) )
+		m_mgr->AddFilesToGroupFolder(info.virtualDirectory, paths);
 }
 
 void GizmosPlugin::OnNewWxProject(wxCommandEvent &e)
@@ -992,7 +992,7 @@ void GizmosPlugin::DoPopupButtonMenu(wxPoint pt)
 	wxMenu popupMenu;
 
 	std::map<wxString, int> options;
-	options[MI_NEW_CODELITE_PLUGIN] = ID_MI_NEW_CODELITE_PLUGIN;
+	options[MI_NEW_EMBEDDEDLITE_PLUGIN] = ID_MI_NEW_EMBEDDEDLITE_PLUGIN;
 	options[MI_NEW_NEW_CLASS      ] = ID_MI_NEW_NEW_CLASS;
 	options[MI_NEW_WX_PROJECT     ] = ID_MI_NEW_WX_PROJECT;
 

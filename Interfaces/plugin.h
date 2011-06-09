@@ -2,7 +2,7 @@
   \file plugin.h
 
   \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \author V. Ridtchenko
 
   \notes
 

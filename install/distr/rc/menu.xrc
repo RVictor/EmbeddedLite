@@ -45,8 +45,8 @@
 				<style>wxMENU_TEAROFF</style>
             </object>
 
-            <object class="wxMenu" name="recent_workspaces">
-				<label>Recent &amp;Workspaces</label>
+            <object class="wxMenu" name="recent_solutions">
+				<label>Recent &amp;Solutions</label>
 				<style>wxMENU_TEAROFF</style>
             </object>
 
@@ -315,30 +315,30 @@
             </object>
         </object>
 
-        <!-- Workspace Menu -->
+        <!-- Soltion Menu -->
         <object class="wxMenu" name="project_menu">
-            <label>&amp;Workspace</label>
+            <label>&amp;Solution</label>
             <style>wxMENU_TEAROFF</style>
-			<object class="wxMenuItem" name="local_workspace_settings">
-				<label>Workspace Settings...</label>
+			<object class="wxMenuItem" name="local_solution_settings">
+				<label>Solution Settings...</label>
 			</object>
-			<object class="wxMenuItem" name="local_workspace_prefs">
-				<label>Workspace Editor Preferences...</label>
+			<object class="wxMenuItem" name="local_solution_prefs">
+				<label>Solution Editor Preferences...</label>
 			</object>
 			
             <object class="wxMenuItem" name="wxID_SEPARATOR"/>
 			
-            <object class="wxMenuItem" name="new_workspace">
-                <label>Create &amp;New Workspace...</label>
+            <object class="wxMenuItem" name="new_solution">
+                <label>Create &amp;New Solution...</label>
             </object>
-            <object class="wxMenuItem" name="switch_to_workspace">
-                <label>&amp;Switch to Workspace...</label>
+            <object class="wxMenuItem" name="open_solution">
+                <label>&amp;Open Solution...</label>
             </object>
-            <object class="wxMenuItem" name="close_workspace">
-                <label>&amp;Close Workspace</label>
+            <object class="wxMenuItem" name="close_solution">
+                <label>&amp;Close Solution</label>
             </object>
-            <object class="wxMenuItem" name="reload_workspace">
-                <label>&amp;Reload Workspace</label>
+            <object class="wxMenuItem" name="reload_solution">
+                <label>&amp;Reload Solution</label>
             </object>
 			<object class="wxMenuItem" name="wxID_SEPARATOR"/>
 			<object class="wxMenuItem" name="import_from_msvs">
@@ -357,12 +357,12 @@
                 <label>&amp;Open Active Project Settings...</label>
             </object>
 			<object class="wxMenuItem" name="wxID_SEPARATOR"/>
-			<object class="wxMenuItem" name="full_retag_workspace">
-				<label>Retag Workspace ( Full )</label>
-				<help>Retag the workspace by dropping the old tags tables, and recreate them</help>
+			<object class="wxMenuItem" name="full_retag_solution">
+				<label>Retag Solution (Full)</label>
+				<help>Retag the solution by dropping the old tags tables, and recreate them</help>
 			</object>
-			<object class="wxMenuItem" name="retag_workspace">
-				<label>Retag Workspace ( Quick )</label>
+			<object class="wxMenuItem" name="retag_solution">
+				<label>Retag Solution (Quick)</label>
 			</object>
         </object>
 
@@ -402,14 +402,14 @@
                 <label>Build and Run Pro&amp;ject</label>
             </object>
 			<object class="wxMenuItem" name="wxID_SEPARATOR"/>
-			<object class="wxMenuItem" name="build_workspace">
-                <label>Build Workspace</label>
+			<object class="wxMenuItem" name="build_solution">
+                <label>Build Solution</label>
             </object>
-			<object class="wxMenuItem" name="clean_workspace">
-				<label>Clean Workspace</label>
+			<object class="wxMenuItem" name="clean_solution">
+				<label>Clean Solution</label>
 			</object>
-			<object class="wxMenuItem" name="rebuild_workspace">
-				<label>Rebuild Workspace</label>
+			<object class="wxMenuItem" name="rebuild_solution">
+				<label>Rebuild Solution</label>
 			</object>
 			<object class="wxMenuItem" name="wxID_SEPARATOR"/>
             <object class="wxMenuItem" name="batch_build">
@@ -462,7 +462,7 @@
 				<label>&amp;Quick Debug...</label>
 			</object>
 		</object>
-
+<!--
         <object class="wxMenu" name="plugins">
             <label>&amp;Plugins</label>
             <style>wxMENU_TEAROFF</style>
@@ -471,7 +471,7 @@
             </object>
 			<object class="wxMenuItem" name="wxID_SEPARATOR"/>
         </object>
-
+-->
 		<object class="wxMenu" name="settings_menu">
             <label>Settin&amp;gs</label>
             <style>wxMENU_TEAROFF</style>
@@ -567,11 +567,11 @@
             <label>Save As</label>
         </object>
 		<object class="wxMenuItem" name="wxID_SEPARATOR"/>
-        <object class="wxMenuItem" name="show_in_workspace">
-            <label>Show In Workspace</label>
+        <object class="wxMenuItem" name="show_in_solution">
+            <label>Show In Solution</label>
         </object>
-        <object class="wxMenuItem" name="show_in_explorer">
-            <label>Show In Explorer</label>
+        <object class="wxMenuItem" name="show_in_filesystembrowser">
+            <label>Show In File System Browser</label>
         </object>
         <object class="wxMenuItem" name="wxID_SEPARATOR"/>
 		<object class="wxMenuItem" name="copy_file_name">
@@ -727,19 +727,19 @@
         <object class="wxMenuItem" name="add_existing_item">
             <label>Add an Existing File...</label>
         </object>
-        <object class="wxMenuItem" name="new_virtual_folder">
-            <label>New virtual Folder</label>
+        <object class="wxMenuItem" name="new_group_folder">
+            <label>New Group Folder</label>
         </object>
          <object class="wxMenuItem" name="wxID_SEPARATOR"/>
         <object class="wxMenuItem" name="sort_item">
             <label>Sort Item</label>
         </object>
         <object class="wxMenuItem" name="wxID_SEPARATOR"/>
-        <object class="wxMenuItem" name="remove_virtual_folder">
-            <label>Remove Virtual Folder</label>
+        <object class="wxMenuItem" name="remove_group_folder">
+            <label>Remove Group Folder</label>
         </object>
         <object class="wxMenuItem" name="wxID_SEPARATOR"/>
-        <object class="wxMenuItem" name="rename_virtual_folder">
+        <object class="wxMenuItem" name="rename_group_folder">
             <label>Rename ...</label>
         </object>
     </object>
@@ -811,8 +811,8 @@
 		<object class="wxMenuItem" name="sort_item">
 			<label>Sort Item</label>
 		</object>
-		<object class="wxMenuItem" name="new_virtual_folder">
-			<label>New Virtual Folder</label>
+		<object class="wxMenuItem" name="new_group_folder">
+			<label>New Group Folder</label>
 		</object>
 
 		<object class="wxMenuItem" name="wxID_SEPARATOR"/>
@@ -834,16 +834,16 @@
         </object>
     </object>
 
-    <!-- Workspace -->
-     <object class="wxMenu" name="workspace_popup_menu">
-        <object class="wxMenuItem" name="build_workspace">
-            <label>Build Workspace</label>
+    <!-- Solution -->
+     <object class="wxMenu" name="solution_popup_menu">
+        <object class="wxMenuItem" name="build_solution">
+            <label>Build Solution</label>
         </object>
-		<object class="wxMenuItem" name="clean_workspace">
-			<label>Clean Workspace</label>
+		<object class="wxMenuItem" name="clean_solution">
+			<label>Clean Solution</label>
 		</object>
-		<object class="wxMenuItem" name="rebuild_workspace">
-			<label>Rebuild Workspace</label>
+		<object class="wxMenuItem" name="rebuild_solution">
+			<label>Rebuild Solution</label>
 		</object>
         <object class="wxMenuItem" name="wxID_SEPARATOR"/>
 		<object class="wxMenuItem" name="new_project">
@@ -853,23 +853,23 @@
             <label>Add an Existing Project</label>
         </object>
         <object class="wxMenuItem" name="wxID_SEPARATOR"/>
-		<object class="wxMenuItem" name="retag_workspace">
-            <label>Retag Workspace</label>
+		<object class="wxMenuItem" name="retag_solution">
+            <label>Retag Solution</label>
         </object>
         <object class="wxMenuItem" name="wxID_SEPARATOR"/>
-		<object class="wxMenuItem" name="close_workspace">
-            <label>Close Workspace</label>
+		<object class="wxMenuItem" name="close_solution">
+            <label>Close Solution</label>
         </object>
-		<object class="wxMenuItem" name="reload_workspace">
-            <label>Reload Workspace</label>
+		<object class="wxMenuItem" name="reload_solution">
+            <label>Reload Solution</label>
         </object>
         <object class="wxMenuItem" name="wxID_SEPARATOR"/>
-        <object class="wxMenuItem" name="local_workspace_prefs">
-            <label>Workspace Editor Preferences...</label>
+        <object class="wxMenuItem" name="local_solution_prefs">
+            <label>Solution Editor Preferences...</label>
         </object>
 		<object class="wxMenuItem" name="wxID_SEPARATOR"/>
-        <object class="wxMenuItem" name="local_workspace_settings">
-            <label>Workspace Settings...</label>
+        <object class="wxMenuItem" name="local_solution_settings">
+            <label>Solition Settings...</label>
         </object>
     </object>
 
@@ -953,12 +953,12 @@
 					<label>Add to exclude paths</label>
 				</object>
 			</object>
-			<object class="wxMenu" name="workspcae_paths">
-				<label>Workspace Parser Paths</label>
-				<object class="wxMenuItem" name="tags_add_workspace_include">
+			<object class="wxMenu" name="solution_paths">
+				<label>Solution Parser Paths</label>
+				<object class="wxMenuItem" name="tags_add_solution_include">
 					<label>Add to include paths</label>
 				</object>
-				<object class="wxMenuItem" name="tags_add_workspace_exclude">
+				<object class="wxMenuItem" name="tags_add_solution_exclude">
 					<label>Add to exclude paths</label>
 				</object>
 			</object>

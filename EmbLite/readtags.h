@@ -1,49 +1,20 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah                            
-// file name            : readtags.h              
-//                                                                          
-// -------------------------------------------------------------------------
-// A                                                                        
-//              _____           _      _     _ _                            
-//             /  __ \         | |    | |   (_) |                           
-//             | /  \/ ___   __| | ___| |    _| |_ ___                      
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )                     
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/                     
-//              \____/\___/ \__,_|\___\_____/_|\__\___|                     
-//                                                                          
-//                                                  F i l e                 
-//                                                                          
-//    This program is free software; you can redistribute it and/or modify  
-//    it under the terms of the GNU General Public License as published by  
-//    the Free Software Foundation; either version 2 of the License, or     
-//    (at your option) any later version.                                   
-//                                                                          
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
- /*
-*   $Id: readtags.h,v 1.1 2005/11/21 18:00:11 eran Exp $
-*
-*   Copyright (c) 1996-2003, Darren Hiebert
-*
-*   This source code is released for the public domain.
-*
-*   This file defines the public interface for looking up tag entries in tag
-*   files.
-*
-*   The functions defined in this interface are intended to provide tag file
-*   support to a software tool. The tag lookups provided are sufficiently fast
-*   enough to permit opening a sorted tag file, searching for a matching tag,
-*   then closing the tag file each time a tag is looked up (search times are
-*   on the order of hundreths of a second, even for huge tag files). This is
-*   the recommended use of this library for most tool applications. Adhering
-*   to this approach permits a user to regenerate a tag file at will without
-*   the tool needing to detect and resynchronize with changes to the tag file.
-*   Even for an unsorted 24MB tag file, tag searches take about one second.
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
 */
-#ifndef CODELITE_READTAGS_H
-#define CODELITE_READTAGS_H
+#ifndef EMBEDDEDLITE_READTAGS_H
+#define EMBEDDEDLITE_READTAGS_H
 
 /*
 *  MACROS
@@ -264,6 +235,6 @@ extern tagResult tagsFindNext (tagFile *const file, tagEntry *const entry);
 extern tagResult tagsClose (tagFile *const file);
 
 
-#endif /* CODELITE_READTAGS_H */
+#endif /* EMBEDDEDLITE_READTAGS_H */
 
 /* vi:set tabstop=8 shiftwidth=4: */

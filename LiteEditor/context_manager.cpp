@@ -72,7 +72,7 @@ ContextBasePtr ContextManager::NewContextByFileName (LEditor *parent, const wxFi
 	for ( ; iter != EditorConfigST::Get()->LexerEnd(); iter++ ) {
 		LexerConfPtr lexer = iter->second;
 		wxString lexExt = lexer->GetFileSpec();
-		wxStringTokenizer tkz ( lexExt, wxT ( ";" ) );
+		wxStringTokenizer tkz ( lexExt, wxT ( ";") );
 		while ( tkz.HasMoreTokens() ) {
 			wxString ext      = tkz.NextToken();
 			wxString fullname = fileName.GetFullName();
@@ -85,6 +85,6 @@ ContextBasePtr ContextManager::NewContextByFileName (LEditor *parent, const wxFi
 	}
 
 	// return the default context
-	return ContextManager::Get()->NewContext ( parent, wxT ( "Text" ) );
+	return ContextManager::Get()->NewContext ( parent, wxT ( "Text") );
 }
 

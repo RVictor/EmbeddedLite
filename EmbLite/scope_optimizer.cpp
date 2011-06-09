@@ -748,12 +748,12 @@ YY_MALLOC_DECL
 		if ( c == '\n' ) \
 			buf[n++] = (char) c; \
 		if ( c == EOF && ferror( yyin ) ) \
-			YY_FATAL_ERROR( "input in flex scanner failed" ); \
+			YY_FATAL_ERROR( "input in flex scanner failed"); \
 		result = n; \
 		} \
 	else if ( ((result = fread( buf, 1, max_size, yyin )) == 0) \
 		  && ferror( yyin ) ) \
-		YY_FATAL_ERROR( "input in flex scanner failed" );
+		YY_FATAL_ERROR( "input in flex scanner failed");
 #endif
 
 /* No semi-colon after return; correct usage is to write "yyterminate();" -
@@ -1422,7 +1422,7 @@ ECHO;
 
 	default:
 		YY_FATAL_ERROR(
-			"fatal flex scanner internal error--no action found" );
+			"fatal flex scanner internal error--no action found");
 	} /* end of action switch */
 		} /* end of scanning one token */
 	} /* end of yylex */
@@ -1445,7 +1445,7 @@ static int yy_get_next_buffer()
 
 	if ( yy_c_buf_p > &yy_current_buffer->yy_ch_buf[yy_n_chars + 1] )
 		YY_FATAL_ERROR(
-		"fatal flex scanner internal error--end of buffer missed" );
+		"fatal flex scanner internal error--end of buffer missed");
 
 	if ( yy_current_buffer->yy_fill_buffer == 0 )
 		{ /* Don't try to fill the buffer, so this is an EOF. */
@@ -1489,7 +1489,7 @@ static int yy_get_next_buffer()
 			{ /* Not enough room in the buffer - grow it. */
 #ifdef YY_USES_REJECT
 			YY_FATAL_ERROR(
-"input buffer overflow, can't enlarge buffer because scanner uses REJECT" );
+"input buffer overflow, can't enlarge buffer because scanner uses REJECT");
 #else
 
 			/* just a shorter name for the current buffer */
@@ -1518,7 +1518,7 @@ static int yy_get_next_buffer()
 
 			if ( ! b->yy_ch_buf )
 				YY_FATAL_ERROR(
-				"fatal error - scanner input buffer overflow" );
+				"fatal error - scanner input buffer overflow");
 
 			yy_c_buf_p = &b->yy_ch_buf[yy_c_buf_p_offset];
 
@@ -1663,7 +1663,7 @@ register char *yy_bp;
 			yy_n_chars = yy_current_buffer->yy_buf_size;
 
 		if ( yy_cp < yy_current_buffer->yy_ch_buf + 2 )
-			YY_FATAL_ERROR( "flex scanner push-back overflow" );
+			YY_FATAL_ERROR( "flex scanner push-back overflow");
 		}
 
 	*--yy_cp = (char) c;
@@ -1819,7 +1819,7 @@ int size;
 
 	b = (YY_BUFFER_STATE) yy_flex_alloc( sizeof( struct yy_buffer_state ) );
 	if ( ! b )
-		YY_FATAL_ERROR( "out of dynamic memory in yy_create_buffer()" );
+		YY_FATAL_ERROR( "out of dynamic memory in yy_create_buffer()");
 
 	b->yy_buf_size = size;
 
@@ -1828,7 +1828,7 @@ int size;
 	 */
 	b->yy_ch_buf = (char *) yy_flex_alloc( b->yy_buf_size + 2 );
 	if ( ! b->yy_ch_buf )
-		YY_FATAL_ERROR( "out of dynamic memory in yy_create_buffer()" );
+		YY_FATAL_ERROR( "out of dynamic memory in yy_create_buffer()");
 
 	b->yy_is_our_buffer = 1;
 
@@ -1940,7 +1940,7 @@ yy_size_t size;
 
 	b = (YY_BUFFER_STATE) yy_flex_alloc( sizeof( struct yy_buffer_state ) );
 	if ( ! b )
-		YY_FATAL_ERROR( "out of dynamic memory in yy_scan_buffer()" );
+		YY_FATAL_ERROR( "out of dynamic memory in yy_scan_buffer()");
 
 	b->yy_buf_size = size - 2;	/* "- 2" to take care of EOB's */
 	b->yy_buf_pos = b->yy_ch_buf = base;
@@ -1994,7 +1994,7 @@ int len;
 	n = len + 2;
 	buf = (char *) yy_flex_alloc( n );
 	if ( ! buf )
-		YY_FATAL_ERROR( "out of dynamic memory in yy_scan_bytes()" );
+		YY_FATAL_ERROR( "out of dynamic memory in yy_scan_bytes()");
 
 	for ( i = 0; i < len; ++i )
 		buf[i] = bytes[i];
@@ -2003,7 +2003,7 @@ int len;
 
 	b = yy_scan_buffer( buf, n );
 	if ( ! b )
-		YY_FATAL_ERROR( "bad buffer in yy_scan_bytes()" );
+		YY_FATAL_ERROR( "bad buffer in yy_scan_bytes()");
 
 	/* It's okay to grow etc. this buffer, and we should throw it
 	 * away when we're done.
@@ -2039,7 +2039,7 @@ int new_state;
 
 		if ( ! yy_start_stack )
 			YY_FATAL_ERROR(
-			"out of memory expanding start-condition stack" );
+			"out of memory expanding start-condition stack");
 		}
 
 	yy_start_stack[yy_start_stack_ptr++] = YY_START;
@@ -2053,7 +2053,7 @@ int new_state;
 static void yy_pop_state()
 	{
 	if ( --yy_start_stack_ptr < 0 )
-		YY_FATAL_ERROR( "start-condition stack underflow" );
+		YY_FATAL_ERROR( "start-condition stack underflow");
 
 	BEGIN(yy_start_stack[yy_start_stack_ptr]);
 	}

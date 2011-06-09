@@ -1,27 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : buidltab.cpp
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include <wx/xrc/xmlres.h>
 #include "globals.h"
 #include "errorstab.h"
@@ -29,8 +20,8 @@
 
 
 BEGIN_EVENT_TABLE ( ErrorsTab, OutputTabWindow )
-	EVT_MENU ( XRCID ( "show_errors" ),      ErrorsTab::OnRedisplayLines )
-	EVT_MENU ( XRCID ( "show_warnings" ),    ErrorsTab::OnRedisplayLines )
+	EVT_MENU (XRCID("show_errors"),      ErrorsTab::OnRedisplayLines )
+	EVT_MENU (XRCID("show_warnings"),    ErrorsTab::OnRedisplayLines )
 END_EVENT_TABLE()
 
 
@@ -40,12 +31,12 @@ ErrorsTab::ErrorsTab ( BuildTab *bt, wxWindow *parent, wxWindowID id, const wxSt
 {
     m_autoAppear = false; // BuildTab controls this tab's auto-appearance
 
-	m_tb->RemoveTool ( XRCID ( "repeat_output" ) );
-	m_tb->AddCheckTool ( XRCID ( "show_errors" ), wxT ( "Errors" ), wxXmlResource::Get()->LoadBitmap ( wxT ( "error" ) ), wxNullBitmap, wxT ( "Show build errors" ) );
-	m_tb->ToggleTool ( XRCID ( "show_errors" ), true );
+	m_tb->RemoveTool (XRCID("repeat_output") );
+	m_tb->AddCheckTool (XRCID("show_errors"), wxT ( "Errors"), wxXmlResource::Get()->LoadBitmap ( wxT ( "error") ), wxNullBitmap, wxT ( "Show build errors") );
+	m_tb->ToggleTool (XRCID("show_errors"), true );
 
-	m_tb->AddCheckTool ( XRCID ( "show_warnings" ), wxT ( "Warnings" ), wxXmlResource::Get()->LoadBitmap ( wxT ( "project_conflict" ) ), wxNullBitmap, wxT ( "Show build warnings" ) );
-	m_tb->ToggleTool ( XRCID ( "show_warnings" ), true );
+	m_tb->AddCheckTool (XRCID("show_warnings"), wxT ( "Warnings"), wxXmlResource::Get()->LoadBitmap ( wxT ( "project_conflict") ), wxNullBitmap, wxT ( "Show build warnings") );
+	m_tb->ToggleTool (XRCID("show_warnings"), true );
 	m_tb->Realize();
 
 	FindResultsTab::SetStyles ( m_sci );
@@ -67,9 +58,9 @@ bool ErrorsTab::IsShowing ( int linecolor )
 	case wxSCI_LEX_GCC_BUILDING:
 		return true;
 	case wxSCI_LEX_GCC_ERROR:
-		return m_tb->GetToolState ( XRCID ( "show_errors" ) );
+		return m_tb->GetToolState (XRCID("show_errors") );
 	case wxSCI_LEX_GCC_WARNING:
-		return m_tb->GetToolState ( XRCID ( "show_warnings" ) );
+		return m_tb->GetToolState (XRCID("show_warnings") );
 	}
 	return false;
 }
@@ -95,7 +86,7 @@ void ErrorsTab::AppendLine ( int line )
 	}
 	if ( prevfile != filename ) {
 		// new file -- put file name on its own line
-		AppendText ( filename + wxT ( "\n" ) );
+		AppendText ( filename + wxT ( "\n") );
 	}
 
 	int lineno = m_sci->GetLineCount()-1;
@@ -139,7 +130,7 @@ void ErrorsTab::MarkLine ( int line )
 
 void ErrorsTab::OnRedisplayLines ( wxCommandEvent& e )
 {
-	wxUnusedVar ( e );
+	wxUnusedVar (e);
 
 	int marked = -1;
 	ClearLines();
@@ -178,27 +169,27 @@ void ErrorsTab::OnMouseDClick ( wxScintillaEvent &e )
 				return;
 			}
 		}
-		OutputTabWindow::OnMouseDClick ( e );
+		OutputTabWindow::OnMouseDClick (e);
 	}
 
 }
 
 void ErrorsTab::OnClearAll ( wxCommandEvent& e )
 {
-	m_bt->OnClearAll ( e );
+	m_bt->OnClearAll (e);
 }
 
 void ErrorsTab::OnClearAllUI ( wxUpdateUIEvent& e )
 {
-	m_bt->OnClearAllUI ( e );
+	m_bt->OnClearAllUI (e);
 }
 
 void ErrorsTab::OnRepeatOutput ( wxCommandEvent& e )
 {
-	m_bt->OnRepeatOutput ( e );
+	m_bt->OnRepeatOutput (e);
 }
 
 void ErrorsTab::OnRepeatOutputUI ( wxUpdateUIEvent& e )
 {
-	m_bt->OnRepeatOutputUI ( e );
+	m_bt->OnRepeatOutputUI (e);
 }

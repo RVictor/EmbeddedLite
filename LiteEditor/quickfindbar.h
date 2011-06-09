@@ -1,27 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : quickfindbar.h
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #ifndef __quickfindbar__
 #define __quickfindbar__
 
@@ -29,7 +20,7 @@
 #include "quickfindbarbase.h"
 
 class wxScintilla;
-class QuickFindBar : public QuickFindBarBase
+class CQuickFindBar : public QuickFindBarBase
 {
 	wxScintilla  *m_sci;
 	size_t        m_flags;
@@ -40,20 +31,20 @@ protected:
 	void DoShowControls();
 	
 	// General events
-	void OnCopy         (wxCommandEvent  &e);
-	void OnPaste        (wxCommandEvent  &e);
-	void OnSelectAll    (wxCommandEvent  &e);
+	void OnCopy         (wxCommandEvent &e);
+	void OnPaste        (wxCommandEvent &e);
+	void OnSelectAll    (wxCommandEvent &e);
 	void OnEditUI       (wxUpdateUIEvent &e);
 
 
 	// Control events
-	void OnHide         (wxCommandEvent  &e);
-	void OnNext         (wxCommandEvent  &e);
-	void OnPrev         (wxCommandEvent  &e);
-	void OnText         (wxCommandEvent  &e);
+	void OnHide         (wxCommandEvent &e);
+	void OnNext         (wxCommandEvent &e);
+	void OnPrev         (wxCommandEvent &e);
+	void OnText         (wxCommandEvent &e);
 	void OnKeyDown      (wxKeyEvent      &e);
-	void OnEnter        (wxCommandEvent  &e);
-	void OnReplace      (wxCommandEvent  &e);
+	void OnEnter        (wxCommandEvent &e);
+	void OnReplace      (wxCommandEvent &e);
 	void OnUpdateUI     (wxUpdateUIEvent &e);
 	void OnReplaceUI    (wxUpdateUIEvent &e);
 	void OnReplaceEnter (wxCommandEvent &e);
@@ -63,7 +54,7 @@ protected:
 	void OnToggleReplaceControls( wxCommandEvent& event );
 
 public:
-	QuickFindBar(wxWindow *parent, wxWindowID id = wxID_ANY);
+	CQuickFindBar(wxWindow *parent, wxWindowID id = wxID_ANY);
 	int GetCloseButtonId();
 	bool Show(bool s = true);
 

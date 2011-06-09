@@ -1,28 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : symbolview.cpp
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
 
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include <set>
 #include <wx/app.h>
 #include <wx/settings.h>
@@ -60,7 +50,7 @@ extern "C" EXPORT PluginInfo GetPluginInfo()
 	PluginInfo info;
 	info.SetAuthor(wxT("Scott Dolim"));
 	info.SetName(wxT("SymbolView"));
-	info.SetDescription(wxT("Show Symbols of File, Project, or Workspace"));
+	info.SetDescription(wxT("Show Symbols of File, Project, or Solutions"));
 	info.SetVersion(wxT("v1.0"));
 
 	// this plugin starts as disabled by default
@@ -113,7 +103,7 @@ void SymbolViewPlugin::LoadImagesAndIndexes()
 	m_viewModeNames.Add(wxEmptyString, vmMax);
 	m_viewModeNames[vmCurrentFile]      = wxT("Current File");
 	m_viewModeNames[vmCurrentProject]   = wxT("Current Project");
-	m_viewModeNames[vmCurrentWorkspace] = wxT("Current Workspace");
+	m_viewModeNames[vmCurrentWorkspace] = wxT("Current Solution");
 
 	m_imagesList = new wxImageList(16, 16);
 
@@ -268,7 +258,7 @@ void SymbolViewPlugin::Connect()
 	topwin->Connect(wxEVT_ACTIVE_EDITOR_CHANGED, wxCommandEventHandler(SymbolViewPlugin::OnActiveEditorChanged), NULL, this);
 	topwin->Connect(wxEVT_EDITOR_CLOSING, wxCommandEventHandler(SymbolViewPlugin::OnEditorClosed), NULL, this);
 	topwin->Connect(wxEVT_ALL_EDITORS_CLOSED, wxCommandEventHandler(SymbolViewPlugin::OnAllEditorsClosed), NULL, this);
-	topwin->Connect(wxEVT_WORKSPACE_CLOSED, wxCommandEventHandler(SymbolViewPlugin::OnWorkspaceClosed), NULL, this);
+	topwin->Connect(wxEVT_WORKSPACE_CLOSED, wxCommandEventHandler(SymbolViewPlugin::OnSolutionClosed), NULL, this);
     topwin->Connect(XRCID("show_tag_in_symview"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SymbolViewPlugin::OnShowTagInSymView), NULL, this);
 }
 
@@ -376,15 +366,15 @@ wxString SymbolViewPlugin::GetSymbolsPath(const wxString &fileName, const wxStri
 	switch (GetViewMode()) {
 	case vmCurrentWorkspace:
 		if (m_mgr->IsWorkspaceOpen()) { // ignore input, return workspace file path
-			return m_mgr->GetWorkspace()->GetWorkspaceFileName().GetFullPath();
+			return m_mgr->GetSolution()->GetWorkspaceFileName().GetFullPath();
 		}
 		break;
 	case vmCurrentProject: {
         if (projectName.IsEmpty()) {
-            projectName = m_mgr->GetWorkspace()->GetActiveProjectName();
+            projectName = m_mgr->GetSolution()->GetActiveProjectName();
         }
 		wxString dummy;
-		ProjectPtr project = m_mgr->GetWorkspace()->FindProjectByName(projectName, dummy);
+		ProjectPtr project = m_mgr->GetSolution()->FindProjectByName(projectName, dummy);
 		if (project) {
 			return project->GetFileName().GetFullPath();
 		}
@@ -427,9 +417,9 @@ void SymbolViewPlugin::GetFiles(const wxFileName &path, wxArrayString &files)
 	if(GetViewMode() == vmCurrentWorkspace) {
 		wxArrayString projectNames;
 		wxString      dummy;
-		m_mgr->GetWorkspace()->GetProjectList(projectNames);
+		m_mgr->GetSolution()->GetProjectList(projectNames);
 		for (size_t i = 0; i < projectNames.Count(); i++) {
-			ProjectPtr project = m_mgr->GetWorkspace()->FindProjectByName(projectNames.Item(i), dummy);
+			ProjectPtr project = m_mgr->GetSolution()->FindProjectByName(projectNames.Item(i), dummy);
 			if (!project)
 				continue;
 				
@@ -441,12 +431,12 @@ void SymbolViewPlugin::GetFiles(const wxFileName &path, wxArrayString &files)
 		}
 	} else {
 		wxString fullPath = path.GetFullPath();
-		wxString workspaceFileName = m_mgr->GetWorkspace()->GetWorkspaceFileName().GetFullPath();
+		wxString workspaceFileName = m_mgr->GetSolution()->GetWorkspaceFileName().GetFullPath();
 		wxArrayString projectNames;
-		m_mgr->GetWorkspace()->GetProjectList(projectNames);
+		m_mgr->GetSolution()->GetProjectList(projectNames);
 		for (size_t i = 0; i < projectNames.Count(); i++) {
 			wxString dummy;
-			ProjectPtr project = m_mgr->GetWorkspace()->FindProjectByName(projectNames[i], dummy);
+			ProjectPtr project = m_mgr->GetSolution()->FindProjectByName(projectNames[i], dummy);
 			if (!project)
 				continue;
 			wxString projectFileName = project->GetFileName().GetFullPath();
@@ -482,7 +472,7 @@ void SymbolViewPlugin::GetPaths(const wxArrayString &files, std::multimap<wxStri
 	if (!m_mgr->IsWorkspaceOpen())
 		return;
 
-	wxString workspaceFileName = m_mgr->GetWorkspace()->GetWorkspaceFileName().GetFullPath();
+	wxString workspaceFileName = m_mgr->GetSolution()->GetWorkspaceFileName().GetFullPath();
 
 	// convert to set for faster membership testing, while adding obvious paths (own file, and entire workspace)
 	std::set<wxString> fileset;
@@ -495,10 +485,10 @@ void SymbolViewPlugin::GetPaths(const wxArrayString &files, std::multimap<wxStri
 
 	// get projects that each file belongs to.
 	wxArrayString projectNames;
-	m_mgr->GetWorkspace()->GetProjectList(projectNames);
+	m_mgr->GetSolution()->GetProjectList(projectNames);
 	for (size_t i = 0; i < projectNames.Count(); i++) {
 		wxString dummy;
-		ProjectPtr project = m_mgr->GetWorkspace()->FindProjectByName(projectNames[i], dummy);
+		ProjectPtr project = m_mgr->GetSolution()->FindProjectByName(projectNames[i], dummy);
 		if (!project)
 			continue;
 		wxString projectFileName = project->GetFileName().GetFullPath();
@@ -1177,7 +1167,7 @@ void SymbolViewPlugin::OnWorkspaceLoaded(wxCommandEvent& e)
 /**
  * When workspace is closed, clear everything.
  */
-void SymbolViewPlugin::OnWorkspaceClosed(wxCommandEvent& e)
+void SymbolViewPlugin::OnSolutionClosed(wxCommandEvent& e)
 {
 	for (size_t i = 0; i < m_viewModeNames.Count(); i++) {
 		WindowStack *viewStack = (WindowStack*) m_viewStack->Find(m_viewModeNames[i]);
@@ -1369,8 +1359,8 @@ void SymbolViewPlugin::OnEditorClosed(wxCommandEvent& e)
 		viewStack->Delete(editor->GetFileName().GetFullPath());
 		// maybe delete project symbol tree
 		wxString dummy;
-		ProjectPtr proj = m_mgr->GetWorkspace()->FindProjectByName(editor->GetProjectName(), dummy);
-		if (proj && editor->GetProjectName() != m_mgr->GetWorkspace()->GetActiveProjectName()) {
+		ProjectPtr proj = m_mgr->GetSolution()->FindProjectByName(editor->GetProjectName(), dummy);
+		if (proj && editor->GetProjectName() != m_mgr->GetSolution()->GetActiveProjectName()) {
 			// check if any other file is open in this project before deleting its tree
 			std::vector<wxFileName> files;
 			proj->GetFiles(files, true);
@@ -1413,7 +1403,7 @@ void SymbolViewPlugin::OnAllEditorsClosed(wxCommandEvent& e)
 		viewStack = (WindowStack*) m_viewStack->Find(m_viewModeNames[vmCurrentProject]);
 		wxWindow *save = NULL;
 		wxString savePath, dummy;
-		ProjectPtr curProj = m_mgr->GetWorkspace()->FindProjectByName(m_mgr->GetWorkspace()->GetActiveProjectName(), dummy);
+		ProjectPtr curProj = m_mgr->GetSolution()->FindProjectByName(m_mgr->GetSolution()->GetActiveProjectName(), dummy);
 		if (curProj) {
 			savePath = curProj->GetFileName().GetFullPath();
 			save = viewStack->Remove(savePath);

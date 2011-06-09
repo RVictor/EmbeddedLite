@@ -69,7 +69,7 @@ protected:
 
 	// IDE Events
 	void OnWorkspaceLoaded    (wxCommandEvent &event);
-	void OnWorkspaceClosed    (wxCommandEvent &event);
+	void OnSolutionClosed    (wxCommandEvent &event);
 	void OnClearOuptut        (wxCommandEvent &event);
 	void OnRefreshView        (wxCommandEvent &event);
 	void OnFileRenamed        (wxCommandEvent &event);

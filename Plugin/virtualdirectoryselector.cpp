@@ -1,28 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah                            
-// file name            : virtualdirectoryselector.cpp              
-//                                                                          
-// -------------------------------------------------------------------------
-// A                                                                        
-//              _____           _      _     _ _                            
-//             /  __ \         | |    | |   (_) |                           
-//             | /  \/ ___   __| | ___| |    _| |_ ___                      
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )                     
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/                     
-//              \____/\___/ \__,_|\___\_____/_|\__\___|                     
-//                                                                          
-//                                                  F i l e                 
-//                                                                          
-//    This program is free software; you can redistribute it and/or modify  
-//    it under the terms of the GNU General Public License as published by  
-//    the Free Software Foundation; either version 2 of the License, or     
-//    (at your option) any later version.                                   
-//                                                                          
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
 
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include <wx/tokenzr.h>
 #include "workspace.h"
 #include <wx/xrc/xmlres.h>
@@ -31,7 +21,7 @@
 #include "tree_node.h"
 #include <wx/imaglist.h>
 
-VirtualDirectorySelector::VirtualDirectorySelector( wxWindow* parent, Workspace *wsp, const wxString &initialPath)
+VirtualDirectorySelector::VirtualDirectorySelector( wxWindow* parent, CSolution* wsp, const wxString &initialPath)
 		: VirtualDirectorySelectorBase( parent )
 		, m_workspace(wsp)
 		, m_initialPath(initialPath)
@@ -71,10 +61,10 @@ wxString VirtualDirectorySelector::DoGetPath(wxTreeCtrl* tree, const wxTreeItemI
 	}
 
 	std::deque<wxString> queue;
-	wxString text = tree->GetItemText( item );
+	wxString text = tree->GetItemText(item);
 	queue.push_front( text );
 
-	wxTreeItemId p = tree->GetItemParent( item );
+	wxTreeItemId p = tree->GetItemParent(item);
 	while ( p.IsOk() && p != tree->GetRootItem() ) {
 
 		text = tree->GetItemText( p );
@@ -86,7 +76,7 @@ wxString VirtualDirectorySelector::DoGetPath(wxTreeCtrl* tree, const wxTreeItemI
 	size_t count = queue.size();
 	for ( size_t i=0; i<count; i++ ) {
 		path += queue.front();
-		path += wxT( ":" );
+		path += wxT( ":");
 		queue.pop_front();
 	}
 
@@ -102,9 +92,9 @@ wxString VirtualDirectorySelector::DoGetPath(wxTreeCtrl* tree, const wxTreeItemI
 void VirtualDirectorySelector::DoBuildTree()
 {
 	wxImageList *images = new wxImageList(16, 16);
-	images->Add( wxXmlResource::Get()->LoadBitmap( wxT( "workspace" ) ) );	//0
-	images->Add( wxXmlResource::Get()->LoadBitmap( wxT( "folder" ) ) );		//1
-	images->Add( wxXmlResource::Get()->LoadBitmap( wxT( "project" ) ) );	//2
+	images->Add( wxXmlResource::Get()->LoadBitmap( wxT( "workspace") ) );	//0
+	images->Add( wxXmlResource::Get()->LoadBitmap( wxT( "folder") ) );		//1
+	images->Add( wxXmlResource::Get()->LoadBitmap( wxT( "project") ) );	//2
 	m_treeCtrl->AssignImageList(images);
 
 	if (m_workspace) {

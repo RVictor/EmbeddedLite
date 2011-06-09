@@ -1,27 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : findresultstab.cpp
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include <wx/xrc/xmlres.h>
 #include <wx/wupdlock.h>
 #include "drawingutils.h"
@@ -40,9 +31,9 @@
 
 
 BEGIN_EVENT_TABLE(FindResultsTab, OutputTabWindow)
-	EVT_COMMAND(wxID_ANY, wxEVT_SEARCH_THREAD_SEARCHSTARTED,  FindResultsTab::OnSearchStart)
-	EVT_COMMAND(wxID_ANY, wxEVT_SEARCH_THREAD_MATCHFOUND,     FindResultsTab::OnSearchMatch)
-	EVT_COMMAND(wxID_ANY, wxEVT_SEARCH_THREAD_SEARCHEND,      FindResultsTab::OnSearchEnded)
+	EVT_COMMAND(wxID_ANY, wxEVT_SEARCH_THREAD_SEARCHSTARTED, FindResultsTab::OnSearchStart)
+	EVT_COMMAND(wxID_ANY, wxEVT_SEARCH_THREAD_MATCHFOUND, FindResultsTab::OnSearchMatch)
+	EVT_COMMAND(wxID_ANY, wxEVT_SEARCH_THREAD_SEARCHEND, FindResultsTab::OnSearchEnded)
 	EVT_COMMAND(wxID_ANY, wxEVT_SEARCH_THREAD_SEARCHCANCELED, FindResultsTab::OnSearchCancel)
 
 	// Right click menu options
@@ -58,15 +49,15 @@ END_EVENT_TABLE()
 
 FindInFilesDialog* FindResultsTab::m_find = NULL;
 
-FindResultsTab::FindResultsTab(wxWindow *parent, wxWindowID id, const wxString &name, bool useBook)
-		: OutputTabWindow(parent, id, name)
-		, m_searchInProgress(false)
-		, m_book(NULL)
-		, m_recv(NULL)
-		, m_matchInfo(1)
+FindResultsTab::FindResultsTab(wxWindow *parent, wxWindowID id, const wxString &name, bool useBook):
+  OutputTabWindow(parent, id, name),
+  m_searchInProgress(false),
+  m_book(NULL),
+  m_recv(NULL),
+  m_matchInfo(1)
 {
-	if (useBook) {
-
+	if (useBook)
+	{
 		// load the book style from the settings file
 		long bookStyle = wxVB_BOTTOM|wxVB_NODND|wxVB_HAS_X|wxVB_MOUSE_MIDDLE_CLOSE_TAB|wxVB_FIXED_WIDTH;
 		EditorConfigST::Get()->GetLongValue(wxT("FindResults"), bookStyle);
@@ -87,15 +78,17 @@ FindResultsTab::FindResultsTab(wxWindow *parent, wxWindowID id, const wxString &
 
 		sz->Add(m_book, 1, wxALL|wxEXPAND);
 		sz->Layout();
-	} else {
+	}
+	else
+	{
 		// keep existing scintilla
 		SetStyles(m_sci);
 	}
 
 	wxTheApp->Connect(XRCID("find_in_files"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(FindResultsTab::OnFindInFiles), NULL, this);
-	m_tb->AddTool ( XRCID ( "stop_search" ), wxT ( "Stop current search" ), wxXmlResource::Get()->LoadBitmap ( wxT ( "stop_build16" ) ), wxT ( "Stop current search" ) );
-	Connect( XRCID ( "stop_search" ), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler ( FindResultsTab::OnStopSearch  ), NULL, this );
-	Connect( XRCID ( "stop_search" ), wxEVT_UPDATE_UI,             wxUpdateUIEventHandler( FindResultsTab::OnStopSearchUI), NULL, this );
+	m_tb->AddTool (XRCID("stop_search"), wxT ( "Stop current search"), wxXmlResource::Get()->LoadBitmap ( wxT ( "stop_build16") ), wxT ( "Stop current search") );
+	Connect(XRCID("stop_search"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler ( FindResultsTab::OnStopSearch  ), NULL, this );
+	Connect(XRCID("stop_search"), wxEVT_UPDATE_UI,             wxUpdateUIEventHandler( FindResultsTab::OnStopSearchUI), NULL, this );
 	m_tb->Realize();
 
 }
@@ -241,14 +234,17 @@ void FindResultsTab::OnFindInFiles(wxCommandEvent &e)
 	if (m_find->IsShown() == false) m_find->Show();
 }
 
-void FindResultsTab::OnSearchStart(wxCommandEvent& e)
+void 
+FindResultsTab::OnSearchStart(wxCommandEvent& e)
 {
 	m_searchInProgress = true;
 	SearchData *data = (SearchData*) e.GetClientData();
 	wxString label = data ? data->GetFindString() : wxT("");
 
-	if (e.GetInt() != 0 || m_sci == NULL) {
-		if (m_book) {
+	if (e.GetInt() != 0 || m_sci == NULL)
+	{
+		if (m_book) 
+		{
 			wxWindowUpdateLocker locker(this);
 			wxScintilla *sci = new wxScintilla(m_book);
 			SetStyles(sci);
@@ -259,11 +255,13 @@ void FindResultsTab::OnSearchStart(wxCommandEvent& e)
 			long MaxBuffers(15);
 			EditorConfigST::Get()->GetLongValue(wxT("MaxOpenedTabs"), MaxBuffers);
 
-			if( (long)m_book->GetPageCount() >= MaxBuffers ) {
+			if( (long)m_book->GetPageCount() >= MaxBuffers )
+			{
 				// We have reached the limit of the number of open buffers
 				// Close the last used buffer
 				const wxArrayPtrVoid &arr = m_book->GetHistory();
-				if ( arr.GetCount() ) {
+				if ( arr.GetCount() )
+				{
 					CustomTab *tab = static_cast<CustomTab*>(arr.Item(arr.GetCount()-1));
 					m_book->DeletePage( m_book->GetTabContainer()->TabToIndex(tab) );
 				}
@@ -274,22 +272,27 @@ void FindResultsTab::OnSearchStart(wxCommandEvent& e)
 
 			// keep the search data used for this tab
 			CustomTab *tab = m_book->GetTabContainer()->IndexToTab(where);
-			if (tab) {
+			if(tab)
+			{
 				tab->SetUserData(data);
 			}
 
 			m_matchInfo.push_back(MatchInfo());
 			m_sci = sci;
 		}
-	} else if (m_book) {
+	}
+	else if (m_book) 
+  {
 		// using current tab, update the tab title and the search data
 		size_t where = m_book->GetPageIndex(m_sci);
-		if (where != Notebook::npos) {
+		if (where != Notebook::npos) 
+		{
 			m_book->SetPageText(where, label, label);
 			// delete the old search data
 			CustomTab *tab = m_book->GetTabContainer()->IndexToTab(where);
 			SearchData *oldData = (SearchData *)tab->GetUserData();
-			if (oldData) {
+			if (oldData) 
+			{
 				delete oldData;
 			}
 			// set the new search data
@@ -459,7 +462,7 @@ SearchData FindResultsTab::GetSearchData(wxScintilla* sci)
 
 void FindResultsTab::OnCloseAllTabs(wxCommandEvent& e)
 {
-	wxUnusedVar( e );
+	wxUnusedVar(e);
 	if (m_book) {
 		m_book->DeleteAllPages(true);
 	}
@@ -467,7 +470,7 @@ void FindResultsTab::OnCloseAllTabs(wxCommandEvent& e)
 
 void FindResultsTab::OnCloseOtherTab(wxCommandEvent& e)
 {
-	wxUnusedVar( e );
+	wxUnusedVar(e);
 	if (m_book) {
 		size_t idx = m_book->GetSelection();
 		if (idx != Notebook::npos) {
@@ -485,7 +488,7 @@ void FindResultsTab::OnCloseOtherTab(wxCommandEvent& e)
 
 void FindResultsTab::OnCloseTab(wxCommandEvent& e)
 {
-	wxUnusedVar( e );
+	wxUnusedVar(e);
 	if (m_book) {
 		size_t idx = m_book->GetSelection();
 		if (idx != Notebook::npos) {
@@ -527,7 +530,7 @@ void FindResultsTab::NextMatch()
 		// if we are here, it means we are the end of the search results list, add a status message
 		wxCommandEvent e(wxEVT_UPDATE_STATUS_BAR);
 		e.SetEventObject(this);
-		e.SetString(wxString::Format(wxT("Reached the end of 'find in files' search results list" )));
+		e.SetString(wxString::Format(wxT("Reached the end of 'find in files' search results list")));
 		e.SetInt(0);
 		Frame::Get()->GetEventHandler()->AddPendingEvent(e);
 	}
@@ -561,7 +564,7 @@ void FindResultsTab::PrevMatch()
 		// if we are here, it means we are the top of the search results list, add a status message
 		wxCommandEvent e(wxEVT_UPDATE_STATUS_BAR);
 		e.SetEventObject(this);
-		e.SetString(wxString::Format(wxT("Reached the begining of 'find in files' search results list" )));
+		e.SetString(wxString::Format(wxT("Reached the begining of 'find in files' search results list")));
 		e.SetInt(0);
 		Frame::Get()->GetEventHandler()->AddPendingEvent(e);
 	}

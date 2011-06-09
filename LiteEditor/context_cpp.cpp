@@ -1120,8 +1120,8 @@ void ContextCpp::DoMakeDoxyCommentString(DoxygenComment& dc)
 	classPattern.Replace(wxT("$(Name)"), dc.name);
 	funcPattern.Replace(wxT("$(Name)"), dc.name);
 
-	classPattern = ExpandAllVariables(classPattern, WorkspaceST::Get(), editor.GetProjectName(), wxEmptyString, editor.GetFileName().GetFullPath());
-	funcPattern = ExpandAllVariables(funcPattern, WorkspaceST::Get(), editor.GetProjectName(), wxEmptyString, editor.GetFileName().GetFullPath());
+	classPattern = ExpandAllVariables(classPattern, SolutionST::Get(), editor.GetProjectName(), wxEmptyString, editor.GetFileName().GetFullPath());
+	funcPattern = ExpandAllVariables(funcPattern, SolutionST::Get(), editor.GetProjectName(), wxEmptyString, editor.GetFileName().GetFullPath());
 
 	dc.comment.Replace(wxT("$(ClassPattern)"), classPattern);
 	dc.comment.Replace(wxT("$(FunctionPattern)"), funcPattern);
@@ -2035,7 +2035,7 @@ void ContextCpp::ApplySettings()
 	wxFont guiFont = wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT);
 	BuildTabSettingsData cmpColoursOptions;
 	
-	EditorConfigST::Get()->ReadObject ( wxT ( "build_tab_settings" ), &cmpColoursOptions);
+	EditorConfigST::Get()->ReadObject ( wxT ( "build_tab_settings"), &cmpColoursOptions);
 	rCtrl.StyleSetBackground(eAnnotationStyleError, DrawingUtils::LightColour(cmpColoursOptions.GetErrorColour(), 9.0));
 	rCtrl.StyleSetForeground(eAnnotationStyleError, cmpColoursOptions.GetErrorColour());
 	rCtrl.StyleSetFont(eAnnotationStyleError, guiFont);
@@ -2660,7 +2660,7 @@ void ContextCpp::DoCreateFile(const wxFileName& fn)
 			vd.Prepend(p->GetName() + wxT(":"));
 
 			if (vd.IsEmpty() == false) {
-				Frame::Get()->GetWorkspaceTab()->GetFileView()->CreateAndAddFile(new_file, vd);
+				Frame::Get()->GetSolutionTab()->GetFileView()->CreateAndAddFile(new_file, vd);
 			}
 		}
 	} else {

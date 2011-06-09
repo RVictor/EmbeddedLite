@@ -1,12 +1,12 @@
 /**
   \file macromanager.cpp
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -50,24 +50,24 @@ wxString MacroManager::Expand(const wxString& expression, IManager* manager, con
 {
 	wxString   errMsg;
 	wxString   expandedString(expression);
-	Workspace *workspace = manager->GetWorkspace();
+	CSolution* pSolution = manager->GetSolution();
 	
-	if ( workspace ) {
-		expandedString.Replace(wxT("$(WorkspaceName)"), workspace->GetName());
-		ProjectPtr proj = workspace->FindProjectByName(project, errMsg);
+	if ( pSolution ) {
+		expandedString.Replace(wxT("$(WorkspaceName)"), pSolution->GetName());
+		ProjectPtr proj = pSolution->FindProjectByName(project, errMsg);
 		if (proj) {
 			wxString project_name(proj->GetName());
 
 			//make sure that the project name does not contain any spaces
 			project_name.Replace(wxT(" "), wxT("_"));
 
-			BuildConfigPtr bldConf = workspace->GetProjBuildConf(proj->GetName(), confToBuild);
+			BuildConfigPtr bldConf = pSolution->GetProjBuildConf(proj->GetName(), confToBuild);
 			if (bldConf) {
 				expandedString.Replace(wxT("$(ProjectOutputFile)"), bldConf->GetOutputFileName());
 			}
 			
 			expandedString.Replace(wxT("$(ProjectPath)"), proj->GetFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
-			expandedString.Replace(wxT("$(WorkspacePath)"), workspace->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
+			expandedString.Replace(wxT("$(WorkspacePath)"), pSolution->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
 			expandedString.Replace(wxT("$(ProjectName)"), project_name);
 			
 			if (bldConf) {
@@ -117,11 +117,11 @@ wxString MacroManager::Expand(const wxString& expression, IManager* manager, con
 	expandedString.Replace(wxT("$(User)"), wxGetUserName());
 	expandedString.Replace(wxT("$(Date)"), now.FormatDate());
 
-	if (workspace) {
-		expandedString.Replace(wxT("$(EmbeddedLitePath)"), workspace->GetStartupDir());
+	if (pSolution) {
+		expandedString.Replace(wxT("$(EmbeddedLitePath)"), pSolution->GetStartupDir());
 	}
 
-	//call the environment & workspace variables expand function
+	//call the environment & pSolution variables expand function
 	expandedString = manager->GetEnv()->ExpandVariables(expandedString);
 	return expandedString;
 }

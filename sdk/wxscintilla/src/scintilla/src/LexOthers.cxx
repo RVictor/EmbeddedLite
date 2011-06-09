@@ -961,17 +961,17 @@ static int RecogniseErrorListLine(const char *lineBuffer, unsigned int lengthLin
 	} else if (strstart(lineBuffer, "Warning ")) {
 		// Borland warning message
 		return SCE_ERR_BORLAND;
-	} else if (strstr(lineBuffer, "at line " ) &&
-	           (strstr(lineBuffer, "at line " ) < (lineBuffer + lengthLine)) &&
+	} else if (strstr(lineBuffer, "at line ") &&
+	           (strstr(lineBuffer, "at line ") < (lineBuffer + lengthLine)) &&
 	           strstr(lineBuffer, "file ") &&
 	           (strstr(lineBuffer, "file ") < (lineBuffer + lengthLine))) {
 		// Lua 4 error message
 		return SCE_ERR_LUA;
-	} else if (strstr(lineBuffer, " at " ) &&
-	           (strstr(lineBuffer, " at " ) < (lineBuffer + lengthLine)) &&
+	} else if (strstr(lineBuffer, " at ") &&
+	           (strstr(lineBuffer, " at ") < (lineBuffer + lengthLine)) &&
 	           strstr(lineBuffer, " line ") &&
 	           (strstr(lineBuffer, " line ") < (lineBuffer + lengthLine)) &&
-	           (strstr(lineBuffer, " at " ) < (strstr(lineBuffer, " line ")))) {
+	           (strstr(lineBuffer, " at ") < (strstr(lineBuffer, " line ")))) {
 		// perl error message
 		return SCE_ERR_PERL;
 	} else if ((memcmp(lineBuffer, "   at ", 6) == 0) &&

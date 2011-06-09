@@ -82,11 +82,11 @@ public:
 	virtual wxString               GetStartupDirectory() const;
 	virtual void                   AddProject(const wxString & path);
 	virtual bool                   IsWorkspaceOpen() const;
-	virtual TagsManager *          GetTagsManager();
-	virtual Workspace *            GetWorkspace();
-	virtual bool                   AddFilesToVirtualFolder(wxTreeItemId &item, wxArrayString &paths);
-	virtual bool                   AddFilesToVirtualFolder(const wxString &vdFullPath, wxArrayString &paths);
-	virtual bool                   AddFilesToVirtualFolderIntelligently(const wxString &vdFullPath, wxArrayString &paths);
+	virtual TagsManager* GetTagsManager();
+	virtual CSolution* GetSolution();
+	virtual bool                   AddFilesToGroupFolder(wxTreeItemId &item, wxArrayString &paths);
+	virtual bool                   AddFilesToGroupFolder(const wxString &vdFullPath, wxArrayString &paths);
+	virtual bool                   AddFilesToGroupFolderIntelligently(const wxString &vdFullPath, wxArrayString &paths);
 	virtual int                    GetToolbarIconSize();
 	virtual wxAuiManager*          GetDockingManager();
 	virtual EnvironmentConfig*     GetEnv();
@@ -100,7 +100,7 @@ public:
   virtual wxString               GetInstallDirectory() const;
   virtual wxString               GetConfigDir() const;
 	virtual IKeyboard *            GetKeyboardManager();
-	virtual bool                   CreateVirtualDirectory(const wxString& parentPath, const wxString& vdName);
+	virtual bool                   CreateGroupFolder(const wxString& parentPath, const wxString& vdName);
 	virtual OptionsConfigPtr       GetEditorSettings();
 	virtual void                   FindAndSelect(const wxString& pattern, const wxString& name);
 	virtual TagEntryPtr            GetTagAtCaret(bool scoped, bool impl);

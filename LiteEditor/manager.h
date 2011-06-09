@@ -1,12 +1,12 @@
 /**
   \file manager.h
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -109,7 +109,7 @@ public:
 protected:
 	void DoRestartEmbeddedLite();
 
-	 //--------------------------- Workspace Loading -----------------------------
+	 //--------------------------- Solution Loading -----------------------------
 public:
  	/*!
  	 * \brief
@@ -180,7 +180,7 @@ protected:
 	void AddToRecentlyOpenedWorkspaces(const wxString &fileName);
 
 
-    //--------------------------- Workspace Projects Mgmt -----------------------------
+    //--------------------------- Solution Projects Mgmt -----------------------------
 public:
 	/**
 	 * \brief create an empty project
@@ -242,7 +242,7 @@ public:
 	void SetWorkspaceBuildMatrix(BuildMatrixPtr matrix);
 
 
-    //--------------------------- Workspace Files Mgmt -----------------------------
+    //--------------------------- Solution Files Mgmt -----------------------------
 public:
 	/**
 	 * return list of files in absolute path of the whole workspace
@@ -290,16 +290,16 @@ protected:
 public:
 	/**
 	 * Add new virtual directory to the workspace.
-	 * \param virtualDirFullPath a dot separated string of the new virtual directory full path up to the parent project
+	 * \param wxstrGroupFolderFullPath a dot separated string of the new virtual directory full path up to the parent project
 	 *        for example: to add a new VD name VD3 under: Project1->VD1->VD2 path should contain: Project1.VD1.VD2.VD3
 	 */
-	void AddVirtualDirectory(const wxString &virtualDirFullPath);
+	void AddGroupFolder(const wxString &wxstrGroupFolderFullPath);
 
 	/**
 	 * Remove virtual directory from the workspace.
-	 * \param virtualDirFullPath a dot separated string of the virtual directory to be removed
+	 * \param wxstrGroupFolderFullPath a dot separated string of the virtual directory to be removed
 	 */
-	void RemoveVirtualDirectory(const wxString &virtualDirFullPath);
+	void RemoveGroupFolder(const wxString &wxstrGroupFolderFullPath);
 
 	/**
 	 * Create new file on the disk and open it in the main editor

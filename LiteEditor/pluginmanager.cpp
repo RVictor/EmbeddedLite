@@ -1,27 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : pluginmanager.cpp
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include "app.h"
 #include "environmentconfig.h"
 #include "macromanager.h"
@@ -84,6 +75,9 @@ PluginManager::~PluginManager()
 
 void PluginManager::Load()
 {
+  //rvv
+  return;
+
 	wxString ext;
 #if defined (__WXGTK__) || defined (__WXMAC__)
 	ext = wxT("so");
@@ -91,7 +85,7 @@ void PluginManager::Load()
 	ext = wxT("dll");
 #endif
 
-	wxString fileSpec( wxT( "*." ) + ext );
+	wxString fileSpec( wxT( "*.") + ext );
 	PluginConfig::Instance()->Load(ManagerST::Get()->GetConfigDir() + wxT("/plugins.xml"), wxT("2.0.1"));
 
 	PluginsData pluginsData;
@@ -118,11 +112,13 @@ void PluginManager::Load()
 		wxArrayString files;
 		wxDir::GetAllFiles( pluginsDir, &files, fileSpec, wxDIR_FILES );
 
-		for ( size_t i=0; i<files.GetCount(); i++ ) {
+		for(size_t i=0; i<files.GetCount(); i++ )
+		{
 			clDynamicLibrary *dl = new clDynamicLibrary();
-			wxString fileName( files.Item( i ) );
-			if ( !dl->Load( fileName ) ) {
-				wxLogMessage( wxT( "Failed to load plugin's dll: " ) + fileName );
+			wxString fileName(files.Item(i));
+			if (!dl->Load(fileName))
+			{
+				wxLogMessage( wxT( "Failed to load plugin's dll: ") + fileName );
 				if (!dl->GetError().IsEmpty())
 					wxLogMessage(dl->GetError());
 #if wxVERSION_NUMBER < 2900
@@ -132,7 +128,7 @@ void PluginManager::Load()
 			}
 
 			bool success( false );
-			GET_PLUGIN_INFO_FUNC pfnGetPluginInfo = ( GET_PLUGIN_INFO_FUNC )dl->GetSymbol( wxT( "GetPluginInfo" ), &success );
+			GET_PLUGIN_INFO_FUNC pfnGetPluginInfo = ( GET_PLUGIN_INFO_FUNC )dl->GetSymbol( wxT( "GetPluginInfo"), &success );
 			if ( !success ) {
 #if wxVERSION_NUMBER < 2900
 				delete dl;
@@ -192,7 +188,7 @@ void PluginManager::Load()
 			}
 
 			//try and load the plugin
-			GET_PLUGIN_CREATE_FUNC pfn = ( GET_PLUGIN_CREATE_FUNC )dl->GetSymbol( wxT( "CreatePlugin" ), &success );
+			GET_PLUGIN_CREATE_FUNC pfn = ( GET_PLUGIN_CREATE_FUNC )dl->GetSymbol( wxT( "CreatePlugin"), &success );
 			if ( !success ) {
 				wxLogMessage(wxT("Failed to find CreatePlugin() in dll: ") + fileName);
 				if (!dl->GetError().IsEmpty())
@@ -209,7 +205,7 @@ void PluginManager::Load()
 			}
 
 			IPlugin *plugin = pfn( ( IManager* )this );
-			wxLogMessage( wxT( "Loaded plugin: " ) + plugin->GetLongName() );
+			wxLogMessage( wxT( "Loaded plugin: ") + plugin->GetLongName() );
 			m_plugins[plugin->GetShortName()] = plugin;
 
 			//load the toolbar
@@ -218,7 +214,7 @@ void PluginManager::Load()
 				Frame::Get()->GetDockingManager().AddPane( tb, wxAuiPaneInfo().Name( plugin->GetShortName() ).LeftDockable( true ).RightDockable( true ).Caption( plugin->GetShortName() ).ToolbarPane().Top() );
 
 				//Add menu entry at the 'View->Toolbars' menu for this toolbar
-				int ii = Frame::Get()->GetMenuBar()->FindMenu( wxT( "View" ) );
+				int ii = Frame::Get()->GetMenuBar()->FindMenu( wxT( "View") );
 				if ( ii != wxNOT_FOUND ) {
 					wxMenu *viewMenu = Frame::Get()->GetMenuBar()->GetMenu( ii );
 					wxMenu *submenu = NULL;
@@ -239,7 +235,7 @@ void PluginManager::Load()
 
 			//let the plugin plug its menu in the 'Plugins' menu at the menu bar
 			//the create menu will be placed as a sub menu of the 'Plugin' menu
-			int idx = Frame::Get()->GetMenuBar()->FindMenu( wxT( "Plugins" ) );
+			int idx = Frame::Get()->GetMenuBar()->FindMenu( wxT( "Plugins") );
 			if ( idx != wxNOT_FOUND ) {
 				wxMenu *pluginsMenu = Frame::Get()->GetMenuBar()->GetMenu( idx );
 				plugin->CreatePluginMenu( pluginsMenu );
@@ -288,9 +284,9 @@ TreeItemInfo PluginManager::GetSelectedTreeItemInfo( TreeType type )
 	TreeItemInfo info;
 	switch ( type ) {
 	case TreeFileExplorer:
-		return Frame::Get()->GetFileExplorer()->GetFileTree()->GetSelectedItemInfo();
+		return Frame::Get()->GetFileSystemBrowser()->GetFileTree()->GetSelectedItemInfo();
 	case TreeFileView:
-		return Frame::Get()->GetWorkspaceTab()->GetFileView()->GetSelectedItemInfo();
+		return Frame::Get()->GetSolutionTab()->GetFileView()->GetSelectedItemInfo();
 	default:
 		return info;
 	}
@@ -300,9 +296,9 @@ wxTreeCtrl *PluginManager::GetTree(TreeType type)
 {
 	switch ( type ) {
 	case TreeFileExplorer:
-		return Frame::Get()->GetFileExplorer()->GetFileTree();
+		return Frame::Get()->GetFileSystemBrowser()->GetFileTree();
 	case TreeFileView:
-		return Frame::Get()->GetWorkspaceTab()->GetFileView();
+		return Frame::Get()->GetSolutionTab()->GetFileView();
 	default:
 		return NULL;
 	}
@@ -343,24 +339,25 @@ TagsManager *PluginManager::GetTagsManager()
 	return TagsManagerST::Get();
 }
 
-Workspace *PluginManager::GetWorkspace()
+CSolution*
+PluginManager::GetSolution()
 {
-	return WorkspaceST::Get();
+	return SolutionST::Get();
 }
 
-bool PluginManager::AddFilesToVirtualFolder(wxTreeItemId &item, wxArrayString &paths)
+bool PluginManager::AddFilesToGroupFolder(wxTreeItemId &item, wxArrayString &paths)
 {
-	return Frame::Get()->GetWorkspaceTab()->GetFileView()->AddFilesToVirtualFolder(item, paths);
+	return Frame::Get()->GetSolutionTab()->GetFileView()->AddFilesToGroupFolder(item, paths);
 }
 
-bool PluginManager::AddFilesToVirtualFolder(const wxString &vdFullPath, wxArrayString &paths)
+bool PluginManager::AddFilesToGroupFolder(const wxString &vdFullPath, wxArrayString &paths)
 {
-	return Frame::Get()->GetWorkspaceTab()->GetFileView()->AddFilesToVirtualFolder(vdFullPath, paths);
+	return Frame::Get()->GetSolutionTab()->GetFileView()->AddFilesToGroupFolder(vdFullPath, paths);
 }
 
-bool PluginManager::AddFilesToVirtualFolderIntelligently(const wxString &vdFullPath, wxArrayString &paths)
+bool PluginManager::AddFilesToGroupFolderIntelligently(const wxString &vdFullPath, wxArrayString &paths)
 {
-	return Frame::Get()->GetWorkspaceTab()->GetFileView()->AddFilesToVirtualFolderIntelligently(vdFullPath, paths);
+	return Frame::Get()->GetSolutionTab()->GetFileView()->AddFilesToGroupFolderIntelligently(vdFullPath, paths);
 }
 
 int PluginManager::GetToolbarIconSize()
@@ -399,7 +396,7 @@ wxApp* PluginManager::GetTheApp()
 
 void PluginManager::ReloadWorkspace()
 {
-	wxCommandEvent evt(wxEVT_COMMAND_MENU_SELECTED, XRCID("reload_workspace"));
+	wxCommandEvent evt(wxEVT_COMMAND_MENU_SELECTED, XRCID("reload_solution"));
 	Frame::Get()->GetEventHandler()->AddPendingEvent( evt );
 }
 
@@ -436,9 +433,9 @@ IKeyboard* PluginManager::GetKeyboardManager()
 	return &m_keyboardMgr;
 }
 
-bool PluginManager::CreateVirtualDirectory(const wxString& parentPath, const wxString& vdName)
+bool PluginManager::CreateGroupFolder(const wxString& parentPath, const wxString& vdName)
 {
-	return Frame::Get()->GetWorkspaceTab()->GetFileView()->CreateVirtualDirectory(parentPath, vdName);
+	return Frame::Get()->GetSolutionTab()->GetFileView()->CreateGroupFolder(parentPath, vdName);
 }
 
 OptionsConfigPtr PluginManager::GetEditorSettings()
@@ -488,7 +485,7 @@ void PluginManager::EnableToolbars()
 {
 	// In case, plugins are now allowed to insert toolbars, disable the toolbars_menu item
 	if (AllowToolbar() == false) {
-		int ii = Frame::Get()->GetMenuBar()->FindMenu( wxT( "View" ) );
+		int ii = Frame::Get()->GetMenuBar()->FindMenu( wxT( "View") );
 		if ( ii != wxNOT_FOUND ) {
 			wxMenu *viewMenu = Frame::Get()->GetMenuBar()->GetMenu( ii );
 			wxMenuItem *item = viewMenu->FindItem( XRCID("toolbars_menu") );

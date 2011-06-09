@@ -1,20 +1,20 @@
 /**
   \file tokenizer.h
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 2 of the License, or
   (at your option) any later version.
 */
-#ifndef CODELITE_TOKENIZER_H
-#define CODELITE_TOKENIZER_H
+#ifndef EMBEDDEDLITE_TOKENIZER_H
+#define EMBEDDEDLITE_TOKENIZER_H
 
 #include <wx/string.h>
 #include <vector>
@@ -172,4 +172,4 @@ private:
 	void Initialize();
 };
 
-#endif // CODELITE_TOKENIZER_H
+#endif // EMBEDDEDLITE_TOKENIZER_H

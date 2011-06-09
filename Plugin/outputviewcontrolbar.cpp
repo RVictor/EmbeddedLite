@@ -44,7 +44,7 @@ static unsigned char list_bits[] = {
 #endif
 
 wxString ST_CLASS          = wxT("Class, struct or union");
-wxString ST_WORKSPACE_FILE = wxT("Workspace file");
+wxString ST_WORKSPACE_FILE = wxT("Solution file");
 wxString ST_MACRO          = wxT("Macro");
 wxString ST_TYPEDEF        = wxT("Typedef");
 wxString ST_FUNCTION       = wxT("Function");
@@ -91,7 +91,7 @@ void OutputViewControlBar::OnEraseBackground(wxEraseEvent& event)
 
 void OutputViewControlBar::OnPaint(wxPaintEvent& event)
 {
-	wxUnusedVar( event );
+	wxUnusedVar(event);
 	wxBufferedPaintDC dc(this);
 
 	wxRect rect = GetClientSize();
@@ -418,7 +418,7 @@ void OutputViewControlBarButton::OnMouseLDown(wxMouseEvent& event)
 
 		wxCommandEvent e(EVENT_BUTTON_PRESSED);
 		e.SetEventObject(this);
-		GetParent()->GetEventHandler()->AddPendingEvent( e );
+		GetParent()->GetEventHandler()->AddPendingEvent(e);
 
 	}
 }
@@ -584,7 +584,7 @@ void OutputViewControlBarButton::DoShowPopupMenu()
 		}
 		item->SetFont(font);
 #endif
-		popupMenu.Append( item );
+		popupMenu.Append(item);
 
 		//mark the selected item
 		item->Check(selected);
@@ -619,7 +619,7 @@ void OutputViewControlBarToggleButton::OnButtonToggled(wxCommandEvent& e)
 
 		wxCommandEvent e(EVENT_BUTTON_PRESSED);
 		e.SetEventObject(this);
-		GetParent()->GetEventHandler()->AddPendingEvent( e );
+		GetParent()->GetEventHandler()->AddPendingEvent(e);
 	}
 }
 
@@ -654,7 +654,7 @@ void OutputViewControlBarToggleButton::DoShowPopupMenu()
 		}
 		item->SetFont(font);
 #endif
-		popupMenu.Append( item );
+		popupMenu.Append(item);
 
 		//mark the selected item
 		item->Check(selected);

@@ -36,27 +36,27 @@
 #include "workspace_pane.h"
 #include "frame.h"
 
-FileExplorer::FileExplorer(wxWindow *parent, const wxString &caption)
-: wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(250, 300))
-, m_caption(caption)
-, m_isLinkedToEditor(false)
+CFileSystemBrowser::CFileSystemBrowser(wxWindow *parent, const wxString &caption): 
+  wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(250, 300)), 
+  m_caption(caption), 
+  m_bSyncWithEditor(false)
 #ifdef __WXMSW__
 #if wxUSE_FSVOLUME
 , m_thread(this)
 #endif
 #endif
 {
-	long link(1);
-	EditorConfigST::Get()->GetLongValue(wxT("LinkFileExplorerToEditor"), link);
-	m_isLinkedToEditor = link ? true : false;
+	long link(0);
+	EditorConfigST::Get()->GetLongValue(wxT("SyncFileSystemBrowserToEditor"), link);
+	m_bSyncWithEditor = link ? true : false;
 	CreateGUIControls();
 }
 
-FileExplorer::~FileExplorer()
+CFileSystemBrowser::~CFileSystemBrowser()
 {
 }
 
-void FileExplorer::CreateGUIControls()
+void CFileSystemBrowser::CreateGUIControls()
 {
 	wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
 	SetSizer(mainSizer);
@@ -68,40 +68,40 @@ void FileExplorer::CreateGUIControls()
 #ifdef __WXMSW__
 #if wxUSE_FSVOLUME
 	wxArrayString volumes;
-	Connect(wxEVT_THREAD_VOLUME_COMPLETED, wxCommandEventHandler(FileExplorer::OnVolumes), NULL, this);
+	Connect(wxEVT_THREAD_VOLUME_COMPLETED, wxCommandEventHandler(CFileSystemBrowser::OnVolumes), NULL, this);
 
 	m_thread.Create();
 	m_thread.Run();
 
 	m_volumes = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, volumes, 0 );
 	mainSizer->Add(m_volumes, 0, wxEXPAND|wxALL, 1);
-	ConnectChoice(m_volumes, FileExplorer::OnVolumeChanged);
+	ConnectChoice(m_volumes, CFileSystemBrowser::OnVolumeChanged);
 #endif
 #endif
 
-	m_fileTree = new FileExplorerTree(this, wxID_ANY);
-	m_fileTree->Connect(wxVDTC_ROOT_CHANGED, wxCommandEventHandler(FileExplorer::OnRootChanged), NULL, this);
+	m_fileTree = new CFileSystemBrowserTree(this, wxID_ANY);
+	m_fileTree->Connect(wxVDTC_ROOT_CHANGED, wxCommandEventHandler(CFileSystemBrowser::OnRootChanged), NULL, this);
 	mainSizer->Add(m_fileTree, 1, wxEXPAND|wxALL, 1);
 
 	tb->AddTool(XRCID("link_editor"), wxEmptyString, wxXmlResource::Get()->LoadBitmap(wxT("link_editor")), wxT("Link Editor"), wxITEM_CHECK);
-	tb->ToggleTool(XRCID("link_editor"), m_isLinkedToEditor);
+	tb->ToggleTool(XRCID("link_editor"), m_bSyncWithEditor);
 	tb->AddTool(XRCID("collapse_all"), wxEmptyString, wxXmlResource::Get()->LoadBitmap(wxT("collapse")), wxT("Collapse All"), wxITEM_NORMAL);
 	tb->AddTool(XRCID("go_home"), wxEmptyString, wxXmlResource::Get()->LoadBitmap(wxT("gohome")), wxT("Goto Current Directory"), wxITEM_NORMAL);
 	tb->Realize();
 
-	Connect( XRCID("link_editor"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( FileExplorer::OnLinkEditor ));
-	Connect( XRCID("collapse_all"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( FileExplorer::OnCollapseAll ));
-	Connect( XRCID("go_home"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( FileExplorer::OnGoHome ));
+	Connect( XRCID("link_editor"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( CFileSystemBrowser::OnLinkEditor ));
+	Connect( XRCID("collapse_all"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( CFileSystemBrowser::OnCollapseAll ));
+	Connect( XRCID("go_home"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( CFileSystemBrowser::OnGoHome ));
 
 	mainSizer->Layout();
 
-    wxTheApp->Connect(XRCID("show_in_explorer"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(FileExplorer::OnShowFile), NULL, this);
-    wxTheApp->Connect(XRCID("show_in_explorer"), wxEVT_UPDATE_UI, wxUpdateUIEventHandler(FileExplorer::OnShowFileUI), NULL, this);
-    wxTheApp->Connect(wxEVT_WORKSPACE_LOADED, wxCommandEventHandler(FileExplorer::OnWorkspaceLoaded), NULL, this);
-    wxTheApp->Connect(wxEVT_ACTIVE_EDITOR_CHANGED, wxCommandEventHandler(FileExplorer::OnActiveEditorChanged), NULL, this);
+    wxTheApp->Connect(XRCID("show_in_filesystembrowser"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(CFileSystemBrowser::OnShowFile), NULL, this);
+    wxTheApp->Connect(XRCID("show_in_filesystembrowser"), wxEVT_UPDATE_UI, wxUpdateUIEventHandler(CFileSystemBrowser::OnShowFileUI), NULL, this);
+    wxTheApp->Connect(wxEVT_WORKSPACE_LOADED, wxCommandEventHandler(CFileSystemBrowser::OnWorkspaceLoaded), NULL, this);
+    wxTheApp->Connect(wxEVT_ACTIVE_EDITOR_CHANGED, wxCommandEventHandler(CFileSystemBrowser::OnActiveEditorChanged), NULL, this);
 }
 
-void FileExplorer::OnCollapseAll(wxCommandEvent &e)
+void CFileSystemBrowser::OnCollapseAll(wxCommandEvent &e)
 {
 	wxUnusedVar(e);
     m_fileTree->CollapseAll();
@@ -116,23 +116,23 @@ void FileExplorer::OnCollapseAll(wxCommandEvent &e)
 	m_fileTree->SetFocus();
 }
 
-void FileExplorer::OnGoHome(wxCommandEvent &e)
+void CFileSystemBrowser::OnGoHome(wxCommandEvent &e)
 {
 	wxUnusedVar(e);
 	m_fileTree->ExpandToPath(wxGetCwd());
 	m_fileTree->SetFocus();
 }
 
-void FileExplorer::OnLinkEditor(wxCommandEvent &e)
+void CFileSystemBrowser::OnLinkEditor(wxCommandEvent &e)
 {
-	m_isLinkedToEditor = !m_isLinkedToEditor;
-	EditorConfigST::Get()->SaveLongValue(wxT("LinkFileExplorerToEditor"), m_isLinkedToEditor ? 1 : 0);
-    if (m_isLinkedToEditor) {
+	m_bSyncWithEditor = !m_bSyncWithEditor;
+	EditorConfigST::Get()->SaveLongValue(wxT("SyncFileSystemBrowserToEditor"), m_bSyncWithEditor ? 1 : 0);
+    if (m_bSyncWithEditor) {
         OnActiveEditorChanged(e);
     }
 }
 
-void FileExplorer::OnShowFile(wxCommandEvent& e)
+void CFileSystemBrowser::OnShowFile(wxCommandEvent& e)
 {
     LEditor *editor = Frame::Get()->GetMainBook()->GetActiveEditor();
     if (editor && editor->GetFileName().FileExists()) {
@@ -142,16 +142,16 @@ void FileExplorer::OnShowFile(wxCommandEvent& e)
     e.Skip();
 }
 
-void FileExplorer::OnShowFileUI(wxUpdateUIEvent& e)
+void CFileSystemBrowser::OnShowFileUI(wxUpdateUIEvent& e)
 {
 	LEditor *editor = Frame::Get()->GetMainBook()->GetActiveEditor();
 	e.Enable(editor && editor->GetFileName().FileExists());
 }
 
-void FileExplorer::OnActiveEditorChanged(wxCommandEvent& e)
+void CFileSystemBrowser::OnActiveEditorChanged(wxCommandEvent& e)
 {
     e.Skip();
-    if (m_isLinkedToEditor) {
+    if (m_bSyncWithEditor) {
         LEditor *editor = Frame::Get()->GetMainBook()->GetActiveEditor();
         if (editor && editor->GetFileName().FileExists()) {
             m_fileTree->ExpandToPath(editor->GetFileName());
@@ -159,16 +159,16 @@ void FileExplorer::OnActiveEditorChanged(wxCommandEvent& e)
     }
 }
 
-void FileExplorer::OnWorkspaceLoaded(wxCommandEvent& e)
+void CFileSystemBrowser::OnWorkspaceLoaded(wxCommandEvent& e)
 {
     e.Skip();
     wxUnusedVar(e);
-    if (m_isLinkedToEditor) {
-        m_fileTree->ExpandToPath(WorkspaceST::Get()->GetWorkspaceFileName().GetPath());
+    if (m_bSyncWithEditor) {
+        m_fileTree->ExpandToPath(SolutionST::Get()->GetWorkspaceFileName().GetPath());
     }
 }
 
-void FileExplorer::OnRootChanged(wxCommandEvent &e)
+void CFileSystemBrowser::OnRootChanged(wxCommandEvent &e)
 {
 	wxTreeItemId root = m_fileTree->GetRootItem();
 	if(root.IsOk()){
@@ -188,14 +188,14 @@ void FileExplorer::OnRootChanged(wxCommandEvent &e)
 
 #ifdef __WXMSW__
 #if wxUSE_FSVOLUME
-void FileExplorer::OnVolumeChanged(wxCommandEvent &e)
+void CFileSystemBrowser::OnVolumeChanged(wxCommandEvent &e)
 {
 	wxUnusedVar(e);
 	m_fileTree->SetRootPath(m_volumes->GetStringSelection());
 	m_fileTree->SetFocus();
 }
 
-void FileExplorer::OnVolumes(wxCommandEvent &e)
+void CFileSystemBrowser::OnVolumes(wxCommandEvent &e)
 {
 	wxString curvol = m_volumes->GetStringSelection();
 	wxArrayString volumes = wxStringTokenize(e.GetString(), wxT(";"), wxTOKEN_STRTOK);

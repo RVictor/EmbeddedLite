@@ -1,27 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : vcimporter.cpp
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include "vcimporter.h"
 #include "wx/filename.h"
 #include "macros.h"
@@ -152,7 +143,7 @@ void VcImporter::CreateWorkspace()
 	//create a workspace file from the data we collected
 	wxFileName fn(m_fileName);
 	wxString errMsg;
-	WorkspaceST::Get()->CreateWorkspace(fn.GetName(), fn.GetPath(), errMsg);
+	SolutionST::Get()->CreateWorkspace(fn.GetName(), fn.GetPath(), errMsg);
 }
 
 //
@@ -208,12 +199,12 @@ bool VcImporter::ConvertProject(VcProjectData &data)
 	//now we can create the project
 	wxFileName fn(data.filepath);
 	fn.MakeAbsolute();
-	if (!WorkspaceST::Get()->CreateProject(data.name, fn.GetPath(), projectType, true, errMsg)) {
+	if (!SolutionST::Get()->CreateProject(data.name, fn.GetPath(), projectType, true, errMsg)) {
 		return false;
 	}
 
 	//get the new project instance
-	ProjectPtr proj = WorkspaceST::Get()->FindProjectByName(data.name, errMsg);
+	ProjectPtr proj = SolutionST::Get()->FindProjectByName(data.name, errMsg);
 	ProjectSettingsPtr le_settings(new ProjectSettings(NULL));
 	//remove the default 'Debug' configuration
 	le_settings->RemoveConfiguration(wxT("Debug"));

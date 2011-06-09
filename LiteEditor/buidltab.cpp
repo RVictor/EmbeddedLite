@@ -1,27 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : buidltab.cpp
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include "precompiled_header.h"
 #include <wx/ffile.h>
 #include "globals.h"
@@ -60,11 +51,11 @@ BuildTab::BuildTab ( wxWindow *parent, wxWindowID id, const wxString &name )
 		, m_errorCount ( 0 )
 		, m_warnCount ( 0 )
 {
-	m_tb->RemoveTool ( XRCID ( "repeat_output" ) );
+	m_tb->RemoveTool (XRCID("repeat_output") );
 
-	m_tb->AddTool ( XRCID ( "advance_settings" ), wxT ( "Set compiler colours..." ),
-	                wxXmlResource::Get()->LoadBitmap ( wxT ( "colourise" ) ), wxT ( "Set compiler colours..." ) );
-	Connect ( XRCID ( "advance_settings" ),wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler ( BuildTab::OnCompilerColours ), NULL, this );
+	m_tb->AddTool (XRCID("advance_settings"), wxT ( "Set compiler colours..."),
+	                wxXmlResource::Get()->LoadBitmap ( wxT ( "colourise") ), wxT ( "Set compiler colours...") );
+	Connect (XRCID("advance_settings"),wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler ( BuildTab::OnCompilerColours ), NULL, this );
 	m_tb->Realize();
 
 	wxTheApp->Connect ( wxEVT_SHELL_COMMAND_STARTED,         wxCommandEventHandler ( BuildTab::OnBuildStarted ),    NULL, this );
@@ -72,11 +63,11 @@ BuildTab::BuildTab ( wxWindow *parent, wxWindowID id, const wxString &name )
 	wxTheApp->Connect ( wxEVT_SHELL_COMMAND_ADDLINE,         wxCommandEventHandler ( BuildTab::OnBuildAddLine ),    NULL, this );
 	wxTheApp->Connect ( wxEVT_SHELL_COMMAND_PROCESS_ENDED,   wxCommandEventHandler ( BuildTab::OnBuildEnded ),      NULL, this );
 	wxTheApp->Connect ( wxEVT_WORKSPACE_LOADED,              wxCommandEventHandler ( BuildTab::OnWorkspaceLoaded ), NULL, this );
-	wxTheApp->Connect ( wxEVT_WORKSPACE_CLOSED,              wxCommandEventHandler ( BuildTab::OnWorkspaceClosed ), NULL, this );
+	wxTheApp->Connect ( wxEVT_WORKSPACE_CLOSED,              wxCommandEventHandler ( BuildTab::OnSolutionClosed ), NULL, this );
 	wxTheApp->Connect ( wxEVT_EDITOR_CONFIG_CHANGED,         wxCommandEventHandler ( BuildTab::OnConfigChanged ),   NULL, this );
 
-	wxTheApp->Connect ( XRCID ( "next_error" ), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler ( BuildTab::OnNextBuildError ),   NULL, this );
-	wxTheApp->Connect ( XRCID ( "next_error" ), wxEVT_UPDATE_UI,             wxUpdateUIEventHandler ( BuildTab::OnNextBuildErrorUI ), NULL, this );
+	wxTheApp->Connect (XRCID("next_error"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler ( BuildTab::OnNextBuildError ),   NULL, this );
+	wxTheApp->Connect (XRCID("next_error"), wxEVT_UPDATE_UI,             wxUpdateUIEventHandler ( BuildTab::OnNextBuildErrorUI ), NULL, this );
 
 	wxTheApp->Connect ( wxEVT_ACTIVE_EDITOR_CHANGED, wxCommandEventHandler ( BuildTab::OnActiveEditorChanged ), NULL, this );
 
@@ -117,7 +108,7 @@ int BuildTab::ColorLine ( int, const char *text, size_t &start, size_t &len )
 void BuildTab::Initialize()
 {
 	BuildTabSettingsData options;
-	EditorConfigST::Get()->ReadObject ( wxT ( "build_tab_settings" ), &options );
+	EditorConfigST::Get()->ReadObject ( wxT ( "build_tab_settings"), &options );
 
 	m_showMe       = options.GetShowBuildPane();
 	m_autoHide     = options.GetAutoHide();
@@ -131,7 +122,7 @@ void BuildTab::Initialize()
 void BuildTab::SetStyles ( wxScintilla *sci )
 {
 	BuildTabSettingsData options;
-	EditorConfigST::Get()->ReadObject ( wxT ( "build_tab_settings" ), &options );
+	EditorConfigST::Get()->ReadObject ( wxT ( "build_tab_settings"), &options );
 
 	InitStyle ( sci, wxSCI_LEX_GCC, true );
 
@@ -153,7 +144,7 @@ void BuildTab::SetStyles ( wxScintilla *sci )
 	sci->StyleSetForeground ( wxSCI_LEX_GCC_ERROR, options.GetErrorColour() );
 	sci->StyleSetBackground ( wxSCI_LEX_GCC_ERROR, options.GetErrorColourBg() );
 
-	sci->StyleSetForeground ( wxSCI_LEX_GCC_FILE_LINK, wxT ( "BLUE" ) );
+	sci->StyleSetForeground ( wxSCI_LEX_GCC_FILE_LINK, wxT ( "BLUE") );
 
 	sci->StyleSetHotSpot ( wxSCI_LEX_GCC_FILE_LINK, true );
 	sci->StyleSetHotSpot ( wxSCI_LEX_GCC_BUILDING, true );
@@ -446,7 +437,7 @@ void BuildTab::OnBuildStarted ( wxCommandEvent &e )
 	}
 	
 	AppendText ( BUILD_START_MSG );
-//	Frame::Get()->SetStatusMessage ( e.GetString(), 3, XRCID ( "build" ) );
+//	Frame::Get()->SetStatusMessage ( e.GetString(), 3, XRCID ( "build") );
     OutputPane *opane = Frame::Get()->GetOutputPane();
 	if (m_showMe == BuildTabSettingsData::ShowOnEnd &&
             m_autoHide &&
@@ -481,19 +472,19 @@ void BuildTab::OnBuildEnded ( wxCommandEvent &e )
 	m_building = false;
 	AppendText (BUILD_END_MSG);
 
-	wxString term = wxString::Format ( wxT ( "%d errors, %d warnings" ), m_errorCount, m_warnCount );
+	wxString term = wxString::Format ( wxT ( "%d errors, %d warnings"), m_errorCount, m_warnCount );
 	long elapsed = m_sw.Time() / 1000;
 	if ( elapsed > 10 ) {
 		long sec = elapsed % 60;
 		long hours = elapsed / 3600;
 		long minutes = ( elapsed % 3600 ) / 60;
-		term << wxString::Format ( wxT ( ", total time: %02d:%02d:%02d seconds" ), hours, minutes, sec );
+		term << wxString::Format ( wxT ( ", total time: %02d:%02d:%02d seconds"), hours, minutes, sec );
 
 	}
 	term << wxT ( '\n' );
 	AppendText ( term );
 
-//	Frame::Get()->SetStatusMessage ( wxEmptyString, 3, XRCID ( "build" ) );
+//	Frame::Get()->SetStatusMessage ( wxEmptyString, 3, XRCID ( "build") );
 
 	bool success = m_errorCount == 0 && ( m_skipWarnings || m_warnCount == 0 );
 	bool viewing = ManagerST::Get()->IsPaneVisible ( Frame::Get()->GetOutputPane()->GetCaption() ) &&
@@ -526,7 +517,7 @@ void BuildTab::OnWorkspaceLoaded ( wxCommandEvent &e )
 	Clear();
 }
 
-void BuildTab::OnWorkspaceClosed ( wxCommandEvent &e )
+void BuildTab::OnSolutionClosed ( wxCommandEvent &e )
 {
 	e.Skip();
 	Clear();
@@ -536,9 +527,9 @@ void BuildTab::OnConfigChanged ( wxCommandEvent &e )
 {
 	e.Skip();
 	const wxString *config = ( const wxString * ) e.GetClientData();
-	if ( config && *config == wxT ( "build_tab_settings" ) ) {
+	if ( config && *config == wxT ( "build_tab_settings") ) {
 		Initialize();
-		Frame::Get()->GetOutputPane()->GetErrorsTab()->OnRedisplayLines ( e );
+		Frame::Get()->GetOutputPane()->GetErrorsTab()->OnRedisplayLines (e);
 	}
 }
 
@@ -551,7 +542,7 @@ void BuildTab::OnCompilerColours ( wxCommandEvent &e )
 
 void BuildTab::OnNextBuildError ( wxCommandEvent &e )
 {
-	wxUnusedVar ( e );
+	wxUnusedVar (e);
 	if ( (m_errorCount > 0) || (!m_skipWarnings && m_warnCount > 0) ) {
 		std::map<int,LineInfo>::iterator i = GetNextBadLine();
 		if ( i != m_lineInfo.end() ) {

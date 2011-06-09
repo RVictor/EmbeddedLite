@@ -1,20 +1,20 @@
 /**
   \file entry.h
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 2 of the License, or
   (at your option) any later version.
 */
-#ifndef CODELITE_ENTRY_H
-#define CODELITE_ENTRY_H
+#ifndef EMBEDDEDLITE_ENTRY_H
+#define EMBEDDEDLITE_ENTRY_H
 
 #include <wx/treectrl.h>
 #include "readtags.h"
@@ -257,4 +257,4 @@ private:
 };
 
 typedef SmartPtr<TagEntry> TagEntryPtr;
-#endif // CODELITE_ENTRY_H
+#endif // EMBEDDEDLITE_ENTRY_H

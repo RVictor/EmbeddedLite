@@ -109,11 +109,11 @@ public:
 	 */
 	bool CreateAndAddFile(const wxString &filename, const wxString &vdFullPath);
 
-	bool AddFilesToVirtualFolder(wxTreeItemId &item, wxArrayString &paths);
-	bool AddFilesToVirtualFolder(const wxString &vdFullPath, wxArrayString &paths);
-	bool AddFilesToVirtualFolderIntelligently(const wxString& vdFullPath, wxArrayString& paths);
+	bool AddFilesToGroupFolder(wxTreeItemId &item, wxArrayString &paths);
+	bool AddFilesToGroupFolder(const wxString &vdFullPath, wxArrayString &paths);
+	bool AddFilesToGroupFolderIntelligently(const wxString& vdFullPath, wxArrayString& paths);
 
-	bool CreateVirtualDirectory(const wxString &parentPath, const wxString &vdName);
+	bool CreateGroupFolder(const wxString &parentPath, const wxString &vdName);
 
 protected:
 	virtual void OnPopupMenu(wxTreeEvent &event);
@@ -123,7 +123,7 @@ protected:
 	virtual void OnSetActive(wxCommandEvent &event);
 	virtual void OnNewItem(wxCommandEvent &event);
 	virtual void OnAddExistingItem(wxCommandEvent &event);
-	virtual void OnNewVirtualFolder(wxCommandEvent &event);
+	virtual void OnNewGroupFolder(wxCommandEvent &event);
 	virtual void OnLocalPrefs(wxCommandEvent &event);
 	virtual void OnProjectProperties(wxCommandEvent &event);
 	virtual void OnSortItem(wxCommandEvent &event);
@@ -151,7 +151,7 @@ protected:
     virtual void OnPreprocessItem(wxCommandEvent &e);
 	virtual void SortTree();
 	virtual void SortItem(wxTreeItemId &item);
-	virtual void OnRenameVirtualFolder(wxCommandEvent &e);
+	virtual void OnRenameGroupFolder(wxCommandEvent &e);
 	virtual wxTreeItemId ItemByFullPath(const wxString &fullPath);
 	virtual void OnLocalWorkspaceSettings(wxCommandEvent &e);
 
@@ -173,7 +173,7 @@ private:
 	bool DoAddNewItem(wxTreeItemId &item, const wxString &filename, const wxString &vdFullpath);
 	void DoRemoveProject(const wxString &name);
 	void DoSetProjectActive(wxTreeItemId &item);
-	void DoAddVirtualFolder(wxTreeItemId &parent, const wxString &text);
+	void DoAddGroupFolder(wxTreeItemId &parent, const wxString &text);
 	void DoRemoveVirtualFolder(wxTreeItemId &parent);
 	void DoRemoveItems();
 	void DoItemActivated(wxTreeItemId &item, wxEvent &event);

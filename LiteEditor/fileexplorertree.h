@@ -30,7 +30,7 @@
 
 class wxMenu;
 
-class FileExplorerTree : public wxVirtualDirTreeCtrl
+class CFileSystemBrowserTree : public wxVirtualDirTreeCtrl
 {
 	wxMenu *m_rclickMenu;
 	bool m_itemsAdded;	// flags new items when node expanded, so we can call DoTagsUpdated()
@@ -44,8 +44,8 @@ private:
 	void DoTagsUpdated(const std::vector<wxFileName>& files, bool bold);
 	
 public:
-	FileExplorerTree(wxWindow *parent, wxWindowID id = wxID_ANY);
-	virtual ~FileExplorerTree();
+	CFileSystemBrowserTree(wxWindow *parent, wxWindowID id = wxID_ANY);
+	virtual ~CFileSystemBrowserTree();
 	TreeItemInfo GetSelectedItemInfo();
 
 protected:

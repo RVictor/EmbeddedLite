@@ -1,12 +1,12 @@
 /**
-  \file localoptions.cpp
+  \file 
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -290,7 +290,7 @@ bool LocalWorkspace::SaveXmlFile()
 bool LocalWorkspace::SanityCheck()
 {
 	wxLogNull noLog;
-    wxString WorkspaceFullPath = WorkspaceST::Get()->GetWorkspaceFileName().GetFullPath();
+    wxString WorkspaceFullPath = SolutionST::Get()->GetWorkspaceFileName().GetFullPath();
     if (WorkspaceFullPath.IsEmpty()) {
         return false;
     }
@@ -309,7 +309,7 @@ bool LocalWorkspace::Create()
 {
     m_doc = wxXmlDocument();
     // The idea is to make a name in the format foo.workspace.frodo
-    wxString fullpath = WorkspaceST::Get()->GetWorkspaceFileName().GetFullPath() + wxT('.') + clGetUserName();
+    wxString fullpath = SolutionST::Get()->GetWorkspaceFileName().GetFullPath() + wxT('.') + clGetUserName();
 	m_fileName = wxFileName(fullpath);
 	m_fileName.MakeAbsolute();
 

@@ -37,7 +37,7 @@ OpenResourceDialogBase::OpenResourceDialogBase( wxWindow* parent, wxWindowID id,
 	m_textCtrlResourceName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER|wxTE_RICH2 );
 	fgSizer1->Add( m_textCtrlResourceName, 0, wxALL|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	wxString m_choiceResourceTypeChoices[] = { _("Workspace file"), _("Class, struct or union"), _("Function"), _("Typedef"), _("Macro"), _("Namespace") };
+	wxString m_choiceResourceTypeChoices[] = { _("Solution file"), _("Class, struct or union"), _("Function"), _("Typedef"), _("Macro"), _("Namespace") };
 	int m_choiceResourceTypeNChoices = sizeof( m_choiceResourceTypeChoices ) / sizeof( wxString );
 	m_choiceResourceType = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceResourceTypeNChoices, m_choiceResourceTypeChoices, 0 );
 	m_choiceResourceType->SetSelection( 0 );

@@ -1,29 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah                            
-// file name            : FlexLexer.h              
-//                                                                          
-// -------------------------------------------------------------------------
-// A                                                                        
-//              _____           _      _     _ _                            
-//             /  __ \         | |    | |   (_) |                           
-//             | /  \/ ___   __| | ___| |    _| |_ ___                      
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )                     
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/                     
-//              \____/\___/ \__,_|\___\_____/_|\__\___|                     
-//                                                                          
-//                                                  F i l e                 
-//                                                                          
-//    This program is free software; you can redistribute it and/or modify  
-//    it under the terms of the GNU General Public License as published by  
-//    the Free Software Foundation; either version 2 of the License, or     
-//    (at your option) any later version.                                   
-//                                                                          
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
- // $Header: /CVS/wxUS/wxXtudio/Apps/USClient/FlexLexer.h,v 1.2 2006/02/08 14:30:12 eran Exp $
+/**
+  \file 
 
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 // FlexLexer.h -- define interfaces for lexical analyzer classes generated
 //		  by flex
 
@@ -65,9 +54,9 @@
 //	#include <FlexLexer.h>
 //	...
 
-#ifndef CODELITE_FLEX_LEXER_H
+#ifndef EMBEDDEDLITE_FLEX_LEXER_H
 // Never included before - need to define base class.
-#define CODELITE_FLEX_LEXER_H
+#define EMBEDDEDLITE_FLEX_LEXER_H
 #include <wx/string.h>
 #include <iostream>
 
@@ -219,4 +208,4 @@ protected:
 
 } // namespace flex
 
-#endif // CODELITE_FLEX_LEXER_H
+#endif // EMBEDDEDLITE_FLEX_LEXER_H

@@ -341,10 +341,10 @@ void FindReplaceDialog::SendEvent(wxEventType type)
 	event.SetEventObject(this);
 
 	if ( GetEventOwner() == NULL ){
-		GetEventHandler()->ProcessEvent( event );
+		GetEventHandler()->ProcessEvent(event);
 	}else{
 		// If an event owner was provided, pass it the event
-		GetEventOwner()->ProcessEvent( event );
+		GetEventOwner()->ProcessEvent(event);
 	}
 }
 

@@ -56,7 +56,7 @@ ConfigManagerBaseDlg::ConfigManagerBaseDlg( wxWindow* parent, wxWindowID id, con
 	wxBoxSizer* bSizer6;
 	bSizer6 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_staticText2 = new wxStaticText( this, wxID_ANY, wxT("Workspace Configuration:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText2 = new wxStaticText( this, wxID_ANY, wxT("Solution Configuration:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText2->Wrap( -1 );
 	bSizer6->Add( m_staticText2, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	

@@ -1,27 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : shelltab.cpp
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include <wx/xrc/xmlres.h>
 
 #include "macros.h"
@@ -75,7 +66,7 @@ ShellTab::ShellTab(wxWindow* parent, wxWindowID id, const wxString& name)
 	btn = new wxButton(this, XRCID("stop_process"), wxT("Stop"), wxDefaultPosition, wxDefaultSize, wxBU_EXACTFIT);
 	m_inputSizer->Add(btn, 0, wxRIGHT|wxLEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-	m_findBar = new QuickFindBar(this);
+	m_findBar = new CQuickFindBar(this);
 	m_findBar->Connect(m_findBar->GetCloseButtonId(), wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(ShellTab::OnShowInput), NULL, this);
 	m_findBar->SetEditor(m_sci);
 

@@ -1,29 +1,20 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : precompiled_header.h
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-#ifndef CODELITE_PRECOMPILED_HEADER_H
-#define CODELITE_PRECOMPILED_HEADER_H
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
+#ifndef EMBEDDEDLITE_PRECOMPILED_HEADER_H
+#define EMBEDDEDLITE_PRECOMPILED_HEADER_H
 
 // Only include the headers we need here
 #include <wx/app.h>
@@ -83,4 +74,4 @@
     #define _C(x) _CC((x),wxConvUTF8)
 #endif
 
-#endif // CODELITE_PRECOMPILED_HEADER_H
+#endif // EMBEDDEDLITE_PRECOMPILED_HEADER_H

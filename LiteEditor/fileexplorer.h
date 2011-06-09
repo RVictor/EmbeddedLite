@@ -29,25 +29,25 @@
 #include "wx/choice.h"
 #include "volumelocatorthread.h"
 
-class FileExplorerTree;
+class CFileSystemBrowserTree;
 
-class FileExplorer : public wxPanel
+class CFileSystemBrowser : public wxPanel
 {
-private:
-	FileExplorerTree *m_fileTree;
-	wxString m_caption;
-	bool m_isLinkedToEditor;
+  private:
+	  CFileSystemBrowserTree* m_fileTree;
+	  wxString m_caption;
+	  bool m_bSyncWithEditor;
 
-	void CreateGUIControls();
+	  void CreateGUIControls();
  	
     void OnLinkEditor(wxCommandEvent &e);
     void OnCollapseAll(wxCommandEvent &e);
-	void OnGoHome(wxCommandEvent &e);
+  	void OnGoHome(wxCommandEvent &e);
     void OnShowFile(wxCommandEvent &e);
     void OnShowFileUI(wxUpdateUIEvent &e);
     void OnWorkspaceLoaded(wxCommandEvent &e);
     void OnActiveEditorChanged(wxCommandEvent &e);
-	void OnRootChanged(wxCommandEvent &e);
+	  void OnRootChanged(wxCommandEvent &e);
 
 #ifdef __WXMSW__
 #if wxUSE_FSVOLUME
@@ -60,11 +60,11 @@ private:
 #endif // __WXMSW__
 
 public:
-	FileExplorer(wxWindow *parent, const wxString &caption);
-	virtual ~FileExplorer();
+	CFileSystemBrowser(wxWindow *parent, const wxString &caption);
+	virtual ~CFileSystemBrowser();
     
 	const wxString &GetCaption() const{return m_caption;}
-	FileExplorerTree *GetFileTree() {return m_fileTree;}
+	CFileSystemBrowserTree *GetFileTree() {return m_fileTree;}
 };
 
 #endif //FILEEXPLORER_H

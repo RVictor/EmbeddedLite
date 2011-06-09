@@ -91,7 +91,7 @@ bool eQueueImpl<T>::put ( const T& item )
 {
 	pthread_mutex_lock ( &m_mutex );
 	bool was_empty = m_queue.empty();
-	m_queue.push_back ( item );
+	m_queue.push_back (item);
 	if ( was_empty ) {
 		pthread_cond_signal ( &m_cond );
 	}

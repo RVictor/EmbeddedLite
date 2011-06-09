@@ -1,12 +1,12 @@
 /**
-  \file workspace.h
+  \file 
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -38,12 +38,12 @@
 
 /*!
  * \brief
- * Workspace manager class
+ * CSolution manager class
  *
  */
-class WXDLLIMPEXP_LE_SDK Workspace
+class WXDLLIMPEXP_LE_SDK CSolution
 {
-	friend class Singleton<Workspace>;
+	friend class Singleton<CSolution>;
 	wxXmlDocument m_doc;
 	wxFileName m_fileName;
 	std::map<wxString, ProjectPtr> m_projects;
@@ -53,10 +53,10 @@ class WXDLLIMPEXP_LE_SDK Workspace
 private:
 
 	/// Constructor
-	Workspace();
+	CSolution();
 
 	/// Destructor
-	virtual ~Workspace();
+	virtual ~CSolution();
 
 public:
 
@@ -88,7 +88,7 @@ public:
 	 * Open an existing workspace
 	 *
 	 * \param fileName
-	 * Workspace file name (including extesion)
+	 * CSolution file name (including extesion)
 	 *
 	 * \returns
 	 * true on success false otherwise
@@ -177,7 +177,7 @@ public:
 	 * \param errMsg [output] incase an error, report the error to the caller
 	 * \return true on success false otherwise
 	 */
-	bool CreateVirtualDirectory(const wxString &vdFullPath, wxString &errMsg);
+	bool CreateGroupFolder(const wxString &vdFullPath, wxString &errMsg);
 
 	/**
 	 * Remove virtual directoy to workspace
@@ -185,7 +185,7 @@ public:
 	 * \param errMsg [output] incase an error, report the error to the caller
 	 * \return true on success false otherwise
 	 */
-	bool RemoveVirtualDirectory(const wxString &vdFullPath, wxString &errMsg);
+	bool RemoveGroupFolder(const wxString &vdFullPath, wxString &errMsg);
 
 	/**
 	 * Add new file to project. The project name is taken from the virtual directory full path
@@ -286,6 +286,6 @@ private:
 	bool SaveXmlFile();
 };
 
-typedef Singleton<Workspace> WorkspaceST;
+typedef Singleton<CSolution> SolutionST;
 
 #endif // WORKSPACE_H

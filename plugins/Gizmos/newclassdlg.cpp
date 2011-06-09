@@ -59,15 +59,15 @@ NewClassDlg::NewClassDlg( wxWindow* parent, IManager *mgr )
 
 	//set the class path to be the active project path
 	wxString errMsg;
-	if (m_mgr->GetWorkspace()) {
+	if (m_mgr->GetSolution()) {
 		if (item.m_item.IsOk() && item.m_itemType == ProjectItem::TypeVirtualDirectory) {
 
 			m_textCtrlGenFilePath->SetValue(item.m_fileName.GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
 
 		} else {
 
-			wxString projname = m_mgr->GetWorkspace()->GetActiveProjectName();
-			ProjectPtr proj = m_mgr->GetWorkspace()->FindProjectByName(projname, errMsg);
+			wxString projname = m_mgr->GetSolution()->GetActiveProjectName();
+			ProjectPtr proj = m_mgr->GetSolution()->FindProjectByName(projname, errMsg);
 			if (proj) {
 				m_textCtrlGenFilePath->SetValue(proj->GetFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
 			}
@@ -325,7 +325,7 @@ void NewClassDlg::OnBrowseFolder(wxCommandEvent& e)
 void NewClassDlg::OnBrowseVD(wxCommandEvent& e)
 {
 	wxUnusedVar(e);
-	VirtualDirectorySelector dlg(this, m_mgr->GetWorkspace(), m_textCtrlVD->GetValue());
+	VirtualDirectorySelector dlg(this, m_mgr->GetSolution(), m_textCtrlVD->GetValue());
 	if(dlg.ShowModal() == wxID_OK){
 		m_textCtrlVD->SetValue(dlg.GetVirtualDirectoryPath());
 	}

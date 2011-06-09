@@ -29,43 +29,43 @@
 
 class FileViewTree;
 
-class WorkspaceTab : public wxPanel
+class CSolutionTab: public wxPanel
 {
-	FileViewTree *m_fileView;
+	  FileViewTree* m_fileView;
     wxString      m_caption;
-    bool          m_isLinkedToEditor;
+    bool          m_bSyncWithEditor;
 
-	void CreateGUIControls();
+	  void CreateGUIControls();
     void ConnectEvents();
 
-	void OnLinkEditor           (wxCommandEvent  &e);
-	void OnToggleMultiSelection (wxCommandEvent  &e);
-	void OnCollapseAll          (wxCommandEvent  &e);
-	void OnCollapseAllUI        (wxUpdateUIEvent &e);
-	void OnGoHome               (wxCommandEvent  &e);
-	void OnGoHomeUI             (wxUpdateUIEvent &e);
-	void OnProjectSettingsUI    (wxUpdateUIEvent &e);
-	void OnProjectSettings      (wxCommandEvent  &e);
-    void OnShowFile             (wxCommandEvent  &e);
-    void OnShowFileUI           (wxUpdateUIEvent &e);
-	void OnShowProjectListPopup (wxCommandEvent  &e);
-	void OnMenuSelection        (wxCommandEvent  &e);
+	  void OnLinkEditor(wxCommandEvent &e);
+	  void OnToggleMultiSelection(wxCommandEvent &e);
+	  void OnCollapseAll(wxCommandEvent &e);
+	  void OnCollapseAllUI(wxUpdateUIEvent &e);
+	  void OnGoHome(wxCommandEvent &e);
+	  void OnGoHomeUI(wxUpdateUIEvent &e);
+	  void OnProjectSettingsUI(wxUpdateUIEvent &e);
+	  void OnProjectSettings(wxCommandEvent &e);
+    void OnShowFile(wxCommandEvent &e);
+    void OnShowFileUI(wxUpdateUIEvent &e);
+	  void OnShowProjectListPopup(wxCommandEvent &e);
+	  void OnMenuSelection(wxCommandEvent &e);
 
-    void OnWorkspaceLoaded      (wxCommandEvent  &e);
-    void OnWorkspaceClosed      (wxCommandEvent  &e);
-    void OnProjectAdded         (wxCommandEvent  &e);
-    void OnProjectRemoved       (wxCommandEvent  &e);
-    void OnProjectFileAdded     (wxCommandEvent  &e);
-    void OnProjectFileRemoved   (wxCommandEvent  &e);
-    void OnActiveEditorChanged  (wxCommandEvent  &e);
-    void OnEditorClosing        (wxCommandEvent  &e);
+    void OnWorkspaceLoaded(wxCommandEvent &e);
+    void OnSolutionClosed(wxCommandEvent &e);
+    void OnProjectAdded(wxCommandEvent &e);
+    void OnProjectRemoved(wxCommandEvent &e);
+    void OnProjectFileAdded(wxCommandEvent &e);
+    void OnProjectFileRemoved(wxCommandEvent &e);
+    void OnActiveEditorChanged(wxCommandEvent &e);
+    void OnEditorClosing(wxCommandEvent &e);
 
 
-public:
-	WorkspaceTab(wxWindow *parent, const wxString &caption);
-	~WorkspaceTab();
+  public:
+	  CSolutionTab(wxWindow *parent, const wxString &caption);
+	  ~CSolutionTab();
 
-	FileViewTree   *GetFileView()       { return m_fileView; }
-    const wxString &GetCaption () const { return m_caption;  }
+	  FileViewTree* GetFileView() { return m_fileView; }
+    const wxString &GetCaption() const { return m_caption; }
 };
 #endif // __workspacetab__

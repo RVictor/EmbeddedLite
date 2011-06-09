@@ -1,27 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : fileexplorertree.cpp
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include "fileexplorertree.h"
 #include "localworkspace.h"
 #include "editor_config.h"
@@ -37,36 +28,36 @@
 #include "elconfig.h"
 #include <wx/mimetype.h>
 
-BEGIN_EVENT_TABLE(FileExplorerTree, wxVirtualDirTreeCtrl)
-	EVT_TREE_ITEM_MENU(wxID_ANY, FileExplorerTree::OnContextMenu)
-	EVT_TREE_ITEM_ACTIVATED(wxID_ANY, FileExplorerTree::OnItemActivated)
-	EVT_TREE_ITEM_EXPANDED(wxID_ANY, FileExplorerTree::OnExpanded)
+BEGIN_EVENT_TABLE(CFileSystemBrowserTree, wxVirtualDirTreeCtrl)
+	EVT_TREE_ITEM_MENU(wxID_ANY, CFileSystemBrowserTree::OnContextMenu)
+	EVT_TREE_ITEM_ACTIVATED(wxID_ANY, CFileSystemBrowserTree::OnItemActivated)
+	EVT_TREE_ITEM_EXPANDED(wxID_ANY, CFileSystemBrowserTree::OnExpanded)
 END_EVENT_TABLE()
 
-FileExplorerTree::FileExplorerTree(wxWindow *parent, wxWindowID id)
+CFileSystemBrowserTree::CFileSystemBrowserTree(wxWindow *parent, wxWindowID id)
 		: wxVirtualDirTreeCtrl(parent, id)
 		, m_rclickMenu(NULL)
 		, m_itemsAdded(false)
 {
 	m_rclickMenu = wxXmlResource::Get()->LoadMenu(wxT("file_explorer_menu"));
-	Connect(XRCID("open_file"),                     wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(FileExplorerTree::OnOpenFile), NULL, this);
-	Connect(XRCID("open_file_in_text_editor"),      wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(FileExplorerTree::OnOpenFileInTextEditor), NULL, this);
-	Connect(XRCID("refresh_node"),                  wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(FileExplorerTree::OnRefreshNode), NULL, this);
-	Connect(XRCID("delete_node"),                   wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(FileExplorerTree::OnDeleteNode), NULL, this);
-    Connect(XRCID("search_node"),                   wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(FileExplorerTree::OnSearchNode), NULL, this);
-    Connect(XRCID("tags_add_global_include"),       wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(FileExplorerTree::OnTagNode), NULL, this);
-    Connect(XRCID("tags_add_global_exclude"),       wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(FileExplorerTree::OnTagNode), NULL, this);
-    Connect(XRCID("tags_add_workspace_include"),    wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(FileExplorerTree::OnTagNode), NULL, this);
-    Connect(XRCID("tags_add_workspace_exclude"),    wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(FileExplorerTree::OnTagNode), NULL, this);
-	Connect(XRCID("open_shell"),                    wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(FileExplorerTree::OnOpenShell), NULL, this);
-	Connect(XRCID("open_with_default_application"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(FileExplorerTree::OnOpenWidthDefaultApp), NULL, this);
-	Connect(GetId(),                                wxEVT_LEFT_DCLICK, wxMouseEventHandler( FileExplorerTree::OnMouseDblClick ) );
-	Connect(GetId(),                                wxEVT_COMMAND_TREE_KEY_DOWN, wxTreeEventHandler(FileExplorerTree::OnKeyDown));
+	Connect(XRCID("open_file"),                     wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(CFileSystemBrowserTree::OnOpenFile), NULL, this);
+	Connect(XRCID("open_file_in_text_editor"),      wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(CFileSystemBrowserTree::OnOpenFileInTextEditor), NULL, this);
+	Connect(XRCID("refresh_node"),                  wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(CFileSystemBrowserTree::OnRefreshNode), NULL, this);
+	Connect(XRCID("delete_node"),                   wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(CFileSystemBrowserTree::OnDeleteNode), NULL, this);
+    Connect(XRCID("search_node"),                   wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(CFileSystemBrowserTree::OnSearchNode), NULL, this);
+    Connect(XRCID("tags_add_global_include"),       wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(CFileSystemBrowserTree::OnTagNode), NULL, this);
+    Connect(XRCID("tags_add_global_exclude"),       wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(CFileSystemBrowserTree::OnTagNode), NULL, this);
+    Connect(XRCID("tags_add_solution_include"),    wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(CFileSystemBrowserTree::OnTagNode), NULL, this);
+    Connect(XRCID("tags_add_solution_exclude"),    wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(CFileSystemBrowserTree::OnTagNode), NULL, this);
+	Connect(XRCID("open_shell"),                    wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(CFileSystemBrowserTree::OnOpenShell), NULL, this);
+	Connect(XRCID("open_with_default_application"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(CFileSystemBrowserTree::OnOpenWidthDefaultApp), NULL, this);
+	Connect(GetId(),                                wxEVT_LEFT_DCLICK, wxMouseEventHandler( CFileSystemBrowserTree::OnMouseDblClick ) );
+	Connect(GetId(),                                wxEVT_COMMAND_TREE_KEY_DOWN, wxTreeEventHandler(CFileSystemBrowserTree::OnKeyDown));
 
-	TagsManagerST::Get()->Connect(wxEVT_UPDATE_FILETREE_EVENT, wxCommandEventHandler(FileExplorerTree::OnTagsUpdated), NULL, this);
+	TagsManagerST::Get()->Connect(wxEVT_UPDATE_FILETREE_EVENT, wxCommandEventHandler(CFileSystemBrowserTree::OnTagsUpdated), NULL, this);
 }
 
-FileExplorerTree::~FileExplorerTree()
+CFileSystemBrowserTree::~CFileSystemBrowserTree()
 {
 	if (m_rclickMenu) {
 		delete m_rclickMenu;
@@ -74,7 +65,7 @@ FileExplorerTree::~FileExplorerTree()
 	}
 }
 
-void FileExplorerTree::OnKeyDown(wxTreeEvent &e)
+void CFileSystemBrowserTree::OnKeyDown(wxTreeEvent &e)
 {
 	if (e.GetKeyCode() == WXK_RETURN || e.GetKeyCode() == WXK_NUMPAD_ENTER) {
 		wxTreeItemId item = GetSelection();
@@ -87,7 +78,7 @@ void FileExplorerTree::OnKeyDown(wxTreeEvent &e)
 	}
 }
 
-void FileExplorerTree::OnDeleteNode(wxCommandEvent &e)
+void CFileSystemBrowserTree::OnDeleteNode(wxCommandEvent &e)
 {
 	wxTreeItemId item = GetSelection();
 	if (item.IsOk()) {
@@ -131,7 +122,7 @@ void FileExplorerTree::OnDeleteNode(wxCommandEvent &e)
 	e.Skip();
 }
 
-void FileExplorerTree::OnSearchNode(wxCommandEvent &e)
+void CFileSystemBrowserTree::OnSearchNode(wxCommandEvent &e)
 {
     wxTreeItemId item = GetSelection();
     if (item.IsOk()) {
@@ -142,7 +133,7 @@ void FileExplorerTree::OnSearchNode(wxCommandEvent &e)
     e.Skip();
 }
 
-void FileExplorerTree::OnTagNode(wxCommandEvent &e)
+void CFileSystemBrowserTree::OnTagNode(wxCommandEvent &e)
 {
 	bool retagRequires (false);
     wxTreeItemId item = GetSelection();
@@ -173,7 +164,7 @@ void FileExplorerTree::OnTagNode(wxCommandEvent &e)
 				Frame::Get()->UpdateTagsOptions( tod );
 				retagRequires = true;
 			}
-		} else if ( e.GetId() == XRCID("tags_add_workspace_include") ){
+		} else if ( e.GetId() == XRCID("tags_add_solution_include") ){
 			wxArrayString includePaths, excludePaths;
 			LocalWorkspaceST::Get()->GetParserPaths(includePaths, excludePaths);
 
@@ -185,7 +176,7 @@ void FileExplorerTree::OnTagNode(wxCommandEvent &e)
 				ManagerST::Get()->UpdateParserPaths();
 				retagRequires = true;
 			}
-		} else if ( e.GetId() == XRCID("tags_add_workspace_exclude") ){
+		} else if ( e.GetId() == XRCID("tags_add_solution_exclude") ){
 			wxArrayString includePaths, excludePaths;
 			LocalWorkspaceST::Get()->GetParserPaths(includePaths, excludePaths);
 
@@ -201,13 +192,13 @@ void FileExplorerTree::OnTagNode(wxCommandEvent &e)
 
 		// send notification to the main frame to perform retag
 		if ( retagRequires ) {
-			wxCommandEvent event( wxEVT_COMMAND_MENU_SELECTED, XRCID("retag_workspace") );
-			Frame::Get()->GetEventHandler()->AddPendingEvent( event );
+			wxCommandEvent event( wxEVT_COMMAND_MENU_SELECTED, XRCID("retag_solution") );
+			Frame::Get()->GetEventHandler()->AddPendingEvent(event);
 		}
 	}
 }
 
-void FileExplorerTree::OnContextMenu(wxTreeEvent &event)
+void CFileSystemBrowserTree::OnContextMenu(wxTreeEvent &event)
 {
 	wxTreeItemId item = event.GetItem();
 	if (item.IsOk()) {
@@ -226,7 +217,7 @@ void FileExplorerTree::OnContextMenu(wxTreeEvent &event)
 	}
 }
 
-void FileExplorerTree::DoOpenItem(const wxTreeItemId &item)
+void CFileSystemBrowserTree::DoOpenItem(const wxTreeItemId &item)
 {
 	if (item.IsOk()) {
 		wxFileName fn = GetFullPath(item);
@@ -247,7 +238,7 @@ void FileExplorerTree::DoOpenItem(const wxTreeItemId &item)
 	}
 }
 
-void FileExplorerTree::DoOpenItemInTextEditor(const wxTreeItemId &item)
+void CFileSystemBrowserTree::DoOpenItemInTextEditor(const wxTreeItemId &item)
 {
 	if (item.IsOk()) {
 		wxFileName fn = GetFullPath(item);
@@ -255,20 +246,20 @@ void FileExplorerTree::DoOpenItemInTextEditor(const wxTreeItemId &item)
 	}
 }
 
-void FileExplorerTree::OnMouseDblClick( wxMouseEvent &event )
+void CFileSystemBrowserTree::OnMouseDblClick( wxMouseEvent &event )
 {
 	wxTreeItemId item = GetSelection();
 	// Make sure the double click was done on an actual item
 	int flags = wxTREE_HITTEST_ONITEMLABEL;
 
 	if (HitTest( event.GetPosition(), flags ) == item) {
-		DoItemActivated( item );
+		DoItemActivated(item);
 		return;
 	}
 	event.Skip();
 }
 
-void FileExplorerTree::DoItemActivated(const wxTreeItemId &item)
+void CFileSystemBrowserTree::DoItemActivated(const wxTreeItemId &item)
 {
 	if (item.IsOk()) {
 		VdtcTreeItemBase *b = (VdtcTreeItemBase *)GetItemData(item);
@@ -286,13 +277,13 @@ void FileExplorerTree::DoItemActivated(const wxTreeItemId &item)
 	}
 }
 
-void FileExplorerTree::OnItemActivated(wxTreeEvent &event)
+void CFileSystemBrowserTree::OnItemActivated(wxTreeEvent &event)
 {
 	DoItemActivated(event.GetItem());
 	event.Skip();
 }
 
-void FileExplorerTree::OnOpenFile(wxCommandEvent &e)
+void CFileSystemBrowserTree::OnOpenFile(wxCommandEvent &e)
 {
 	//Get the selected item
 	wxUnusedVar(e);
@@ -300,27 +291,27 @@ void FileExplorerTree::OnOpenFile(wxCommandEvent &e)
 	DoOpenItem(item);
 }
 
-void FileExplorerTree::OnOpenFileInTextEditor(wxCommandEvent &e)
+void CFileSystemBrowserTree::OnOpenFileInTextEditor(wxCommandEvent &e)
 {
 	wxUnusedVar(e);
 	wxTreeItemId item = GetSelection();
 	DoOpenItemInTextEditor(item);
 }
 
-TreeItemInfo FileExplorerTree::GetSelectedItemInfo()
+TreeItemInfo CFileSystemBrowserTree::GetSelectedItemInfo()
 {
 	wxTreeItemId item = GetSelection();
 	TreeItemInfo info;
 	info.m_item = item;
-	if ( item.IsOk() ) {
+	if (item.IsOk()) {
 		//set the text of the item
-		info.m_text = GetItemText( item );
+		info.m_text = GetItemText(item);
 		info.m_fileName  = GetFullPath(item);
 	}
 	return info;
 }
 
-void FileExplorerTree::OnRefreshNode(wxCommandEvent &event)
+void CFileSystemBrowserTree::OnRefreshNode(wxCommandEvent &event)
 {
 	wxUnusedVar(event);
 	wxTreeItemId item = GetSelection();
@@ -342,7 +333,7 @@ void FileExplorerTree::OnRefreshNode(wxCommandEvent &event)
 	Thaw();
 }
 
-void FileExplorerTree::OnOpenShell(wxCommandEvent &event)
+void CFileSystemBrowserTree::OnOpenShell(wxCommandEvent &event)
 {
 	DirSaver ds;
 	wxTreeItemId item = GetSelection();
@@ -359,7 +350,7 @@ void FileExplorerTree::OnOpenShell(wxCommandEvent &event)
 	}
 }
 
-void FileExplorerTree::OnOpenWidthDefaultApp(wxCommandEvent& e)
+void CFileSystemBrowserTree::OnOpenWidthDefaultApp(wxCommandEvent& e)
 {
 	wxUnusedVar(e);
 	wxTreeItemId item = GetSelection();
@@ -380,12 +371,12 @@ void FileExplorerTree::OnOpenWidthDefaultApp(wxCommandEvent& e)
 		// fallback code: suggest to the user to open the file with CL
 		if (wxMessageBox(wxString::Format(wxT("Could not find default application for file '%s'\nWould you like EmbeddedLite to open it?"), fullpath.GetFullName().c_str()), wxT("EmbeddedLite"),
 						 wxICON_QUESTION|wxYES_NO) == wxYES) {
-			DoOpenItem( item );
+			DoOpenItem(item);
 		}
 	}
 }
 
-void FileExplorerTree::OnExpanded(wxTreeEvent &event)
+void CFileSystemBrowserTree::OnExpanded(wxTreeEvent &event)
 {
     wxTreeItemId item = event.GetItem();
     if (item.IsOk() && m_itemsAdded) { // check if new items need to be bolded
@@ -398,12 +389,12 @@ void FileExplorerTree::OnExpanded(wxTreeEvent &event)
     }
 }
 
-void FileExplorerTree::OnAddedItems(const wxTreeItemId &parent)
+void CFileSystemBrowserTree::OnAddedItems(const wxTreeItemId &parent)
 {
     m_itemsAdded = true;
 }
 
-void FileExplorerTree::OnTagsUpdated(wxCommandEvent &e)
+void CFileSystemBrowserTree::OnTagsUpdated(wxCommandEvent &e)
 {
 	std::vector<wxFileName> *files = (std::vector<wxFileName>*)e.GetClientData();
 	if(TagsManagerST::Get()->GetCtagsOptions().GetFlags() & CC_MARK_TAGS_FILES_IN_BOLD){
@@ -413,7 +404,7 @@ void FileExplorerTree::OnTagsUpdated(wxCommandEvent &e)
 
 // Mark files (and their directories) bold in file explorer
 // Intended to highlight files that contribute tags.
-void FileExplorerTree::DoTagsUpdated(const std::vector<wxFileName>& files, bool bold)
+void CFileSystemBrowserTree::DoTagsUpdated(const std::vector<wxFileName>& files, bool bold)
 {
     // we use this map as a queue of nodes to check, where nodes are guaranteed to be sorted
     // by full pathname, and no duplicates will occur

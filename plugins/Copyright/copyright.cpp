@@ -130,8 +130,9 @@ void Copyright::HookPopupMenu(wxMenu *menu, MenuType type)
 	} else if (type == MenuTypeFileExplorer) {
 
 	} else if (type == MenuTypeFileView_Workspace) {
-		// Workspace menu
-		if ( !m_workspaceSepItem ) {
+		// CSolution menu
+		if ( !m_workspaceSepItem )
+		{
 			m_workspaceSepItem = menu->PrependSeparator();
 		}
 
@@ -160,7 +161,7 @@ void Copyright::UnHookPopupMenu(wxMenu *menu, MenuType type)
 	if (type == MenuTypeEditor) {
 		wxMenuItem *item = menu->FindItem(XRCID("insert_copyrights"));
 		if (item) {
-			menu->Destroy( item );
+			menu->Destroy(item);
 		}
 	} else if (type == MenuTypeFileExplorer) {
 		//TODO::Unhook  items for the file explorer context menu
@@ -168,7 +169,7 @@ void Copyright::UnHookPopupMenu(wxMenu *menu, MenuType type)
 
 		wxMenuItem *item = menu->FindItem(XRCID("batch_insert_copyrights"));
 		if (item) {
-			menu->Destroy( item );
+			menu->Destroy(item);
 		}
 
 		if (m_workspaceSepItem) {
@@ -179,7 +180,7 @@ void Copyright::UnHookPopupMenu(wxMenu *menu, MenuType type)
 	} else if (type == MenuTypeFileView_Project) {
 		wxMenuItem *item = menu->FindItem(XRCID("insert_prj_copyrights"));
 		if (item) {
-			menu->Destroy( item );
+			menu->Destroy(item);
 		}
 
 		if (m_projectSepItem) {
@@ -200,7 +201,7 @@ void Copyright::UnPlug()
 
 void Copyright::OnInsertCopyrights(wxCommandEvent& e)
 {
-	wxUnusedVar( e );
+	wxUnusedVar(e);
 
 	// read configuration
 	CopyrightsConfigData data;
@@ -238,7 +239,7 @@ void Copyright::OnInsertCopyrights(wxCommandEvent& e)
 	}
 
 	// expand constants
-	wxString _content = ExpandAllVariables(content, m_mgr->GetWorkspace(), wxEmptyString, wxEmptyString, editor->GetFileName().GetFullPath());
+	wxString _content = ExpandAllVariables(content, m_mgr->GetSolution(), wxEmptyString, wxEmptyString, editor->GetFileName().GetFullPath());
 
 	// we are good to go :)
 	wxString ignoreString = data.GetIgnoreString();
@@ -281,7 +282,7 @@ void Copyright::OnBatchInsertCopyrights(wxCommandEvent& e)
 		return;
 	}
 
-	CopyrightsProjectSelDlg dlg(m_mgr->GetTheApp()->GetTopWindow(), m_mgr->GetWorkspace());
+	CopyrightsProjectSelDlg dlg(m_mgr->GetTheApp()->GetTopWindow(), m_mgr->GetSolution());
 	if (dlg.ShowModal() == wxID_OK) {
 		wxArrayString projects;
 		dlg.GetProjects( projects );
@@ -293,7 +294,7 @@ void Copyright::OnBatchInsertCopyrights(wxCommandEvent& e)
 		std::vector<wxFileName> filtered_files;
 		// loop over the project and collect list of files to work with
 		for (size_t i=0; i<projects.size(); i++) {
-			ProjectPtr p = m_mgr->GetWorkspace()->FindProjectByName(projects.Item(i), err_msg);
+			ProjectPtr p = m_mgr->GetSolution()->FindProjectByName(projects.Item(i), err_msg);
 			if (p) {
 				p->GetFiles(files, true);
 			}
@@ -348,7 +349,7 @@ void Copyright::OnProjectInsertCopyrights(wxCommandEvent& e)
 	std::vector<wxFileName> files;
 	std::vector<wxFileName> filtered_files;
 	// loop over the project and collect list of files to work with
-	ProjectPtr p = m_mgr->GetWorkspace()->FindProjectByName(project_name, err_msg);
+	ProjectPtr p = m_mgr->GetSolution()->FindProjectByName(project_name, err_msg);
 	if (!p) {
 		return;
 	}
@@ -397,7 +398,7 @@ void Copyright::MassUpdate(const std::vector<wxFileName> &filtered_files, const 
 		wxFileName fn = filtered_files.at(i);
 
 		wxString file_content;
-		wxString _content = ExpandAllVariables(content, m_mgr->GetWorkspace(), wxEmptyString, wxEmptyString, fn.GetFullPath());
+		wxString _content = ExpandAllVariables(content, m_mgr->GetSolution(), wxEmptyString, wxEmptyString, fn.GetFullPath());
 		if (ReadFileWithConversion(fn.GetFullPath(), file_content)) {
 
 			wxString msg;

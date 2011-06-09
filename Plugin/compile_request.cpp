@@ -1,27 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : compile_request.cpp
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include "compile_request.h"
 #include <wx/app.h>
 #include <wx/log.h>
@@ -53,19 +44,21 @@ CompileRequest::~CompileRequest()
 }
 
 //do the actual cleanup
-void CompileRequest::Process(IManager *manager)
+void
+CompileRequest::Process(IManager *manager)
 {
-	wxString  cmd;
-	wxString  errMsg;
+	wxString cmd;
+	wxString errMsg;
 	StringMap om;
 
-	BuildSettingsConfig *bsc(manager ? manager->GetBuildSettingsConfigManager() : BuildSettingsConfigST::Get());
-	BuildManager *bm(manager ? manager->GetBuildManager() : BuildManagerST::Get());
-	Workspace *w(manager ? manager->GetWorkspace() : WorkspaceST::Get());
-	EnvironmentConfig *env(manager ? manager->GetEnv() : EnvironmentConfig::Instance());
+	BuildSettingsConfig* pBuildSettingsCfg = (NULL != manager) ? manager->GetBuildSettingsConfigManager() : BuildSettingsConfigST::Get();
+	BuildManager* pBuildManager = (NULL != manager) ? manager->GetBuildManager() : BuildManagerST::Get();
+	CSolution* pSolution = (NULL != manager) ? manager->GetSolution() : SolutionST::Get();
+	EnvironmentConfig* pEnvCfg = (NULL != manager) ? manager->GetEnv() : EnvironmentConfig::Instance();
 
-	ProjectPtr proj = w->FindProjectByName(m_info.GetProject(), errMsg);
-	if (!proj) {
+	ProjectPtr proj = pSolution->FindProjectByName(m_info.GetProject(), errMsg);
+	if (!proj)
+	{
 		AppendLine(wxT("Cant find project: ") + m_info.GetProject());
 		return;
 	}
@@ -77,25 +70,29 @@ void CompileRequest::Process(IManager *manager)
 	wxApp *app = manager ? manager->GetTheApp() : wxTheApp;
 	wxString pname (proj->GetName());
 
-	//BuilderPtr builder = bm->GetBuilder(wxT("GNU makefile for g++/gcc"));
-	BuilderPtr builder = bm->GetSelectedBuilder();
-	if (m_fileName.IsEmpty() == false) {
+	BuilderPtr builder = pBuildManager->GetSelectedBuilder();
+	if (!m_fileName.IsEmpty())
+	{
 		//we got a complie request of a single file
-		cmd = m_preprocessOnly ? builder->GetPreprocessFileCmd(m_info.GetProject(), m_info.GetConfiguration(), m_fileName, errMsg)
-		      : builder->GetSingleFileCmd(m_info.GetProject(), m_info.GetConfiguration(), m_fileName);
-	} else if (m_info.GetProjectOnly()) {
-
-		switch ( m_info.GetKind() ) {
-		case QueueCommand::ReBuild:
-			cmd = builder->GetPORebuildCommand(m_info.GetProject(), m_info.GetConfiguration());
-			break;
-		default:
-		case QueueCommand::Build:
-			cmd = builder->GetPOBuildCommand(m_info.GetProject(), m_info.GetConfiguration());
-			break;
+		cmd = m_preprocessOnly ? builder->GetPreprocessFileCmd(m_info.GetProject(), m_info.GetConfiguration(), m_fileName, errMsg) :
+		  builder->GetSingleFileCmd(m_info.GetProject(), m_info.GetConfiguration(), m_fileName);
+	}
+	else if (m_info.GetProjectOnly())
+	{
+		switch (m_info.GetKind())
+		{
+		  case QueueCommand::ReBuild:
+			  cmd = builder->GetPORebuildCommand(m_info.GetProject(), m_info.GetConfiguration());
+			  break;
+		  default:
+		  case QueueCommand::Build:
+			  cmd = builder->GetPOBuildCommand(m_info.GetProject(), m_info.GetConfiguration());
+			  break;
 		}
 
-	} else {
+	}
+	else
+	{
 		cmd = builder->GetBuildCommand(m_info.GetProject(), m_info.GetConfiguration());
 	}
 
@@ -104,8 +101,8 @@ void CompileRequest::Process(IManager *manager)
 	event.SetClientData((void*)&pname);
 	event.SetString( m_info.GetConfiguration() );
 
-	if (app->ProcessEvent(event)) {
-
+	if (app->ProcessEvent(event))
+	{
 		// the build is being handled by some plugin, no need to build it
 		// using the standard way
 		return;
@@ -117,10 +114,12 @@ void CompileRequest::Process(IManager *manager)
 
 	//if we require to run the makefile generation command only, replace the 'cmd' with the
 	//generation command line
-	BuildConfigPtr bldConf = w->GetProjBuildConf(m_info.GetProject(), m_info.GetConfiguration());
-	if (m_premakeOnly && bldConf) {
-		BuildConfigPtr bldConf = w->GetProjBuildConf(m_info.GetProject(), m_info.GetConfiguration());
-		if (bldConf) {
+	BuildConfigPtr bldConf = pSolution->GetProjBuildConf(m_info.GetProject(), m_info.GetConfiguration());
+	if (m_premakeOnly && bldConf)
+	{
+		BuildConfigPtr bldConf = pSolution->GetProjBuildConf(m_info.GetProject(), m_info.GetConfiguration());
+		if (NULL != bldConf)
+		{
 			cmd = bldConf->GetMakeGenerationCommand();
 		}
 
@@ -128,7 +127,7 @@ void CompileRequest::Process(IManager *manager)
 
 	if (bldConf) {
 		wxString cmpType = bldConf->GetCompilerType();
-		CompilerPtr cmp = bsc->GetCompiler(cmpType);
+		CompilerPtr cmp = pBuildSettingsCfg->GetCompiler(cmpType);
 		if (cmp) {
 			wxString value( cmp->GetPathVariable() );
 			if (value.Trim().Trim(false).IsEmpty() == false) {
@@ -154,7 +153,7 @@ void CompileRequest::Process(IManager *manager)
 	DoSetWorkingDirectory(proj, false, m_fileName.IsEmpty() == false);
 
 	//expand the variables of the command
-	cmd = ExpandAllVariables(cmd, w, m_info.GetProject(), m_info.GetConfiguration(), m_fileName);
+	cmd = ExpandAllVariables(cmd, pSolution, m_info.GetProject(), m_info.GetConfiguration(), m_fileName);
 
 	//print the build command
 	AppendLine(cmd + wxT("\n"));
@@ -182,7 +181,7 @@ void CompileRequest::Process(IManager *manager)
 		AppendLine(text);
 	}
 
-	EnvSetter envir(env, &om);
+	EnvSetter envir(pEnvCfg, &om);
 	m_proc = CreateAsyncProcess(this, cmd);
 	if (!m_proc ) {
 		wxString message;

@@ -1,12 +1,12 @@
 /**
-  \file globals.cpp
+  \file 
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -38,7 +38,8 @@
 #include <wx/tokenzr.h>
 #include <set>
 
-static wxString DoExpandAllVariables(const wxString &expression, Workspace *workspace, const wxString &projectName, const wxString &confToBuild, const wxString &fileName);
+  static wxString DoExpandAllVariables(const wxString &expression, CSolution* workspace, const wxString &projectName, 
+    const wxString &confToBuild, const wxString &fileName);
 
 #ifdef __WXMAC__
 #include <mach-o/dyld.h>
@@ -228,12 +229,13 @@ wxString ExpandVariables(const wxString &expression, ProjectPtr proj, IEditor *e
 	if ( editor ) {
 		fileName = editor->GetFileName().GetFullPath();
 	}
-	return ExpandAllVariables ( expression, WorkspaceST::Get(), project_name, wxEmptyString, fileName );
+	return ExpandAllVariables ( expression, SolutionST::Get(), project_name, wxEmptyString, fileName );
 
 }
 
 // This functions accepts expression and expand all variables in it
-wxString ExpandAllVariables(const wxString &expression, Workspace *workspace, const wxString &projectName, const wxString &selConf, const wxString &fileName)
+wxString
+ExpandAllVariables(const wxString &expression, CSolution* workspace, const wxString &projectName, const wxString &selConf, const wxString &fileName)
 {
 	//add support for backticks commands
 	wxString tmpExp;
@@ -282,7 +284,8 @@ wxString ExpandAllVariables(const wxString &expression, Workspace *workspace, co
 	return DoExpandAllVariables(tmpExp, workspace, projectName, selConf, fileName);
 }
 
-wxString DoExpandAllVariables(const wxString &expression, Workspace *workspace, const wxString &projectName, const wxString &confToBuild, const wxString &fileName)
+wxString
+DoExpandAllVariables(const wxString &expression, CSolution* workspace, const wxString &projectName, const wxString &confToBuild, const wxString &fileName)
 {
 	wxString errMsg;
 	wxString output(expression);
@@ -568,10 +571,10 @@ wxString clGetUserName()
 
 void GetProjectTemplateList ( IManager *manager, std::list<ProjectPtr> &list, std::map<wxString,int> *imageMap, wxImageList **lstImages )
 {
-	wxString tmplateDir = manager->GetStartupDirectory() + wxFileName::GetPathSeparator() + wxT ( "templates/projects" );
+	wxString tmplateDir = manager->GetStartupDirectory() + wxFileName::GetPathSeparator() + wxT ( "templates/projects");
 
 	//read all files under this directory
-	DirTraverser dt ( wxT ( "*.project" ) );
+	DirTraverser dt ( wxT ( "*.project") );
 
 	wxDir dir ( tmplateDir );
 	dir.Traverse ( dt );
@@ -591,7 +594,7 @@ void GetProjectTemplateList ( IManager *manager, std::list<ProjectPtr> &list, st
 			ProjectPtr proj ( new Project() );
 			if ( !proj->Load ( files.Item ( i ) ) ) {
 				//corrupted xml file?
-				wxLogMessage ( wxT ( "Failed to load template project: " ) + files.Item ( i ) + wxT ( " (corrupted XML?)" ) );
+				wxLogMessage ( wxT ( "Failed to load template project: ") + files.Item ( i ) + wxT ( " (corrupted XML?)") );
 				continue;
 			}
 			list.push_back ( proj );
@@ -614,9 +617,9 @@ void GetProjectTemplateList ( IManager *manager, std::list<ProjectPtr> &list, st
 		ProjectPtr exeProj ( new Project() );
 		ProjectPtr libProj ( new Project() );
 		ProjectPtr dllProj ( new Project() );
-		libProj->Create ( wxT ( "Static Library" ), wxEmptyString, tmplateDir, Project::STATIC_LIBRARY );
-		dllProj->Create ( wxT ( "Dynamic Library" ), wxEmptyString, tmplateDir, Project::DYNAMIC_LIBRARY );
-		exeProj->Create ( wxT ( "Executable" ), wxEmptyString, tmplateDir, Project::EXECUTABLE );
+		libProj->Create ( wxT ( "Static Library"), wxEmptyString, tmplateDir, Project::STATIC_LIBRARY );
+		dllProj->Create ( wxT ( "Dynamic Library"), wxEmptyString, tmplateDir, Project::DYNAMIC_LIBRARY );
+		exeProj->Create ( wxT ( "Executable"), wxEmptyString, tmplateDir, Project::EXECUTABLE );
 		list.push_back ( libProj );
 		list.push_back ( dllProj );
 		list.push_back ( exeProj );

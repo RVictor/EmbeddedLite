@@ -25,7 +25,7 @@
  #include "copyrights_proj_sel_dlg.h"
 #include "workspace.h"
 
-CopyrightsProjectSelDlg::CopyrightsProjectSelDlg( wxWindow* parent, Workspace *wsp )
+CopyrightsProjectSelDlg::CopyrightsProjectSelDlg( wxWindow* parent, CSolution* wsp )
 : CopyrightsProjectSelBaseDlg( parent )
 {
 	wxArrayString projects;

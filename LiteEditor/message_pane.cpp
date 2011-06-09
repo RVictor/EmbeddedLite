@@ -1,17 +1,32 @@
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include "message_pane.h"
 #include <wx/msgdlg.h>
 #include <wx/xrc/xmlres.h>
 #include <wx/dcbuffer.h>
 
-MessagePane::MessagePane( wxWindow* parent )
-		: MessagePaneBase( parent )
+CMessagePanel::CMessagePanel( wxWindow* parent ):
+  MessagePaneBase( parent )
 {
 	m_bitmap1->SetBitmap(wxXmlResource::Get()->LoadBitmap(wxT("message_pane_inf")));
 	m_buttonAction->Hide();
 	Hide();
 }
 
-void MessagePane::OnKeyDown( wxKeyEvent& event )
+void CMessagePanel::OnKeyDown( wxKeyEvent& event )
 {
 	if (event.GetKeyCode() == WXK_ESCAPE) {
 		DoHide();
@@ -20,13 +35,13 @@ void MessagePane::OnKeyDown( wxKeyEvent& event )
 		event.Skip();
 }
 
-void MessagePane::OnButtonClose( wxCommandEvent& event )
+void CMessagePanel::OnButtonClose( wxCommandEvent& event )
 {
 	wxUnusedVar(event);
 	DoShowNextMessage();
 }
 
-void MessagePane::DoHide()
+void CMessagePanel::DoHide()
 {
 	if (IsShown()) {
 		// Hide all default controls
@@ -40,7 +55,7 @@ void MessagePane::DoHide()
 	}
 }
 
-void MessagePane::DoShowCurrentMessage()
+void CMessagePanel::DoShowCurrentMessage()
 {
 	MessageDetails msg   = m_messages.CurrentMessage();
 	wxString txt         = msg.message;
@@ -108,7 +123,7 @@ void MessagePane::DoShowCurrentMessage()
 	GetParent()->Refresh();
 }
 
-void MessagePane::ShowMessage(const wxString &message, bool showHideButton, const wxBitmap &bmp, const ButtonDetails& btn1, const ButtonDetails& btn2, const ButtonDetails& btn3)
+void CMessagePanel::ShowMessage(const wxString &message, bool showHideButton, const wxBitmap &bmp, const ButtonDetails& btn1, const ButtonDetails& btn2, const ButtonDetails& btn3)
 {
 	MessageDetails msg;
 	msg.message        = message;
@@ -121,14 +136,14 @@ void MessagePane::ShowMessage(const wxString &message, bool showHideButton, cons
 	DoShowCurrentMessage();
 }
 
-void MessagePane::OnActionButton(wxCommandEvent& event)
+void CMessagePanel::OnActionButton(wxCommandEvent& event)
 {
 	MessageDetails msg = m_messages.CurrentMessage();
 	DoPostEvent(msg.btn1);
 	DoShowNextMessage();
 }
 
-void MessagePane::DoShowNextMessage()
+void CMessagePanel::DoShowNextMessage()
 {
 	m_messages.PopMessage();
 	if (m_messages.IsEmpty()) {
@@ -173,12 +188,12 @@ void MessagePaneData::PushMessage(const MessageDetails& msg)
 	m_queue.push_back(msg);
 }
 
-void MessagePane::OnEraseBG(wxEraseEvent& event)
+void CMessagePanel::OnEraseBG(wxEraseEvent& event)
 {
 	wxUnusedVar(event);
 }
 
-void MessagePane::OnPaint(wxPaintEvent& event)
+void CMessagePanel::OnPaint(wxPaintEvent& event)
 {
 	wxBufferedPaintDC dc(this);
 //	wxRect rr = GetClientRect();
@@ -194,21 +209,21 @@ void MessagePane::OnPaint(wxPaintEvent& event)
 //	dc.DrawRectangle(rr);
 }
 
-void MessagePane::OnActionButton1(wxCommandEvent& event)
+void CMessagePanel::OnActionButton1(wxCommandEvent& event)
 {
 	MessageDetails msg = m_messages.CurrentMessage();
 	DoPostEvent(msg.btn2);
 	DoShowNextMessage();
 }
 
-void MessagePane::OnActionButton2(wxCommandEvent& event)
+void CMessagePanel::OnActionButton2(wxCommandEvent& event)
 {
 	MessageDetails msg = m_messages.CurrentMessage();
 	DoPostEvent(msg.btn3);
 	DoShowNextMessage();
 }
 
-void MessagePane::DoPostEvent(ButtonDetails btn)
+void CMessagePanel::DoPostEvent(ButtonDetails btn)
 {
 	if (btn.commandId != wxNOT_FOUND && btn.window) {
 		if(btn.menuCommand) {

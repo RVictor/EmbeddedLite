@@ -33,18 +33,18 @@ class wxToggleButton;
 
 class TaskPanel : public FindResultsTab
 {
-private:
+  private:
     wxArrayString m_extensions;
-	wxButton *m_findWhat;
+	  wxButton *m_findWhat;
     wxChoice *m_scope;
     wxChoice *m_filter;
 
-protected:
+  protected:
     SearchData DoGetSearchData();
-    void       OnFindWhat     (wxCommandEvent  &e);
-	void       OnSearch       (wxCommandEvent  &e);
+    void       OnFindWhat     (wxCommandEvent &e);
+	  void       OnSearch       (wxCommandEvent &e);
     void       OnSearchUI     (wxUpdateUIEvent &e);
-	void       OnRepeatOutput (wxCommandEvent  &e);
+	  void       OnRepeatOutput (wxCommandEvent &e);
 
     DECLARE_EVENT_TABLE()
 

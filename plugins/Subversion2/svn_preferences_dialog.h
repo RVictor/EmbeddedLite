@@ -18,7 +18,7 @@ protected:
 	void OnBrowseSvnExe    ( wxCommandEvent& event );
 	void OnBrowseDiffViewer( wxCommandEvent& event );
 	void OnBrowseSSHClient ( wxCommandEvent& event );
-	void OnButtonOK        ( wxCommandEvent &event );
+	void OnButtonOK        (wxCommandEvent &event);
 	void OnUseExternalDiffUI( wxUpdateUIEvent &event);
 	void OnAddRevisionMacroUI( wxUpdateUIEvent& event );
 

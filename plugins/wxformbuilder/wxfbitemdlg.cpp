@@ -75,7 +75,7 @@ void wxFBItemDlg::OnCancel( wxCommandEvent& event )
 
 void wxFBItemDlg::OnBrowseVD(wxCommandEvent& event)
 {
-	VirtualDirectorySelector dlg(this, m_mgr->GetWorkspace(), m_textCtrlVD->GetValue());
+	VirtualDirectorySelector dlg(this, m_mgr->GetSolution(), m_textCtrlVD->GetValue());
 	if ( dlg.ShowModal() == wxID_OK ) {
 		m_textCtrlVD->SetValue( dlg.GetVirtualDirectoryPath() );
 	}

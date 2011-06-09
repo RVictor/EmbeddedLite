@@ -689,7 +689,7 @@ static boolean isFalse (const char *parameter)
 	return (boolean) (
 		strcasecmp (parameter, "0"  ) == 0  ||
 		strcasecmp (parameter, "n"  ) == 0  ||
-		strcasecmp (parameter, "no" ) == 0  ||
+		strcasecmp (parameter, "no") == 0  ||
 		strcasecmp (parameter, "off") == 0);
 }
 
@@ -699,7 +699,7 @@ static boolean isTrue (const char *parameter)
 		strcasecmp (parameter, "1"  ) == 0  ||
 		strcasecmp (parameter, "y"  ) == 0  ||
 		strcasecmp (parameter, "yes") == 0  ||
-		strcasecmp (parameter, "on" ) == 0);
+		strcasecmp (parameter, "on") == 0);
 }
 
 /*  Determines whether the specified file name is considered to be a header

@@ -1,28 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : abbreviation.cpp
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
 
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include <wx/textdlg.h>
 #include "abbreviationentry.h"
 #include "abbreviationssettingsdlg.h"
@@ -87,12 +77,12 @@ void AbbreviationPlugin::CreatePluginMenu(wxMenu *pluginsMenu)
 	wxMenu *menu = new wxMenu();
 	wxMenuItem *item( NULL );
 
-	item = new wxMenuItem(menu, XRCID("abbrev_show"), wxT( "Show Abbreviations" ), wxT( "Show Abbreviations" ), wxITEM_NORMAL );
-	menu->Append( item );
+	item = new wxMenuItem(menu, XRCID("abbrev_show"), wxT( "Show Abbreviations"), wxT( "Show Abbreviations"), wxITEM_NORMAL );
+	menu->Append(item);
 
 	menu->AppendSeparator();
-	item = new wxMenuItem(menu, XRCID("abbrev_settings"), wxT( "Settings..." ), wxT( "Settings..." ), wxITEM_NORMAL );
-	menu->Append( item );
+	item = new wxMenuItem(menu, XRCID("abbrev_settings"), wxT( "Settings..."), wxT( "Settings..."), wxITEM_NORMAL );
+	menu->Append(item);
 
 
 	pluginsMenu->Append(wxID_ANY, wxT("Abbreviation"), menu);

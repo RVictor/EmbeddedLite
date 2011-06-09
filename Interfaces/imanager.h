@@ -2,7 +2,7 @@
   \file imanager.h
 
   \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \author V. Ridtchenko
 
   \notes
 
@@ -25,7 +25,7 @@
 #include "queuecommand.h"
 
 class TagsManager;
-class Workspace;
+class CSolution;
 class EnvironmentConfig;
 class JobQueue;
 class wxApp;
@@ -162,9 +162,9 @@ public:
 	virtual TagsManager *GetTagsManager() = 0;
 	/**
 	 * @brief return a pointer to the workspace manager
-	 * @sa Workspace
+	 * @sa Solution
 	 */
-	virtual Workspace *GetWorkspace() = 0;
+	virtual CSolution* GetSolution() = 0;
 
 	/**
 	 * @brief add files to a virtual folder in the project
@@ -172,7 +172,7 @@ public:
 	 * @param paths an array of files to add
 	 * @return true on sucesss, false otherwise
 	 */
-	virtual bool AddFilesToVirtualFolder(wxTreeItemId &item, wxArrayString &paths) = 0;
+	virtual bool AddFilesToGroupFolder(wxTreeItemId &item, wxArrayString &paths) = 0;
 
 	/**
 	 * @brief add files to a virtual folder in the project
@@ -180,7 +180,7 @@ public:
 	 * @param paths an array of files to add
 	 * @return true on sucesss, false otherwise
 	 */
-	virtual bool AddFilesToVirtualFolder(const wxString &vdFullPath, wxArrayString &paths) = 0;
+	virtual bool AddFilesToGroupFolder(const wxString &vdFullPath, wxArrayString &paths) = 0;
 
 	/**
 	 * @brief Add a pair of cpp/h files to the :src/include folders, if these exist
@@ -188,7 +188,7 @@ public:
 	 * @param paths an array of files to add
 	 * @return true on sucesss, false otherwise
 	 */	
-	virtual bool AddFilesToVirtualFolderIntelligently(const wxString& vdFullPath, wxArrayString& paths) = 0;
+	virtual bool AddFilesToGroupFolderIntelligently(const wxString& vdFullPath, wxArrayString& paths) = 0;
 
 	/**
 	 * @brief create virtual folder to parentPath
@@ -196,7 +196,7 @@ public:
 	 * @param vdName child VD name
 	 * @return true on success, false otherwise
 	 */
-	virtual bool CreateVirtualDirectory(const wxString& parentPath, const wxString& vdName) = 0;
+	virtual bool CreateGroupFolder(const wxString& parentPath, const wxString& vdName) = 0;
 
 	/**
 	 * @brief return the size of the icons used by EmbeddedLite

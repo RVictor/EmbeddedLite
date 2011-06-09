@@ -1,12 +1,12 @@
 /**
   \file frame.h
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -37,12 +37,12 @@
 
 // forward decls
 class TagEntry;
-class WorkspacePane;
+class CSolutionPanel;
 class wxToolBar;
 class Notebook;
 class OpenWindowsPanel;
-class WorkspaceTab;
-class FileExplorer;
+class CSolutionTab;
+class CFileSystemBrowser;
 class OutputTabWindow;
 class DockablePaneMenuManager;
 class OutputViewControlBar;
@@ -65,7 +65,7 @@ class Frame : public wxFrame
 	static Frame*                         m_theFrame;
 	wxAuiManager                          m_mgr;
 	OutputPane *                          m_outputPane;
-	WorkspacePane *                       m_workspacePane;
+	CSolutionPanel *                       m_workspacePane;
 	wxArrayString                         m_files;
 	wxTimer *                             m_timer;
 	std::map<int, wxString>               m_viewAsMap;
@@ -168,19 +168,19 @@ public:
 	/**
 	 * @return the workspace pane (the one that contained the Symbol view & class view)
 	 */
-	WorkspacePane *GetWorkspacePane() {
+	CSolutionPanel *GetWorkspacePane() {
 		return m_workspacePane;
 	}
 
 	/**
 	 * return the workspace tab pane
 	 */
-	WorkspaceTab *GetWorkspaceTab();
+	CSolutionTab *GetSolutionTab();
 
 	/**
 	 * return the file explorer pane
 	 */
-	FileExplorer *GetFileExplorer();
+	CFileSystemBrowser *GetFileSystemBrowser();
 
 	/**
 	 * @return return AUI docking manager
@@ -372,10 +372,10 @@ protected:
 	void OnAddSymbols                 (SymbolTreeEvent &event);
 	void OnDeleteSymbols              (SymbolTreeEvent &event);
 	void OnUpdateSymbols              (SymbolTreeEvent &event);
-	void OnParsingThreadDone          (wxCommandEvent  &e);
-	void OnParsingThreadMessage       (wxCommandEvent  &e);
-	void OnDatabaseUpgrade            (wxCommandEvent  &e);
-	void OnClearTagsCache             (wxCommandEvent  &e);
+	void OnParsingThreadDone          (wxCommandEvent &e);
+	void OnParsingThreadMessage       (wxCommandEvent &e);
+	void OnDatabaseUpgrade            (wxCommandEvent &e);
+	void OnClearTagsCache             (wxCommandEvent &e);
 	void OnRecentFile(wxCommandEvent &event);
 	void OnRecentWorkspace(wxCommandEvent &event);
 	void OnBackwardForward(wxCommandEvent &event);

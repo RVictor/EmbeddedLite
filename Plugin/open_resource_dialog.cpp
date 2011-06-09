@@ -12,7 +12,7 @@
 #include "windowattrmanager.h"
 #include <vector>
 
-wxString OpenResourceDialog::TYPE_WORKSPACE_FILE = wxT("Workspace file");
+wxString OpenResourceDialog::TYPE_WORKSPACE_FILE = wxT("Solution file");
 wxString OpenResourceDialog::TYPE_CLASS          = wxT("Class, struct or union");
 wxString OpenResourceDialog::TYPE_MACRO          = wxT("Macro");
 wxString OpenResourceDialog::TYPE_FUNCTION       = wxT("Function");
@@ -58,12 +58,12 @@ OpenResourceDialog::OpenResourceDialog( wxWindow* parent, IManager *manager, con
 	//load all files from the workspace
 	if ( m_manager->IsWorkspaceOpen() ) {
 		wxArrayString projects;
-		m_manager->GetWorkspace()->GetProjectList( projects );
+		m_manager->GetSolution()->GetProjectList( projects );
 
 		for ( size_t i=0; i<projects.GetCount(); i++ ) {
 			std::vector<wxFileName> fileNames;
 			wxString errmsg;
-			ProjectPtr p = m_manager->GetWorkspace()->FindProjectByName(projects.Item(i), errmsg);
+			ProjectPtr p = m_manager->GetSolution()->FindProjectByName(projects.Item(i), errmsg);
 
 			if ( p ) {
 				p->GetFiles(fileNames, true);

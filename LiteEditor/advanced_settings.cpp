@@ -1,12 +1,12 @@
 /**
   \file advanced_settings.cpp
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -285,7 +285,7 @@ void AdvancedDlg::OnButtonOKClicked(wxCommandEvent &event)
 
 	//mark all the projects as dirty
 	wxArrayString projects;
-	WorkspaceST::Get()->GetProjectList( projects );
+	SolutionST::Get()->GetProjectList( projects );
 	for ( size_t i=0; i< projects.size(); i++ ) {
 		ProjectPtr proj = ManagerST::Get()->GetProject( projects.Item(i) );
 		if ( proj ) {
@@ -339,7 +339,7 @@ void AdvancedDlg::SaveCompilers()
 bool AdvancedDlg::CreateDefaultNewCompiler ( const wxString &name )
 {
 	if ( BuildSettingsConfigST::Get()->IsCompilerExist ( name ) ) {
-		wxMessageBox ( _ ( "A compiler with this name already exist" ), wxT ( "Error" ), wxOK | wxICON_HAND );
+		wxMessageBox ( _ ( "A compiler with this name already exist"), wxT ( "Error"), wxOK | wxICON_HAND );
 		return false;
 	}
 
@@ -393,7 +393,7 @@ void AdvancedDlg::AddCompiler(CompilerPtr cmp, bool selected)
 
 bool AdvancedDlg::DeleteCompiler ( const wxString &name )
 {
-	if ( wxMessageBox ( _ ( "Remove Compiler?" ), wxT ( "Confirm" ), wxYES_NO | wxICON_QUESTION ) == wxYES ) {
+	if ( wxMessageBox ( _ ( "Remove Compiler?"), wxT ( "Confirm"), wxYES_NO | wxICON_QUESTION ) == wxYES ) {
 		BuildSettingsConfigST::Get()->DeleteCompiler ( name );
 		return true;
 	}

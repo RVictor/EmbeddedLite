@@ -33,53 +33,53 @@ class Notebook;
 class FileViewTree;
 class WindowStack;
 class OpenWindowsPanel;
-class FileExplorer;
-class WorkspaceTab;
+class CFileSystemBrowser;
+class CSolutionTab;
 
-class WorkspacePane : public wxPanel
+class CSolutionPanel: public wxPanel
 {
-private:
-	wxString          m_caption;
-	wxChoice         *m_workspaceConfig;
-	wxAuiManager     *m_mgr;
+  private:
+	  wxString              m_caption;
+	  wxChoice*             m_pSolutionConfig;
+	  wxAuiManager*         m_mgr;
 
-	Notebook         *m_book;
-	WindowStack      *m_winStack;
-	OpenWindowsPanel *m_openWindowsPane;
-	FileExplorer     *m_explorer;
-	WorkspaceTab     *m_workspaceTab;
+	  Notebook*             m_book;
+	  WindowStack*          m_winStack;
+	  OpenWindowsPanel*     m_pOpenWindowsPanel;
+	  CFileSystemBrowser*   m_pFileSystemBrowser;
+	  CSolutionTab*         m_pSolutionTab;
 
-	void CreateGUIControls();
+	  void CreateGUIControls();
     void Connect();
     void ShowCurrentOutline();
 
-    // Workspace event handlers
-    void OnWorkspaceConfig    (wxCommandEvent &e);
-    void OnWorkspaceClosed    (wxCommandEvent &e);
-    void OnFileRetagged       (wxCommandEvent &e);
-    void OnProjectFileAdded   (wxCommandEvent &e);
-    void OnProjectFileRemoved (wxCommandEvent &e);
-    void OnSymbolsUpdated     (wxCommandEvent &e);
-    void OnSymbolsDeleted     (wxCommandEvent &e);
-    void OnSymbolsAdded       (wxCommandEvent &e);
+    // Solution event handlers
+    void OnSolutionConfig(wxCommandEvent &e);
+    void OnSolutionClosed(wxCommandEvent &e);
+    void OnFileRetagged(wxCommandEvent &e);
+    void OnProjectFileAdded(wxCommandEvent &e);
+    void OnProjectFileRemoved(wxCommandEvent &e);
+    void OnSymbolsUpdated(wxCommandEvent &e);
+    void OnSymbolsDeleted(wxCommandEvent &e);
+    void OnSymbolsAdded(wxCommandEvent &e);
     void OnActiveEditorChanged(wxCommandEvent &e);
-    void OnEditorClosing      (wxCommandEvent &e);
-    void OnAllEditorsClosed   (wxCommandEvent &e);
+    void OnEditorClosing(wxCommandEvent &e);
+    void OnAllEditorsClosed(wxCommandEvent &e);
 
-	// Configuration mgr handlers
-	void OnConfigurationManager      (wxCommandEvent  &e);
-	void OnConfigurationManagerUI    (wxUpdateUIEvent &e);
-	void OnConfigurationManagerChoice(wxCommandEvent &event);
+	  // Configuration mgr handlers
+	  void OnConfigurationManager(wxCommandEvent &e);
+	  void OnConfigurationManagerUI(wxUpdateUIEvent &e);
+	  void OnConfigurationManagerChoice(wxCommandEvent &event);
 
-public:
-	WorkspacePane(wxWindow *parent, const wxString &caption, wxAuiManager *mgr);
-	~WorkspacePane();
+  public:
+	  CSolutionPanel(wxWindow *parent, const wxString &caption, wxAuiManager *mgr);
+	  ~CSolutionPanel();
 
-	// Getters
-	const wxString &GetCaption      () const    { return m_caption;      }
-	Notebook       *GetNotebook     ()          { return m_book;         }
-    WorkspaceTab   *GetWorkspaceTab ()          { return m_workspaceTab; }
-	FileExplorer   *GetFileExplorer ()          { return m_explorer;     }
+	  // Getters
+	  const wxString& GetCaption() const { return m_caption; }
+	  Notebook* GetNotebook() { return m_book; }
+    CSolutionTab* GetSolutionTab() { return m_pSolutionTab; }
+	  CFileSystemBrowser* GetFileSystemBrowser() { return m_pFileSystemBrowser; }
 };
 
 #endif // WORKSPACE_PANE_H

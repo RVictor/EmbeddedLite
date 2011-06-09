@@ -128,13 +128,13 @@ FindInFilesDialogBase::FindInFilesDialogBase( wxWindow* parent, wxWindowID id, c
 	bSizer7->Add( m_staticText4, 0, wxALL|wxALIGN_CENTER_VERTICAL|wxEXPAND, 5 );
 	
 	m_resInNewTab = new wxRadioButton( this, wxID_ANY, _("New tab"), wxDefaultPosition, wxDefaultSize, wxRB_GROUP );
-	m_resInNewTab->SetValue( true ); 
 	bSizer7->Add( m_resInNewTab, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	
 	bSizer7->Add( 0, 0, 1, wxEXPAND, 5 );
 	
 	m_resInActiveTab = new wxRadioButton( this, wxID_ANY, _("Active tab (overwrite last search)"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_resInActiveTab->SetValue( true ); 
 	bSizer7->Add( m_resInActiveTab, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	

@@ -57,7 +57,7 @@ SubversionView::SubversionView( wxWindow* parent, Subversion2 *plugin )
 {
 	CreatGUIControls();
 	m_plugin->GetManager()->GetTheApp()->Connect(wxEVT_WORKSPACE_LOADED,      wxCommandEventHandler(SubversionView::OnWorkspaceLoaded),     NULL, this);
-	m_plugin->GetManager()->GetTheApp()->Connect(wxEVT_WORKSPACE_CLOSED,      wxCommandEventHandler(SubversionView::OnWorkspaceClosed),     NULL, this);
+	m_plugin->GetManager()->GetTheApp()->Connect(wxEVT_WORKSPACE_CLOSED,      wxCommandEventHandler(SubversionView::OnSolutionClosed),     NULL, this);
 	m_plugin->GetManager()->GetTheApp()->Connect(wxEVT_FILE_SAVED,            wxCommandEventHandler(SubversionView::OnRefreshView),         NULL, this);
 	m_plugin->GetManager()->GetTheApp()->Connect(wxEVT_PROJ_FILE_ADDED,       wxCommandEventHandler(SubversionView::OnFileAdded  ),         NULL, this);
 	m_plugin->GetManager()->GetTheApp()->Connect(wxEVT_FILE_RENAMED,          wxCommandEventHandler(SubversionView::OnFileRenamed),         NULL, this);
@@ -127,14 +127,14 @@ void SubversionView::CreatGUIControls()
 	imageList->Add(wxXmlResource::Get()->LoadBitmap(wxT("files_unversioned")));
 
 	// File icons 6-13
-	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("project" ) ) ); // 6
-	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("folder" ) ) );  // 7
-	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("page_white_c" ) ) );//8
-	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("page_white_cplusplus" ) ) );//9
-	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("page_white_h" ) ) );//10
-	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("page_white_text" ) ) );//11
-	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("workspace" ) ) );//12
-	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("formbuilder" ) ) );//13
+	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("project") ) ); // 6
+	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("folder") ) );  // 7
+	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("page_white_c") ) );//8
+	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("page_white_cplusplus") ) );//9
+	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("page_white_h") ) );//10
+	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("page_white_text") ) );//11
+	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("workspace") ) );//12
+	imageList->Add( wxXmlResource::Get()->LoadBitmap(wxT("formbuilder") ) );//13
 
 	m_treeCtrl->AssignImageList( imageList );
 
@@ -145,18 +145,18 @@ void SubversionView::CreatGUIControls()
 	tb->ToggleTool(XRCID("svn_link_editor"), m_plugin->GetSettings().GetFlags() & SvnLinkEditor);
 	
 	tb->AddTool(XRCID("clear_svn_output"), wxT("Clear Svn Output Tab"), wxXmlResource::Get()->LoadBitmap(wxT("document_delete")), wxT("Clear Svn Output Tab"), wxITEM_NORMAL);
-	tb->AddTool(XRCID("svn_refresh"),      wxT("Refresh View"), wxXmlResource::Get()->LoadBitmap ( wxT ( "svn_refresh" ) ), wxT ( "Refresh View" ) );
+	tb->AddTool(XRCID("svn_refresh"),      wxT("Refresh View"), wxXmlResource::Get()->LoadBitmap ( wxT ( "svn_refresh") ), wxT ( "Refresh View") );
 	tb->AddSeparator();
 
-	tb->AddTool(XRCID("svn_stop"),         wxT("Stop current svn process"), wxXmlResource::Get()->LoadBitmap ( wxT ( "stop_build16" ) ), wxT ( "Stop current svn process" ) );
-	tb->AddTool(XRCID("svn_cleanup"),      wxT("Svn Cleanup"), wxXmlResource::Get()->LoadBitmap ( wxT ( "eraser" ) ), wxT ( "Svn Cleanup" ) );
+	tb->AddTool(XRCID("svn_stop"),         wxT("Stop current svn process"), wxXmlResource::Get()->LoadBitmap ( wxT ( "stop_build16") ), wxT ( "Stop current svn process") );
+	tb->AddTool(XRCID("svn_cleanup"),      wxT("Svn Cleanup"), wxXmlResource::Get()->LoadBitmap ( wxT ( "eraser") ), wxT ( "Svn Cleanup") );
 
 	tb->AddSeparator();
-	tb->AddTool(XRCID("svn_checkout"),         wxT("Svn Checkout"), wxXmlResource::Get()->LoadBitmap ( wxT ( "svn_checkout" ) ), wxT ( "Svn Checkout" ) );
+	tb->AddTool(XRCID("svn_checkout"),         wxT("Svn Checkout"), wxXmlResource::Get()->LoadBitmap ( wxT ( "svn_checkout") ), wxT ( "Svn Checkout") );
 
 	tb->AddSeparator();
-	tb->AddTool(XRCID("svn_settings"),     wxT("Svn Settings..."), wxXmlResource::Get()->LoadBitmap ( wxT ( "svn_settings" ) ), wxT ( "Svn Settings..." ) );
-	tb->AddTool(XRCID("svn_info"),         wxT("Svn Info"), wxXmlResource::Get()->LoadBitmap ( wxT ( "svn_info" ) ), wxT ( "Svn Info" ) );
+	tb->AddTool(XRCID("svn_settings"),     wxT("Svn Settings..."), wxXmlResource::Get()->LoadBitmap ( wxT ( "svn_settings") ), wxT ( "Svn Settings...") );
+	tb->AddTool(XRCID("svn_info"),         wxT("Svn Info"), wxXmlResource::Get()->LoadBitmap ( wxT ( "svn_info") ), wxT ( "Svn Info") );
 
 	tb->Connect(XRCID("clear_svn_output"), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SubversionView::OnClearOuptut), NULL, this);
 	tb->Connect(XRCID("svn_stop"),         wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SubversionView::OnStop),        NULL, this);
@@ -170,7 +170,7 @@ void SubversionView::CreatGUIControls()
 	tb->Realize();
 
 	if (m_plugin->GetManager()->IsWorkspaceOpen()) {
-		m_textCtrlRootDir->SetValue(m_plugin->GetManager()->GetWorkspace()->GetWorkspaceFileName().GetPath());
+		m_textCtrlRootDir->SetValue(m_plugin->GetManager()->GetSolution()->GetWorkspaceFileName().GetPath());
 	}
 	BuildTree();
 }
@@ -194,14 +194,14 @@ void SubversionView::BuildTree(const wxString& root)
 void SubversionView::OnWorkspaceLoaded(wxCommandEvent& event)
 {
 	event.Skip();
-	Workspace *workspace = m_plugin->GetManager()->GetWorkspace();
+	CSolution* workspace = m_plugin->GetManager()->GetSolution();
 	if(m_plugin->GetManager()->IsWorkspaceOpen() && workspace) {
 		m_textCtrlRootDir->SetValue(workspace->GetWorkspaceFileName().GetPath());
 		BuildTree();
 	}
 }
 
-void SubversionView::OnWorkspaceClosed(wxCommandEvent& event)
+void SubversionView::OnSolutionClosed(wxCommandEvent& event)
 {
 	event.Skip();
 	m_textCtrlRootDir->SetValue(wxT(""));
@@ -437,7 +437,7 @@ void SubversionView::DoGetPaths(const wxTreeItemId& parent, wxArrayString& paths
 
 	wxTreeItemIdValue cookie;
 	wxTreeItemId item = m_treeCtrl->GetFirstChild(parent, cookie);
-	while ( item.IsOk() ) {
+	while (item.IsOk()) {
 		SvnTreeData *data = (SvnTreeData *)m_treeCtrl->GetItemData(item);
 		if (data) {
 			if (data->GetFilepath().IsEmpty() == false) {
@@ -927,7 +927,7 @@ void SubversionView::OnActiveEditorChanged(wxCommandEvent& event)
 void SubversionView::DisconnectEvents()
 {
 	m_plugin->GetManager()->GetTheApp()->Disconnect(wxEVT_WORKSPACE_LOADED, wxCommandEventHandler(SubversionView::OnWorkspaceLoaded),          NULL, this);
-	m_plugin->GetManager()->GetTheApp()->Disconnect(wxEVT_WORKSPACE_CLOSED, wxCommandEventHandler(SubversionView::OnWorkspaceClosed),          NULL, this);
+	m_plugin->GetManager()->GetTheApp()->Disconnect(wxEVT_WORKSPACE_CLOSED, wxCommandEventHandler(SubversionView::OnSolutionClosed),          NULL, this);
 	m_plugin->GetManager()->GetTheApp()->Disconnect(wxEVT_FILE_SAVED,       wxCommandEventHandler(SubversionView::OnRefreshView),              NULL, this);
 	m_plugin->GetManager()->GetTheApp()->Disconnect(wxEVT_PROJ_FILE_ADDED,  wxCommandEventHandler(SubversionView::OnFileAdded),                NULL, this);
 	m_plugin->GetManager()->GetTheApp()->Disconnect(wxEVT_FILE_RENAMED,     wxCommandEventHandler(SubversionView::OnFileRenamed),              NULL, this);

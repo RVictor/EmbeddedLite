@@ -15,7 +15,7 @@ class SvnCheckoutDialog : public SvnCheckoutDialogBase
 	Subversion2 *m_plugin;
 protected:
 	// Handlers for SvnCheckoutDialogBase events.
-	void OnBrowseDirectory      ( wxCommandEvent  &event );
+	void OnBrowseDirectory      (wxCommandEvent &event);
 	void OnOkUI                 ( wxUpdateUIEvent &event );
 
 	virtual void OnOK( wxCommandEvent& event );

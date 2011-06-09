@@ -119,7 +119,7 @@ private:
 	void OnBuildAddLine       (wxCommandEvent   &e);
 	void OnBuildEnded         (wxCommandEvent   &e);
 	void OnWorkspaceLoaded    (wxCommandEvent   &e);
-	void OnWorkspaceClosed    (wxCommandEvent   &e);
+	void OnSolutionClosed    (wxCommandEvent   &e);
 	void OnConfigChanged      (wxCommandEvent   &e);
 	void OnCompilerColours    (wxCommandEvent   &e);
 	void OnClearAll           (wxCommandEvent   &e);

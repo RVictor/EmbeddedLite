@@ -1,20 +1,20 @@
 /**
   \file tags_database.h
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 2 of the License, or
   (at your option) any later version.
 */
-#ifndef CODELITE_TAGS_DATABASE_H
-#define CODELITE_TAGS_DATABASE_H
+#ifndef EMBEDDEDLITE_TAGS_DATABASE_H
+#define EMBEDDEDLITE_TAGS_DATABASE_H
 
 #include "tag_tree.h"
 #include "entry.h"
@@ -520,4 +520,4 @@ public:
 
 };
 
-#endif // CODELITE_TAGS_DATABASE_H
+#endif // EMBEDDEDLITE_TAGS_DATABASE_H

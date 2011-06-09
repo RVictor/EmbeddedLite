@@ -1,12 +1,12 @@
 /**
   \file tags_manager.cpp
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -189,7 +189,7 @@ void TagsManager::OpenDatabase(const wxFileName& fileName)
 		// Send event to the main frame notifying it about database recreation
 		if( m_evtHandler ) {
 			wxCommandEvent event(wxEVT_TAGS_DB_UPGRADE);
-			m_evtHandler->AddPendingEvent( event );
+			m_evtHandler->AddPendingEvent(event);
 		}
 	}
 
@@ -2330,7 +2330,7 @@ void TagsManager::GetUnOverridedParentVirtualFunctions(const wxString& scopeName
 
 	tags.clear();
 	kind.Add(wxT("prototype"));
-	kind.Add(wxT("function" ));
+	kind.Add(wxT("function"));
 	for(wxArrayString::size_type i=0; i<parents.GetCount(); i++) {
 		GetDatabase()->GetTagsByScopeAndKind(parents.Item(i), kind, tags);
 	}

@@ -357,7 +357,7 @@ inline bool HandleWord( unsigned int & cur, unsigned int one_too_much, Accessor 
 			return true;			
 		}
 	}
-	else if( !strcmp( ide, "true" ) || !strcmp( ide, "false" ) ) // Bool const
+	else if( !strcmp( ide, "true") || !strcmp( ide, "false") ) // Bool const
 	{
 		delete [] ide;
 

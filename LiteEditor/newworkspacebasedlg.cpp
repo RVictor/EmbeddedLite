@@ -23,14 +23,14 @@ NewWorkspaceBase::NewWorkspaceBase( wxWindow* parent, wxWindowID id, const wxStr
 	wxBoxSizer* bSizer4;
 	bSizer4 = new wxBoxSizer( wxVERTICAL );
 	
-	m_staticText1 = new wxStaticText( m_panelWorkspace, wxID_ANY, wxT("Workspace Name:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText1 = new wxStaticText( m_panelWorkspace, wxID_ANY, wxT("Solution Name:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText1->Wrap( -1 );
 	bSizer4->Add( m_staticText1, 0, wxALL, 5 );
 	
 	m_textCtrlWorkspaceName = new wxTextCtrl( m_panelWorkspace, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer4->Add( m_textCtrlWorkspaceName, 0, wxALL|wxEXPAND, 5 );
 	
-	m_staticText3 = new wxStaticText( m_panelWorkspace, wxID_ANY, wxT("Workspace Path:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3 = new wxStaticText( m_panelWorkspace, wxID_ANY, wxT("Solution Path:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText3->Wrap( -1 );
 	bSizer4->Add( m_staticText3, 0, wxALL, 5 );
 	

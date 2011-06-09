@@ -96,8 +96,8 @@ void wxFormBuilder::CreatePluginMenu(wxMenu *pluginsMenu)
 	wxMenu *menu = new wxMenu();
 	wxMenuItem *item( NULL );
 
-	item = new wxMenuItem( menu, XRCID("wxfb_settings"), wxT( "Settings..." ), wxT( "Settings..." ), wxITEM_NORMAL );
-	menu->Append( item );
+	item = new wxMenuItem( menu, XRCID("wxfb_settings"), wxT( "Settings..."), wxT( "Settings..."), wxITEM_NORMAL );
+	menu->Append(item);
 
 	pluginsMenu->Append(wxID_ANY, wxT("wxFormBuilder"), menu);
 
@@ -225,7 +225,7 @@ void wxFormBuilder::DoCreateWxFormBuilderProject(const wxFBItemInfo& data)
 	wxString formbuilderVD;
 	formbuilderVD = data.virtualFolder.BeforeFirst(wxT(':'));
 
-	m_mgr->CreateVirtualDirectory(formbuilderVD, wxT("formbuilder"));
+	m_mgr->CreateGroupFolder(formbuilderVD, wxT("formbuilder"));
 	wxString templateFile(m_mgr->GetInstallDirectory() + wxT("/templates/formbuilder/"));     //todo,todo
 
 	switch (data.kind) {
@@ -253,7 +253,7 @@ void wxFormBuilder::DoCreateWxFormBuilderProject(const wxFBItemInfo& data)
 	// place the files under the VD's project owner
 	wxString err_msg;
 	wxString project = data.virtualFolder.BeforeFirst(wxT(':'));
-	ProjectPtr proj = m_mgr->GetWorkspace()->FindProjectByName(project, err_msg);
+	ProjectPtr proj = m_mgr->GetSolution()->FindProjectByName(project, err_msg);
 	if (proj) {
 		wxString files_path = proj->GetFileName().GetPath(wxPATH_GET_SEPARATOR|wxPATH_GET_VOLUME);
 		// copy the file to here
@@ -282,7 +282,7 @@ void wxFormBuilder::DoCreateWxFormBuilderProject(const wxFBItemInfo& data)
 		// add the file to the project
 		wxArrayString paths;
 		paths.Add(fbpFile.GetFullPath());
-		m_mgr->AddFilesToVirtualFolder(project + wxT(":formbuilder"), paths);
+		m_mgr->AddFilesToGroupFolder(project + wxT(":formbuilder"), paths);
 
 		// // first we launch wxFB with the -g flag set
 		wxString genFileCmd;
@@ -303,7 +303,7 @@ void wxFormBuilder::DoCreateWxFormBuilderProject(const wxFBItemInfo& data)
 		}
 
 		if (filesToAdd.GetCount()) {
-			m_mgr->AddFilesToVirtualFolder(data.virtualFolder, filesToAdd);
+			m_mgr->AddFilesToGroupFolder(data.virtualFolder, filesToAdd);
 		}
 
 		DoLaunchWxFB(fbpFile.GetFullPath());

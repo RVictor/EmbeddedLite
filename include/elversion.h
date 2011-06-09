@@ -20,7 +20,7 @@
 #define APP_VER_LO            0
 #define APP_VER_SUB_LO        0
 
-#define APP_VER_BUILD         142
+#define APP_VER_BUILD         143
 
 
 #endif /* _ELVERSION_H_ */

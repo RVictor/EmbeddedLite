@@ -172,11 +172,11 @@ void DisplayVariableDlg::UpdateValue(const wxString& varname, const wxString& va
 	if ( iter != m_gdbId2ItemLeaf.end() ) {
 		wxTreeItemId item = iter->second;
 		if ( item.IsOk() && displayFormat == DBG_DF_NATURAL) {
-			wxString curtext = m_treeCtrl->GetItemText( item );
+			wxString curtext = m_treeCtrl->GetItemText(item);
 			curtext << wxT(" = ") << value;
 			m_treeCtrl->SetItemText( item, curtext );
 
-		} else if ( item.IsOk() ) {
+		} else if (item.IsOk()) {
 			nodeId = item;
 		}
 	} else if(varname == m_mainVariableObject) {
@@ -254,9 +254,9 @@ void DisplayVariableDlg::OnLeftDown(wxMouseEvent& e)
 	wxTreeItemId item = m_treeCtrl->HitTest(e.GetPosition(), flags);
 	if ( item.IsOk() && m_treeCtrl->ItemHasChildren(item) && (flags & wxTREE_HITTEST_ONITEMLABEL )) {
 		if ( m_treeCtrl->IsExpanded(item) ) {
-			m_treeCtrl->Collapse( item );
+			m_treeCtrl->Collapse(item);
 		} else {
-			m_treeCtrl->Expand( item );
+			m_treeCtrl->Expand(item);
 		}
 	}
 	
@@ -343,7 +343,7 @@ wxString DisplayVariableDlg::DoGetItemPath(const wxTreeItemId& treeItem)
 {
 	wxString fullpath;
 	wxTreeItemId item = treeItem;
-	while ( item.IsOk() ) {
+	while (item.IsOk()) {
 		wxString text = m_treeCtrl->GetItemText(item);
 		text = text.BeforeFirst(wxT('='));
 		text.Trim().Trim(false);

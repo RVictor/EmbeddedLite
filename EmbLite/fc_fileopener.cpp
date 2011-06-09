@@ -107,7 +107,7 @@ FILE* fcFileOpener::try_open(const std::string &path, const std::string &name)
 	std::string fullpath ( path + "/" + name );
 	normalize_path( fullpath );
 
-	FILE *fp = fopen(fullpath.c_str(), "r" );
+	FILE *fp = fopen(fullpath.c_str(), "r");
 	if ( fp ) {
 		_scannedfiles.insert( name );
 		std::string p = extract_path(fullpath);

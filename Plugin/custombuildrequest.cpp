@@ -1,27 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : custombuildrequest.cpp
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include <wx/app.h>
 #include <wx/log.h>
 #include "buildmanager.h"
@@ -55,7 +46,7 @@ void CustomBuildRequest::Process(IManager *manager)
 	StringMap om;
 
 	BuildSettingsConfig *bsc ( manager->GetBuildSettingsConfigManager() );
-	Workspace *          w   ( manager->GetWorkspace()                  );
+	CSolution*          w   ( manager->GetSolution()                  );
 	EnvironmentConfig *  env ( manager->GetEnv()                        );
 
 	ProjectPtr proj = w->FindProjectByName(m_info.GetProject(), errMsg);
@@ -169,7 +160,7 @@ void CustomBuildRequest::Process(IManager *manager)
 
 		// expand macros from the working directory
 		wd = ExpandAllVariables(wd,
-								WorkspaceST::Get(),
+								SolutionST::Get(),
 								proj->GetName(),
 								bldConf->GetName(),
 								filename);
@@ -236,7 +227,7 @@ void CustomBuildRequest::DoUpdateCommand(IManager *manager, wxString& cmd, Proje
 	bldConf->GetPostBuildCommands(postBuildCmds);
 
 	BuildManager *bm(manager ? manager->GetBuildManager() : BuildManagerST::Get());
-	Workspace *w(manager ? manager->GetWorkspace() : WorkspaceST::Get());
+	CSolution* w(manager ? manager->GetSolution() : SolutionST::Get());
 
 	// collect all enabled commands
 	BuildCommandList::iterator iter = preBuildCmds.begin();

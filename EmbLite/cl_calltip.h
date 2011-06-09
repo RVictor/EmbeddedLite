@@ -1,20 +1,20 @@
 /**
   \file cl_calltip.h
 
-  \brief EmbeddedLite (CodeLite) file
-  \author Eran Ifrah, V. Ridtchenko
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
 
   \notes
 
-  Copyright: (C) 2008 by Eran Ifrah, 2010 Victor Ridtchenko
+  Copyright: (C) 2010 by Victor Ridtchenko
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 2 of the License, or
   (at your option) any later version.
 */
-#ifndef CODELITE_CALLTIP_H
-#define CODELITE_CALLTIP_H
+#ifndef EMBEDDEDLITE_CALLTIP_H
+#define EMBEDDEDLITE_CALLTIP_H
 
 #include "tokenizer.h"
 #include "smart_ptr.h"
@@ -123,4 +123,4 @@ private:
 };
 
 typedef SmartPtr<clCallTip> clCallTipPtr;
-#endif // CODELITE_CALLTIP_H
+#endif // EMBEDDEDLITE_CALLTIP_H

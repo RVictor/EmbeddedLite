@@ -1,29 +1,20 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : parse_thread.h
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-#ifndef CODELITE_PARSE_THREAD_H
-#define CODELITE_PARSE_THREAD_H
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
+#ifndef EMBEDDEDLITE_PARSE_THREAD_H
+#define EMBEDDEDLITE_PARSE_THREAD_H
 
 #include "entry.h"
 #include "singleton.h"
@@ -318,4 +309,4 @@ typedef void (wxEvtHandler::*SymbolTreeEventFunction)(SymbolTreeEvent&);
 #define EVT_SYMBOLTREE_DELETE_PROJECT(winid, fn) \
 	wx__DECLARE_EVT1(wxEVT_COMMAND_SYMBOL_TREE_DELETE_PROJECT, winid, SymbolTreeEventHandler(fn))
 
-#endif // CODELITE_PARSE_THREAD_H
+#endif // EMBEDDEDLITE_PARSE_THREAD_H

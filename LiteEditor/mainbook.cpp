@@ -1,27 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : mainbook.cpp
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include <wx/xrc/xmlres.h>
 #include "custom_tab.h"
 #include "globals.h"
@@ -39,14 +30,15 @@ MainBook::MainBook(wxWindow *parent)
 		: wxPanel       (parent)
 		, m_navBar      (NULL)
 		, m_book        (NULL)
-		, m_quickFindBar(NULL)
+		, m_pQuickFindBar(NULL)
 		, m_currentPage (NULL)
 {
 	CreateGuiControls();
 	ConnectEvents();
 }
 
-void MainBook::CreateGuiControls()
+void
+MainBook::CreateGuiControls()
 {
 	wxBoxSizer *sz = new wxBoxSizer(wxVERTICAL);
 	SetSizer(sz);
@@ -64,11 +56,11 @@ void MainBook::CreateGuiControls()
 	m_book->SetRightClickMenu(wxXmlResource::Get()->LoadMenu(wxT("editor_tab_right_click")));
 	sz->Add(m_book, 1, wxEXPAND);
 
-	m_quickFindBar = new QuickFindBar(this);
-	sz->Add(m_quickFindBar, 0, wxTOP|wxBOTTOM|wxEXPAND);
+	m_pQuickFindBar = new CQuickFindBar(this);
+	sz->Add(m_pQuickFindBar, 0, wxTOP|wxBOTTOM|wxEXPAND);
 	
-	m_messagePane = new MessagePane(this);
-	sz->Insert(0, m_messagePane, 0, wxALL|wxEXPAND, 5, NULL);
+	m_pMessagePanel = new CMessagePanel(this);
+	sz->Insert(0, m_pMessagePanel, 0, wxALL|wxEXPAND, 5, NULL);
 	
 	sz->Layout();
 }
@@ -85,7 +77,7 @@ void MainBook::ConnectEvents()
 	wxTheApp->Connect(wxEVT_WORKSPACE_LOADED,  wxCommandEventHandler(MainBook::OnWorkspaceLoaded),    NULL, this);
 	wxTheApp->Connect(wxEVT_PROJ_FILE_ADDED,   wxCommandEventHandler(MainBook::OnProjectFileAdded),   NULL, this);
 	wxTheApp->Connect(wxEVT_PROJ_FILE_REMOVED, wxCommandEventHandler(MainBook::OnProjectFileRemoved), NULL, this);
-	wxTheApp->Connect(wxEVT_WORKSPACE_CLOSED,  wxCommandEventHandler(MainBook::OnWorkspaceClosed),    NULL, this);
+	wxTheApp->Connect(wxEVT_WORKSPACE_CLOSED,  wxCommandEventHandler(MainBook::OnSolutionClosed),    NULL, this);
 
 }
 
@@ -105,7 +97,7 @@ void MainBook::OnFocus(wxFocusEvent &e)
 	if (!SelectPage(dynamic_cast<wxWindow*>(e.GetEventObject()))) {
 		e.Skip();
 	}
-	m_quickFindBar->SetEditor(GetActiveEditor());
+	m_pQuickFindBar->SetEditor(GetActiveEditor());
 }
 
 void MainBook::OnPaneClosed(wxAuiManagerEvent &e)
@@ -130,7 +122,7 @@ void MainBook::OnPageClosing(NotebookEvent &e)
 void MainBook::OnPageClosed(NotebookEvent &e)
 {
 	SelectPage(m_book->GetCurrentPage());
-	m_quickFindBar->SetEditor(GetActiveEditor());
+	m_pQuickFindBar->SetEditor(GetActiveEditor());
 
 	// any editors left open?
 	LEditor *editor = NULL;
@@ -183,7 +175,7 @@ void MainBook::OnWorkspaceLoaded(wxCommandEvent &e)
 	CloseAll(false); // get ready for session to be restored by clearing out existing pages
 }
 
-void MainBook::OnWorkspaceClosed(wxCommandEvent &e)
+void MainBook::OnSolutionClosed(wxCommandEvent &e)
 {
 	e.Skip();
 	CloseAll(false); // make sure no unsaved files
@@ -890,7 +882,9 @@ bool MainBook::DoSelectPage(wxWindow* win)
 	return true;
 }
 
-void MainBook::ShowMessage(const wxString &message, bool showHideButton, const wxBitmap &bmp, const ButtonDetails &btn1, const ButtonDetails &btn2, const ButtonDetails &btn3)
+void
+MainBook::ShowMessage(const wxString &message, bool showHideButton, const wxBitmap &bmp, const ButtonDetails &btn1, 
+  const ButtonDetails &btn2, const ButtonDetails &btn3)
 {
-	m_messagePane->ShowMessage(message, showHideButton, bmp, btn1, btn2, btn3);
+	m_pMessagePanel->ShowMessage(message, showHideButton, bmp, btn1, btn2, btn3);
 }

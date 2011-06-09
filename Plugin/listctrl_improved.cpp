@@ -107,7 +107,7 @@ void ListCtrlImproved::DoInitialize()
 bool ListCtrlImproved::IsChecked(long item)
 {
 	wxListItem list_item;
-	list_item.SetId     ( item );
+	list_item.SetId     (item);
 	list_item.SetColumn ( 0 );
 	list_item.SetMask   ( wxLIST_MASK_IMAGE );
 	GetItem ( list_item );
@@ -118,7 +118,7 @@ bool ListCtrlImproved::IsChecked(long item)
 void ListCtrlImproved::Check(long item, bool b)
 {
 	wxListItem list_item;
-	list_item.SetId   ( item );
+	list_item.SetId   (item);
 	list_item.SetColumn( 0 );
 	list_item.SetMask ( wxLIST_MASK_IMAGE );
 	list_item.SetImage( b ? 0 : 1 );
@@ -146,7 +146,7 @@ long ListCtrlImproved::AppendRow()
 wxString ListCtrlImproved::GetText(long item, long col)
 {
 	wxListItem list_item;
-	list_item.SetId ( item );
+	list_item.SetId (item);
 	list_item.SetColumn ( col );
 	list_item.SetMask ( wxLIST_MASK_TEXT );
 	GetItem ( list_item );
@@ -156,7 +156,7 @@ wxString ListCtrlImproved::GetText(long item, long col)
 void ListCtrlImproved::SetTextColumn(long item, long col, const wxString& text)
 {
 	wxListItem list_item;
-	list_item.SetId ( item );
+	list_item.SetId (item);
 	list_item.SetColumn( col );
 	list_item.SetImage ( wxNOT_FOUND );
 	list_item.SetMask  ( wxLIST_MASK_TEXT|wxLIST_MASK_IMAGE );
@@ -191,7 +191,7 @@ bool ListCtrlImproved::SetItemClientData(long item, wxClientData* clientData)
 void ListCtrlImproved::SetCheckboxRow(long item, bool checked)
 {
 	wxListItem list_item;
-	list_item.SetId     ( item );
+	list_item.SetId     (item);
 	list_item.SetColumn ( 0 );
 	list_item.SetImage  (checked ? 0 : 1);
 	list_item.SetMask   ( wxLIST_MASK_IMAGE );
