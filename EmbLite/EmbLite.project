@@ -142,7 +142,6 @@
   <Dependencies Name="DebugUnicode"/>
   <Dependencies Name="WinDebugUnicode"/>
   <Dependencies Name="WinDebugUnicode"/>
-  <Dependencies Name="ReleaseUnicode"/>
   <Settings Type="Static Library">
     <GlobalSettings>
       <Compiler Options="">
@@ -329,4 +328,5 @@
       </AdditionalRules>
     </Configuration>
   </Settings>
+  <Dependencies Name="ReleaseUnicode"/>
 </CodeLite_Project>

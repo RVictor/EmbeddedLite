@@ -191,7 +191,7 @@
 				<checkable>1</checkable>
             </object>
 			<object class="wxMenuItem" name="workspace_pane">
-				<label>Wor&amp;kspace Pane</label>
+				<label>Sol&amp;ution Panel</label>
 				<checkable>1</checkable>
 			</object>
 			<object class="wxMenuItem" name="show_nav_toolbar">

@@ -74,6 +74,7 @@
     <File Name="builder_gnumake.cpp"/>
     <File Name="builder_gnumake_onestep.h"/>
     <File Name="builder_gnumake_onestep.cpp"/>
+    <File Name="attribute_style.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="importer">
     <File Name="vcimporter.h"/>
@@ -86,7 +87,6 @@
     <File Name="debuggersettings.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="configuration">
-    <File Name="attribute_style.h"/>
     <File Name="build_settings_config.cpp"/>
     <File Name="editor_config.cpp"/>
     <File Name="compiler.cpp"/>
