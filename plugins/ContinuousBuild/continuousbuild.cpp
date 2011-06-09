@@ -163,14 +163,14 @@ void ContinuousBuild::DoBuild(const wxString& fileName)
 	}
 	
 	wxString errMsg;
-	ProjectPtr project = m_mgr->GetWorkspace()->FindProjectByName(projectName, errMsg);
+	ProjectPtr project = m_mgr->GetSolution()->FindProjectByName(projectName, errMsg);
 	if(!project){
 		PRINT_MESSAGE(wxT("Could not find project for file\n"));
 		return;
 	}
 
 	// get the selected configuration to be build
-	BuildConfigPtr bldConf = m_mgr->GetWorkspace()->GetProjBuildConf( project->GetName(), wxEmptyString );
+	BuildConfigPtr bldConf = m_mgr->GetSolution()->GetProjBuildConf( project->GetName(), wxEmptyString );
 	if ( !bldConf ) {
 		PRINT_MESSAGE(wxT("Failed to locate build configuration\n"));
 		return;

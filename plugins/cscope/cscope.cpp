@@ -248,14 +248,14 @@ wxString Cscope::DoCreateListFile(bool force)
 	m_mgr->GetConfigTool()->ReadObject(wxT("CscopeSettings"), &settings);
 
 	//create temporary file and save the file there
-	wxString wspPath = m_mgr->GetWorkspace()->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR);
+	wxString wspPath = m_mgr->GetSolution()->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR);
 	wxString list_file( wspPath );
 	list_file << wxT("cscope_file.list");
 
 	if (force || settings.GetRebuildOption() || !::wxFileExists(list_file))
 	{
 		wxArrayString projects;
-		m_mgr->GetWorkspace()->GetProjectList(projects);
+		m_mgr->GetSolution()->GetProjectList(projects);
 		wxString err_msg;
 		std::vector< wxFileName > files;
 		std::vector< wxFileName > tmpfiles;
@@ -263,15 +263,15 @@ wxString Cscope::DoCreateListFile(bool force)
 
 		if (settings.GetScanScope() == SCOPE_ENTIRE_WORKSPACE) {
 			for (size_t i=0; i< projects.GetCount(); i++) {
-				ProjectPtr proj = m_mgr->GetWorkspace()->FindProjectByName(projects.Item(i), err_msg);
+				ProjectPtr proj = m_mgr->GetSolution()->FindProjectByName(projects.Item(i), err_msg);
 				if ( proj ) {
 					proj->GetFiles(tmpfiles, true);
 				}
 			}
 		} else {
 			// SCOPE_ACTIVE_PROJECT
-			wxString projName = m_mgr->GetWorkspace()->GetActiveProjectName();
-			ProjectPtr proj = m_mgr->GetWorkspace()->FindProjectByName(projName, err_msg);
+			wxString projName = m_mgr->GetSolution()->GetActiveProjectName();
+			ProjectPtr proj = m_mgr->GetSolution()->FindProjectByName(projName, err_msg);
 			if ( proj ) {
 				proj->GetFiles(tmpfiles, true);
 			}
@@ -348,7 +348,7 @@ void Cscope::DoCscopeCommand(const wxString &command, const wxString &findWhat, 
 	req->SetCmd       (command );
 	req->SetEndMsg    (endMsg  );
 	req->SetFindWhat  (findWhat);
-	req->SetWorkingDir(m_mgr->GetWorkspace()->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
+	req->SetWorkingDir(m_mgr->GetSolution()->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
 
 	CScopeThreadST::Get()->Add( req );
 }
