@@ -35,7 +35,7 @@ NewWxProjectDlg::NewWxProjectDlg( wxWindow* parent, IManager *mgr  )
 {
 	m_bitmap1->SetBitmap(wxXmlResource::Get()->LoadBitmap(wxT("wx_project_header")));
 	m_choiceApplicationType->SetSelection(wxProjectTypeSimpleMain);
-	m_dirPicker->SetPath(m_mgr->GetSolution()->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
+	m_dirPicker->SetPath(m_mgr->GetSolution()->GetSolutionFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
 	m_textCtrlName->SetFocus();
 
 #if defined (__WXMSW__)	

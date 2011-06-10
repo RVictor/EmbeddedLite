@@ -223,7 +223,7 @@ void CFileSystemBrowserTree::DoOpenItem(const wxTreeItemId &item)
 		wxFileName fn = GetFullPath(item);
 		if (fn.GetExt() == EL_WORKSPACE_EXT) {
 			//open workspace
-			ManagerST::Get()->OpenWorkspace(fn.GetFullPath());
+			ManagerST::Get()->OpenSolution(fn.GetFullPath());
 
 		} else {
 

@@ -203,7 +203,7 @@ void BatchBuildDlg::GetBuildInfoList(std::list<QueueCommand>& buildInfoList)
 void BatchBuildDlg::DoInitialize()
 {
 	// load the previously saved batch build file
-	wxFileName fn(SolutionST::Get()->GetWorkspaceFileName());
+	wxFileName fn(SolutionST::Get()->GetSolutionFileName());
 	fn.SetExt(wxT("batch_build"));
 
 	wxString content;
@@ -263,7 +263,7 @@ void BatchBuildDlg::DoInitialize()
 
 void BatchBuildDlg::DoSaveBatchBuildOrder()
 {
-	wxFileName fn(SolutionST::Get()->GetWorkspaceFileName());
+	wxFileName fn(SolutionST::Get()->GetSolutionFileName());
 	fn.SetExt(wxT("batch_build"));
 
 	wxString content;

@@ -82,7 +82,7 @@ NewProjectDlg::NewProjectDlg( wxWindow* parent )
 		m_chCompiler->SetSelection(0);
 	}
 
-	m_textCtrlProjectPath->SetValue( SolutionST::Get()->GetWorkspaceFileName().GetPath());
+	m_textCtrlProjectPath->SetValue( SolutionST::Get()->GetSolutionFileName().GetPath());
 	m_txtProjName->SetFocus();
 	Centre();
 

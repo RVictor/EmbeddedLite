@@ -394,7 +394,7 @@ wxApp* PluginManager::GetTheApp()
 	return wxTheApp;
 }
 
-void PluginManager::ReloadWorkspace()
+void PluginManager::ReloadSolution()
 {
 	wxCommandEvent evt(wxEVT_COMMAND_MENU_SELECTED, XRCID("reload_solution"));
 	Frame::Get()->GetEventHandler()->AddPendingEvent( evt );

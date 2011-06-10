@@ -68,7 +68,7 @@ protected:
 	
 	void PopulateConfigurations();
 	void AddEntry(const wxString &projectName, const wxString &selectedConf);
-	WorkspaceConfiguration::ConfigMappingList GetCurrentSettings();
+	CSolitionConfiguration::ConfigMappingList GetCurrentSettings();
 	void SaveCurrentSettings();
 
 public:

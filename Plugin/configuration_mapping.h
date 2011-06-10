@@ -49,7 +49,7 @@ public:
 	{}
 };
 
-class WXDLLIMPEXP_LE_SDK WorkspaceConfiguration {
+class WXDLLIMPEXP_LE_SDK CSolitionConfiguration {
 public:
 	typedef std::list<ConfigMappingEntry> ConfigMappingList;
 
@@ -59,10 +59,10 @@ private:
 	bool m_isSelected;
 
 public:
-	WorkspaceConfiguration();
-	WorkspaceConfiguration(wxXmlNode *node);
-	WorkspaceConfiguration(const wxString &name, bool selected);
-	virtual ~WorkspaceConfiguration();
+	CSolitionConfiguration();
+	CSolitionConfiguration(wxXmlNode *node);
+	CSolitionConfiguration(const wxString &name, bool selected);
+	virtual ~CSolitionConfiguration();
 	wxXmlNode *ToXml() const;
 	
 	void SetSelected(bool selected) { m_isSelected = selected; }
@@ -73,25 +73,25 @@ public:
 	void SetName(const wxString &name){ m_name = name; }
 };
 
-typedef SmartPtr<WorkspaceConfiguration> WorkspaceConfigurationPtr;
+typedef SmartPtr<CSolitionConfiguration> CSolitionConfigurationPtr;
 
 class WXDLLIMPEXP_LE_SDK BuildMatrix {
-	std::list<WorkspaceConfigurationPtr> m_configurationList;
+	std::list<CSolitionConfigurationPtr> m_configurationList;
 
 protected:
-	WorkspaceConfigurationPtr FindConfiguration(const wxString &name) const;
+	CSolitionConfigurationPtr FindConfiguration(const wxString &name) const;
 
 public:
 	BuildMatrix(wxXmlNode *node);
 	virtual ~BuildMatrix();
 	wxXmlNode *ToXml() const;
-	const std::list<WorkspaceConfigurationPtr>& GetConfigurations() const { return m_configurationList; };
+	const std::list<CSolitionConfigurationPtr>& GetConfigurations() const { return m_configurationList; };
 	void RemoveConfiguration(const wxString &configName);
-	void SetConfiguration(WorkspaceConfigurationPtr conf);
+	void SetConfiguration(CSolitionConfigurationPtr conf);
 	wxString GetProjectSelectedConf(const wxString &configName, const wxString &project) const;
 	wxString GetSelectedConfigurationName() const;
 	void SetSelectedConfigurationName(const wxString &name);
-	WorkspaceConfigurationPtr GetConfigurationByName(const wxString &name) const;
+	CSolitionConfigurationPtr GetConfigurationByName(const wxString &name) const;
 };
 
 typedef SmartPtr<BuildMatrix> BuildMatrixPtr;

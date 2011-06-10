@@ -67,7 +67,7 @@ wxString MacroManager::Expand(const wxString& expression, IManager* manager, con
 			}
 			
 			expandedString.Replace(wxT("$(ProjectPath)"), proj->GetFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
-			expandedString.Replace(wxT("$(WorkspacePath)"), pSolution->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
+			expandedString.Replace(wxT("$(WorkspacePath)"), pSolution->GetSolutionFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
 			expandedString.Replace(wxT("$(ProjectName)"), project_name);
 			
 			if (bldConf) {

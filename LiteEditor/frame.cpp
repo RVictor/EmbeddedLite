@@ -1308,7 +1308,7 @@ void Frame::LoadSession(const wxString &sessionName)
 	if (SessionManager::Get().FindSession(sessionName, session)) {
 		wxString wspFile = session.GetWorkspaceName();
 		if (wspFile.IsEmpty() == false && wspFile != wxT("Default")) {
-			ManagerST::Get()->OpenWorkspace(wspFile);
+			ManagerST::Get()->OpenSolution(wspFile);
 		} else {
 			// no workspace to open, so just restore any previously open editors
 			GetMainBook()->RestoreSession(session);
@@ -1345,7 +1345,7 @@ void Frame::OnFileLoadTabGroup(wxCommandEvent& WXUNUSED(event))
 	}
 	EditorConfigST::Get()->SetRecentItems( previousgroups, wxT("RecentTabgroups") ); // In case any were deleted
 
-	wxString path = ManagerST::Get()->IsWorkspaceOpen() ? SolutionST::Get()->GetWorkspaceFileName().GetPath() : wxGetHomeDir();
+	wxString path = ManagerST::Get()->IsWorkspaceOpen() ? SolutionST::Get()->GetSolutionFileName().GetPath() : wxGetHomeDir();
 	LoadTabGroupDlg dlg(this, path, previousgroups);
 
 	// Disable the 'Replace' checkbox if there aren't any editors to replace
@@ -1400,7 +1400,7 @@ void Frame::OnCloseWorkspace(wxCommandEvent &event)
 {
 	wxUnusedVar(event);
 	if (ManagerST::Get()->IsWorkspaceOpen()) {
-		ManagerST::Get()->CloseWorkspace();
+		ManagerST::Get()->CloseSolution();
 		ShowWelcomePage();
 	}
 }
@@ -1416,7 +1416,7 @@ void Frame::OnSwitchWorkspace(wxCommandEvent &event)
 	                   wxT("All Files (*)|*");
 	wxFileDialog *dlg = new wxFileDialog(this, wxT("Open Solution"), wxEmptyString, wxEmptyString, ALL, wxFD_OPEN | wxFD_FILE_MUST_EXIST | wxFD_MULTIPLE , wxDefaultPosition);
 	if (dlg->ShowModal() == wxID_OK) {
-		ManagerST::Get()->OpenWorkspace(dlg->GetPath());
+		ManagerST::Get()->OpenSolution(dlg->GetPath());
 	}
 	dlg->Destroy();
 }
@@ -1485,7 +1485,7 @@ void Frame::OnFileSaveTabGroup(wxCommandEvent& WXUNUSED(event))
 	EditorConfigST::Get()->GetRecentItems( previousgroups, wxT("RecentTabgroups") );
 
 	SaveTabGroupDlg dlg(this, previousgroups);
-	wxString path = ManagerST::Get()->IsWorkspaceOpen() ? SolutionST::Get()->GetWorkspaceFileName().GetPath() : wxGetHomeDir();
+	wxString path = ManagerST::Get()->IsWorkspaceOpen() ? SolutionST::Get()->GetSolutionFileName().GetPath() : wxGetHomeDir();
 	dlg.SetComboPath(path);
 
 	std::vector<LEditor*> editors; wxArrayString filepaths;
@@ -1575,7 +1575,7 @@ void Frame::OnProjectNewWorkspace(wxCommandEvent &event)
 		wxString fullname = dlg->GetFilePath();
 
 		wxFileName fn(fullname);
-		ManagerST::Get()->CreateWorkspace(fn.GetName(), fn.GetPath());
+		ManagerST::Get()->CreateSolution(fn.GetName(), fn.GetPath());
 	}
 	dlg->Destroy();
 }
@@ -2345,7 +2345,7 @@ void Frame::OnRecentWorkspace(wxCommandEvent &event)
     {
 			file_name << wxT(".") << EL_WORKSPACE_EXT;
 		}
-		ManagerST::Get()->OpenWorkspace( file_name );
+		ManagerST::Get()->OpenSolution( file_name );
 	}
 }
 
@@ -2616,7 +2616,7 @@ void Frame::OnStartPageEvent(wxCommandEvent& e)
 {
 	StartPageData *data = (StartPageData *)e.GetClientData();
 	if ( data->action == wxT("switch-workspace")) {
-		ManagerST::Get()->OpenWorkspace(data->file_path);
+		ManagerST::Get()->OpenSolution(data->file_path);
 	} else if ( data->action == wxT("open-file")) {
 		Frame::Get()->GetMainBook()->OpenFile(data->file_path, wxEmptyString);
 	} else if ( data->action == wxT("create-solution")) {
@@ -2934,7 +2934,7 @@ void Frame::OnSingleInstanceOpenFiles(wxCommandEvent& e)
 						continue;
 					}
 				}
-				ManagerST::Get()->OpenWorkspace(arr->Item(i));
+				ManagerST::Get()->OpenSolution(arr->Item(i));
 			} else {
 				Frame::Get()->GetMainBook()->OpenFile(arr->Item(i), wxEmptyString);
 			}
@@ -3066,7 +3066,7 @@ void Frame::OnReloadWorkspace(wxCommandEvent& event)
 	// Save the current session before re-loading
 	SaveLayoutAndSession();
 
-	ManagerST::Get()->ReloadWorkspace();
+	ManagerST::Get()->ReloadSolution();
 }
 
 void Frame::OnReloadWorkspaceUI(wxUpdateUIEvent& event)
@@ -3423,11 +3423,11 @@ void Frame::ReloadExternallyModifiedProjectFiles()
 
 	// check if the workspace needs reloading and ask the user for confirmation
 	// if it does
-	if (workspace->GetWorkspaceLastModifiedTime() < workspace->GetFileLastModifiedTime()) {
+	if (workspace->GetSolutionLastModifiedTime() < workspace->GetFileLastModifiedTime()) {
 		// always update last modification time: if the user chooses to reload it
 		// will not matter, and it avoids the program prompting the user repeatedly
 		// if he chooses not to reload the workspace
-		workspace->SetWorkspaceLastModifiedTime(workspace->GetFileLastModifiedTime());
+		workspace->SetSolutionLastModifiedTime(workspace->GetFileLastModifiedTime());
 		workspace_modified = true;
 	}
 
@@ -3491,7 +3491,7 @@ void Frame::SaveLayoutAndSession()
 	}
 
 	//save the current session before closing
-	wxString sessionName = ManagerST::Get()->IsWorkspaceOpen() ? SolutionST::Get()->GetWorkspaceFileName().GetFullPath()
+	wxString sessionName = ManagerST::Get()->IsWorkspaceOpen() ? SolutionST::Get()->GetSolutionFileName().GetFullPath()
 	                       : wxString(wxT("Default"));
 	SessionEntry session;
 	session.SetWorkspaceName(sessionName);

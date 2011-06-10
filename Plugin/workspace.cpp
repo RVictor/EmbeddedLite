@@ -1,5 +1,5 @@
 /**
-  \file workspace.cpp
+  \file solution.cpp
 
   \brief EmbeddedLite file
   \author V. Ridtchenko
@@ -55,7 +55,7 @@ wxString CSolution::ExpandVariables(const wxString &expression) const
 	return EnvironmentConfig::Instance()->ExpandVariables(expression);
 }
 
-void CSolution::CloseWorkspace()
+void CSolution::CloseSolution()
 {
 	if (m_doc.IsOk()) {
 		SaveXmlFile();
@@ -70,25 +70,25 @@ void CSolution::CloseWorkspace()
 }
 
 
-bool CSolution::OpenWorkspace(const wxString &fileName, wxString &errMsg)
+bool CSolution::OpenSolution(const wxString &fileName, wxString &errMsg)
 {
-	CloseWorkspace();
+	CloseSolution();
 	wxFileName workSpaceFile(fileName);
 	if (workSpaceFile.FileExists() == false) {
-		errMsg = wxString::Format(wxT("Could not open workspace file: '%s'"), fileName.c_str());
+		errMsg = wxString::Format(wxT("Could not open solution file: '%s'"), fileName.c_str());
 		return false;
 	}
 
 	m_fileName = workSpaceFile;
 	m_doc.Load(m_fileName.GetFullPath());
 	if ( !m_doc.IsOk() ) {
-		errMsg = wxT("Corrupted workspace file");
+		errMsg = wxT("Corrupted solution file");
 		return false;
 	}
 
-	SetWorkspaceLastModifiedTime(GetFileLastModifiedTime());
+	SetSolutionLastModifiedTime(GetFileLastModifiedTime());
 
-	// This function sets the working directory to the workspace directory!
+	// This function sets the working directory to the solution directory!
 	::wxSetWorkingDirectory(m_fileName.GetPath());
 
 	// Load all projects
@@ -100,7 +100,7 @@ bool CSolution::OpenWorkspace(const wxString &fileName, wxString &errMsg)
 			wxString projectPath = child->GetPropVal(wxT("Path"), wxEmptyString);
 
 			if ( !DoAddProject(projectPath, errMsg) ) {
-				tmperr << wxString::Format(wxT("Error occured while loading project: \"%s\"\nEmbeddedLite has removed the faulty project from the workspace\n"), projectPath.c_str());
+				tmperr << wxString::Format(wxT("Error occured while loading project: \"%s\"\nEmbeddedLite has removed the faulty project from the solution\n"), projectPath.c_str());
 				removedChildren.push_back(child);
 			}
 		}
@@ -117,13 +117,13 @@ bool CSolution::OpenWorkspace(const wxString &fileName, wxString &errMsg)
 	// Load the database
 	wxString dbfile = GetStringProperty(wxT("Database"), errMsg);
 	if ( dbfile.IsEmpty() ) {
-		errMsg = wxT("Missing 'Database' value in workspace '");
+		errMsg = wxT("Missing 'Database' value in solution '");
 		return false;
 	}
 	
 	errMsg = tmperr;
 	
-	// the database file names are relative to the workspace,
+	// the database file names are relative to the solution,
 	// convert them to absolute path
 	wxFileName fn(dbfile);
 
@@ -137,12 +137,12 @@ BuildMatrixPtr CSolution::GetBuildMatrix() const
 	return new BuildMatrix( XmlUtils::FindFirstByTagName(m_doc.GetRoot(), wxT("BuildMatrix")) );
 }
 
-wxXmlNode* CSolution::GetWorkspaceEditorOptions() const
+wxXmlNode* CSolution::GetSolutionEditorOptions() const
 {
 	return XmlUtils::FindFirstByTagName(m_doc.GetRoot(), wxT("Options"));
 }
 
-void CSolution::SetWorkspaceEditorOptions(LocalOptionsConfigPtr opts)
+void CSolution::SetSolutionEditorOptions(LocalOptionsConfigPtr opts)
 {
 	wxXmlNode *parent = m_doc.GetRoot();
 	wxXmlNode *oldOptions = XmlUtils::FindFirstByTagName(parent, wxT("Options"));
@@ -171,26 +171,26 @@ void CSolution::SetBuildMatrix(BuildMatrixPtr mapping)
 	}
 }
 
-bool CSolution::CreateWorkspace(const wxString &name, const wxString &path, wxString &errMsg)
+bool CSolution::CreateSolution(const wxString &name, const wxString &path, wxString &errMsg)
 {
-	// If we have an open workspace, close it
+	// If we have an open solution, close it
 	if ( m_doc.IsOk() ) {
 		if ( !SaveXmlFile() ) {
-			errMsg = wxT("Failed to save current workspace");
+			errMsg = wxT("Failed to save current solution");
 			return false;
 		}
 	}
 
 	if ( name.IsEmpty() ) {
-		errMsg = wxT("Invalid workspace name");
+		errMsg = wxT("Invalid solution name");
 		return false;
 	}
 
 	// Create new
-	// Open workspace database
+	// Open solution database
 	m_fileName = wxFileName(path, name + wxT(".") + EL_WORKSPACE_EXT);
 
-	// This function sets the working directory to the workspace directory!
+	// This function sets the working directory to the solution directory!
 	::wxSetWorkingDirectory(m_fileName.GetPath());
 
 	wxFileName dbFileName(wxT("./") + name + wxT(".tags"));
@@ -210,13 +210,14 @@ bool CSolution::CreateWorkspace(const wxString &name, const wxString &path, wxSt
 wxString CSolution::GetStringProperty(const wxString &propName, wxString &errMsg)
 {
 	if ( !m_doc.IsOk() ) {
-		errMsg = wxT("No workspace open");
+		errMsg = wxT("No solution open");
 		return wxEmptyString;
 	}
 
 	wxXmlNode *rootNode = m_doc.GetRoot();
-	if ( !rootNode ) {
-		errMsg = wxT("Corrupted workspace file");
+	if ( !rootNode ) 
+	{
+		errMsg = wxT("Corrupted solution file");
 		return wxEmptyString;
 	}
 
@@ -233,11 +234,11 @@ void CSolution::AddProjectToBuildMatrix(ProjectPtr prj)
 	BuildMatrixPtr matrix = GetBuildMatrix();
 	wxString selConfName = matrix->GetSelectedConfigurationName();
 
-	std::list<WorkspaceConfigurationPtr> wspList = matrix->GetConfigurations();
-	std::list<WorkspaceConfigurationPtr>::iterator iter = wspList.begin();
+	std::list<CSolitionConfigurationPtr> wspList = matrix->GetConfigurations();
+	std::list<CSolitionConfigurationPtr>::iterator iter = wspList.begin();
 	for (; iter !=  wspList.end(); iter++) {
-		WorkspaceConfigurationPtr workspaceConfig = (*iter);
-		WorkspaceConfiguration::ConfigMappingList prjList = workspaceConfig->GetMapping();
+		CSolitionConfigurationPtr workspaceConfig = (*iter);
+		CSolitionConfiguration::ConfigMappingList prjList = workspaceConfig->GetMapping();
 		wxString wspCnfName = workspaceConfig->GetName();
 
 		ProjectSettingsCookie cookie;
@@ -260,7 +261,7 @@ void CSolution::AddProjectToBuildMatrix(ProjectPtr prj)
 
 			matchConf = prjBldConf;
 
-			// try to locate the best match to add to the workspace
+			// try to locate the best match to add to the solution
 			while ( prjBldConf ) {
 				wxString projBldConfName = prjBldConf->GetName();
 				if (wspCnfName == projBldConfName) {
@@ -289,12 +290,12 @@ void CSolution::RemoveProjectFromBuildMatrix(ProjectPtr prj)
 	BuildMatrixPtr matrix = GetBuildMatrix();
 	wxString selConfName = matrix->GetSelectedConfigurationName();
 
-	std::list<WorkspaceConfigurationPtr> wspList = matrix->GetConfigurations();
-	std::list<WorkspaceConfigurationPtr>::iterator iter = wspList.begin();
+	std::list<CSolitionConfigurationPtr> wspList = matrix->GetConfigurations();
+	std::list<CSolitionConfigurationPtr>::iterator iter = wspList.begin();
 	for (; iter !=  wspList.end(); iter++) {
-		WorkspaceConfiguration::ConfigMappingList prjList = (*iter)->GetMapping();
+		CSolitionConfiguration::ConfigMappingList prjList = (*iter)->GetMapping();
 
-		WorkspaceConfiguration::ConfigMappingList::iterator it = prjList.begin();
+		CSolitionConfiguration::ConfigMappingList::iterator it = prjList.begin();
 		for (; it != prjList.end(); it++) {
 			if ((*it).m_project == prj->GetName()) {
 				prjList.erase(it);
@@ -314,7 +315,7 @@ void CSolution::RemoveProjectFromBuildMatrix(ProjectPtr prj)
 bool CSolution::CreateProject(const wxString &name, const wxString &path, const wxString &type, bool addToBuildMatrix, wxString &errMsg)
 {
 	if ( !m_doc.IsOk() ) {
-		errMsg = wxT("No workspace open");
+		errMsg = wxT("No solution open");
 		return false;
 	}
 
@@ -322,11 +323,11 @@ bool CSolution::CreateProject(const wxString &name, const wxString &path, const 
 	proj->Create(name, wxEmptyString, path, type);
 	m_projects[name] = proj;
 
-	// make the project path to be relative to the workspace
+	// make the project path to be relative to the solution
 	wxFileName tmp(path + wxFileName::GetPathSeparator() + name + wxT(".") + EL_PROJECT_EXT);
 	tmp.MakeRelativeTo(m_fileName.GetPath());
 
-	// Add an entry to the workspace file
+	// Add an entry to the solution file
 	wxXmlNode *node = new wxXmlNode(NULL, wxXML_ELEMENT_NODE, wxT("Project"));
 	node->AddProperty(wxT("Name"), name);
 	node->AddProperty(wxT("Path"), tmp.GetFullPath(wxPATH_UNIX));
@@ -347,7 +348,7 @@ bool CSolution::CreateProject(const wxString &name, const wxString &path, const 
 ProjectPtr CSolution::FindProjectByName(const wxString &projName, wxString &errMsg) const
 {
 	if ( !m_doc.IsOk() ) {
-		errMsg = wxT("No workspace open");
+		errMsg = wxT("No solution open");
 		return NULL;
 	}
 
@@ -373,7 +374,7 @@ void CSolution::GetProjectList(wxArrayString &list)
 bool CSolution::AddProject(const wxString & path, wxString &errMsg)
 {
 	if ( !m_doc.IsOk() ) {
-		errMsg = wxT("No workspace open");
+		errMsg = wxT("No solution open");
 		return false;
 	}
 
@@ -383,7 +384,7 @@ bool CSolution::AddProject(const wxString & path, wxString &errMsg)
 		return false;
 	}
 
-	// Try first to find this project in the workspace
+	// Try first to find this project in the solution
 	ProjectPtr proj = FindProjectByName(fn.GetName(), errMsg);
 	if ( !proj ) {
 		errMsg.Empty();
@@ -392,7 +393,7 @@ bool CSolution::AddProject(const wxString & path, wxString &errMsg)
 			return false;
 		}
 
-		// Add an entry to the workspace filewxFileName tmp(path);
+		// Add an entry to the solution filewxFileName tmp(path);
 		fn.MakeRelativeTo(m_fileName.GetPath());
 
 		wxXmlNode *node = new wxXmlNode(NULL, wxXML_ELEMENT_NODE, wxT("Project"));
@@ -401,7 +402,7 @@ bool CSolution::AddProject(const wxString & path, wxString &errMsg)
 		node->AddProperty(wxT("Active"), m_projects.size() == 1 ? wxT("Yes") : wxT("No"));
 		m_doc.GetRoot()->AddChild(node);
 		if (!SaveXmlFile()) {
-			wxMessageBox(_("Failed to save workspace file to disk. Please check that you have permission to write to disk"),
+			wxMessageBox(_("Failed to save solution file to disk. Please check that you have permission to write to disk"),
 			             wxT("EmbeddedLite"), wxICON_ERROR | wxOK);
 			return false;
 		}
@@ -410,7 +411,7 @@ bool CSolution::AddProject(const wxString & path, wxString &errMsg)
 		return true;
 	}
 
-	errMsg = wxT("A project with this name already exist in the workspace");
+	errMsg = wxT("A project with this name already exist in the solution");
 	return false;
 }
 
@@ -576,7 +577,7 @@ bool CSolution::RemoveGroupFolder(const wxString &vdFullPath, wxString &errMsg)
 bool CSolution::SaveXmlFile()
 {
 	bool ok = m_doc.Save(m_fileName.GetFullPath());
-	SetWorkspaceLastModifiedTime(GetFileLastModifiedTime());
+	SetSolutionLastModifiedTime(GetFileLastModifiedTime());
 
 	return ok;
 }
@@ -675,7 +676,7 @@ BuildConfigPtr CSolution::GetProjBuildConf(const wxString &projectName, const wx
 	return NULL;
 }
 
-void CSolution::ReloadWorkspace()
+void CSolution::ReloadSolution()
 {
 	m_doc = wxXmlDocument();
 
@@ -687,12 +688,12 @@ void CSolution::ReloadWorkspace()
 	mgr->CloseDatabase();
 
 	wxString err_msg;
-	if (!OpenWorkspace(m_fileName.GetFullPath(), err_msg)) {
-		wxLogMessage(wxT("Reload workspace: ")+ err_msg);
+	if (!OpenSolution(m_fileName.GetFullPath(), err_msg)) {
+		wxLogMessage(wxT("Reload solution: ")+ err_msg);
 	}
 }
 
 time_t CSolution::GetFileLastModifiedTime() const
 {
-	return GetFileModificationTime(GetWorkspaceFileName());
+	return GetFileModificationTime(GetSolutionFileName());
 }

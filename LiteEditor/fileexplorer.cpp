@@ -164,7 +164,7 @@ void CFileSystemBrowser::OnWorkspaceLoaded(wxCommandEvent& e)
     e.Skip();
     wxUnusedVar(e);
     if (m_bSyncWithEditor) {
-        m_fileTree->ExpandToPath(SolutionST::Get()->GetWorkspaceFileName().GetPath());
+        m_fileTree->ExpandToPath(SolutionST::Get()->GetSolutionFileName().GetPath());
     }
 }
 

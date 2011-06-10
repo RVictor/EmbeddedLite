@@ -109,8 +109,8 @@ void ConfigurationManagerDlg::PopulateConfigurations()
 	}
 	m_projSettingsMap.clear();
 
-	std::list<WorkspaceConfigurationPtr> configs = matrix->GetConfigurations();
-	std::list<WorkspaceConfigurationPtr>::iterator iter = configs.begin();
+	std::list<CSolitionConfigurationPtr> configs = matrix->GetConfigurations();
+	std::list<CSolitionConfigurationPtr>::iterator iter = configs.begin();
 
 	m_choiceConfigurations->Clear();
 	for (; iter != configs.end(); iter++) {
@@ -284,7 +284,7 @@ void ConfigurationManagerDlg::OnButtonNew(wxCommandEvent &event)
 				return;
 			}
 
-			WorkspaceConfigurationPtr conf(new WorkspaceConfiguration(NULL));
+			CSolitionConfigurationPtr conf(new CSolitionConfiguration(NULL));
 			conf->SetName(value);
 			conf->SetConfigMappingList(GetCurrentSettings());
 			matrix->SetConfiguration(conf);
@@ -303,10 +303,10 @@ void ConfigurationManagerDlg::OnButtonApply(wxCommandEvent &event)
 }
 
 
-WorkspaceConfiguration::ConfigMappingList ConfigurationManagerDlg::GetCurrentSettings()
+CSolitionConfiguration::ConfigMappingList ConfigurationManagerDlg::GetCurrentSettings()
 {
 	//return the current settings as described by the dialog
-	WorkspaceConfiguration::ConfigMappingList list;
+	CSolitionConfiguration::ConfigMappingList list;
 
 	std::map<int, ConfigEntry>::iterator iter = m_projSettingsMap.begin();
 	for (; iter != m_projSettingsMap.end(); iter++) {
@@ -337,10 +337,10 @@ void ConfigurationManagerDlg::SaveCurrentSettings()
 
 	matrix->SetSelectedConfigurationName(m_currentWorkspaceConfiguration);
 
-	WorkspaceConfigurationPtr conf = matrix->GetConfigurationByName(m_currentWorkspaceConfiguration);
+	CSolitionConfigurationPtr conf = matrix->GetConfigurationByName(m_currentWorkspaceConfiguration);
 	if (!conf) {
 		//create new configuration
-		conf = new WorkspaceConfiguration(NULL);
+		conf = new CSolitionConfiguration(NULL);
 		conf->SetName(m_currentWorkspaceConfiguration);
 		matrix->SetConfiguration(conf);
 	}

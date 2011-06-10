@@ -85,7 +85,7 @@ bool VcImporter::Import(wxString &errMsg)
 	}
 
 	//create LE files
-	CreateWorkspace();
+	CreateSolution();
 	CreateProjects();
 	return true;
 }
@@ -138,12 +138,12 @@ void VcImporter::RemoveGershaim(wxString &str)
 	str = str.BeforeLast(wxT('"'));
 }
 
-void VcImporter::CreateWorkspace()
+void VcImporter::CreateSolution()
 {
 	//create a workspace file from the data we collected
 	wxFileName fn(m_fileName);
 	wxString errMsg;
-	SolutionST::Get()->CreateWorkspace(fn.GetName(), fn.GetPath(), errMsg);
+	SolutionST::Get()->CreateSolution(fn.GetName(), fn.GetPath(), errMsg);
 }
 
 //

@@ -366,7 +366,7 @@ wxString SymbolViewPlugin::GetSymbolsPath(const wxString &fileName, const wxStri
 	switch (GetViewMode()) {
 	case vmCurrentWorkspace:
 		if (m_mgr->IsWorkspaceOpen()) { // ignore input, return workspace file path
-			return m_mgr->GetSolution()->GetWorkspaceFileName().GetFullPath();
+			return m_mgr->GetSolution()->GetSolutionFileName().GetFullPath();
 		}
 		break;
 	case vmCurrentProject: {
@@ -431,7 +431,7 @@ void SymbolViewPlugin::GetFiles(const wxFileName &path, wxArrayString &files)
 		}
 	} else {
 		wxString fullPath = path.GetFullPath();
-		wxString workspaceFileName = m_mgr->GetSolution()->GetWorkspaceFileName().GetFullPath();
+		wxString workspaceFileName = m_mgr->GetSolution()->GetSolutionFileName().GetFullPath();
 		wxArrayString projectNames;
 		m_mgr->GetSolution()->GetProjectList(projectNames);
 		for (size_t i = 0; i < projectNames.Count(); i++) {
@@ -472,7 +472,7 @@ void SymbolViewPlugin::GetPaths(const wxArrayString &files, std::multimap<wxStri
 	if (!m_mgr->IsWorkspaceOpen())
 		return;
 
-	wxString workspaceFileName = m_mgr->GetSolution()->GetWorkspaceFileName().GetFullPath();
+	wxString workspaceFileName = m_mgr->GetSolution()->GetSolutionFileName().GetFullPath();
 
 	// convert to set for faster membership testing, while adding obvious paths (own file, and entire workspace)
 	std::set<wxString> fileset;

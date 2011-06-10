@@ -272,12 +272,12 @@ void CSolutionPanel::OnSolutionConfig(wxCommandEvent& e)
     e.Skip();
 
     BuildMatrixPtr matrix = SolutionST::Get()->GetBuildMatrix();
-	std::list<WorkspaceConfigurationPtr> confs = matrix->GetConfigurations();
+	std::list<CSolitionConfigurationPtr> confs = matrix->GetConfigurations();
 
 	m_pSolutionConfig->Freeze();
     m_pSolutionConfig->Enable(true);
 	m_pSolutionConfig->Clear();
-	for (std::list<WorkspaceConfigurationPtr>::iterator iter = confs.begin() ; iter != confs.end(); iter++) {
+	for (std::list<CSolitionConfigurationPtr>::iterator iter = confs.begin() ; iter != confs.end(); iter++) {
 		m_pSolutionConfig->Append((*iter)->GetName());
 	}
 	if (m_pSolutionConfig->GetCount() > 0) {

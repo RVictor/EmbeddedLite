@@ -22,15 +22,15 @@ BuildMatrix::BuildMatrix(wxXmlNode *node){
 	if(node){
 		wxXmlNode *config = node->GetChildren();
 		while(config){
-			if(config->GetName() == wxT("WorkspaceConfiguration")){
-				m_configurationList.push_back(new WorkspaceConfiguration(config));
+			if(config->GetName() == wxT("CSolitionConfiguration")){
+				m_configurationList.push_back(new CSolitionConfiguration(config));
 			}
 			config = config->GetNext(); 
 		}
 	}else{
 		//construct default empty mapping with a default build configuration
-		m_configurationList.push_back(new WorkspaceConfiguration(wxT("Debug"), true));
-		m_configurationList.push_back(new WorkspaceConfiguration(wxT("Release"), false));
+		m_configurationList.push_back(new CSolitionConfiguration(wxT("Debug"), true));
+		m_configurationList.push_back(new CSolitionConfiguration(wxT("Release"), false));
 	}
 }
 
@@ -39,7 +39,7 @@ BuildMatrix::~BuildMatrix(){
 
 wxXmlNode *BuildMatrix::ToXml() const {
 	wxXmlNode *node = new wxXmlNode(NULL, wxXML_ELEMENT_NODE, wxT("BuildMatrix"));
-	std::list<WorkspaceConfigurationPtr>::const_iterator iter = m_configurationList.begin();
+	std::list<CSolitionConfigurationPtr>::const_iterator iter = m_configurationList.begin();
 	for(; iter != m_configurationList.end(); iter++){
 		node->AddChild((*iter)->ToXml());
 	}
@@ -48,7 +48,7 @@ wxXmlNode *BuildMatrix::ToXml() const {
 
 void BuildMatrix::RemoveConfiguration(const wxString &configName){
 	bool isSelected = false;
-	std::list<WorkspaceConfigurationPtr>::iterator iter = m_configurationList.begin();
+	std::list<CSolitionConfigurationPtr>::iterator iter = m_configurationList.begin();
 	for(; iter != m_configurationList.end(); iter++){
 		if((*iter)->GetName() == configName){
 			isSelected = (*iter)->IsSelected();
@@ -66,18 +66,18 @@ void BuildMatrix::RemoveConfiguration(const wxString &configName){
 	}
 }
 
-void BuildMatrix::SetConfiguration(WorkspaceConfigurationPtr conf){
+void BuildMatrix::SetConfiguration(CSolitionConfigurationPtr conf){
 	RemoveConfiguration(conf->GetName());
 	m_configurationList.push_back(conf);
 }
 
 wxString BuildMatrix::GetProjectSelectedConf(const wxString &configName, const wxString &project) const
 {
-	std::list<WorkspaceConfigurationPtr>::const_iterator iter = m_configurationList.begin();
+	std::list<CSolitionConfigurationPtr>::const_iterator iter = m_configurationList.begin();
 	for(; iter != m_configurationList.end(); iter++){
 		if((*iter)->GetName() == configName){
-			WorkspaceConfiguration::ConfigMappingList list = (*iter)->GetMapping();
-			WorkspaceConfiguration::ConfigMappingList::const_iterator it = list.begin();
+			CSolitionConfiguration::ConfigMappingList list = (*iter)->GetMapping();
+			CSolitionConfiguration::ConfigMappingList::const_iterator it = list.begin();
 			for(; it != list.end(); it++){
 				if((*it).m_project == project){
 					return (*it).m_name;
@@ -92,7 +92,7 @@ wxString BuildMatrix::GetProjectSelectedConf(const wxString &configName, const w
 
 wxString BuildMatrix::GetSelectedConfigurationName() const 
 {
-	std::list<WorkspaceConfigurationPtr>::const_iterator iter = m_configurationList.begin();
+	std::list<CSolitionConfigurationPtr>::const_iterator iter = m_configurationList.begin();
 	for(; iter != m_configurationList.end(); iter++){
 		if((*iter)->IsSelected()){
 			return (*iter)->GetName();
@@ -101,14 +101,14 @@ wxString BuildMatrix::GetSelectedConfigurationName() const
 	return wxEmptyString;
 }
 
-WorkspaceConfigurationPtr BuildMatrix::GetConfigurationByName(const wxString &name) const
+CSolitionConfigurationPtr BuildMatrix::GetConfigurationByName(const wxString &name) const
 {
 	return FindConfiguration(name);
 }
 
-WorkspaceConfigurationPtr BuildMatrix::FindConfiguration(const wxString &name) const
+CSolitionConfigurationPtr BuildMatrix::FindConfiguration(const wxString &name) const
 {
-	std::list<WorkspaceConfigurationPtr>::const_iterator iter = m_configurationList.begin();
+	std::list<CSolitionConfigurationPtr>::const_iterator iter = m_configurationList.begin();
 	for(; iter != m_configurationList.end(); iter++){
 		if((*iter)->GetName() == name){
 			return (*iter);
@@ -120,7 +120,7 @@ WorkspaceConfigurationPtr BuildMatrix::FindConfiguration(const wxString &name) c
 void BuildMatrix::SetSelectedConfigurationName(const wxString &name)
 {
 	//find the current selected configuration
-	std::list<WorkspaceConfigurationPtr>::iterator iter = m_configurationList.begin();
+	std::list<CSolitionConfigurationPtr>::iterator iter = m_configurationList.begin();
 	for(; iter != m_configurationList.end(); iter++){
 		if((*iter)->IsSelected()){
 			(*iter)->SetSelected(false);
@@ -128,28 +128,28 @@ void BuildMatrix::SetSelectedConfigurationName(const wxString &name)
 		}
 	}
 	//set the new one
-	WorkspaceConfigurationPtr c = FindConfiguration(name);
+	CSolitionConfigurationPtr c = FindConfiguration(name);
 	if(c){
 		c->SetSelected(true);
 	}
 }
 
 //------------------------------------------------
-// WorkspaceConfiguration object
+// CSolitionConfiguration object
 //------------------------------------------------
-WorkspaceConfiguration::WorkspaceConfiguration()
+CSolitionConfiguration::CSolitionConfiguration()
 : m_name(wxEmptyString)
 , m_isSelected(false)
 {
 }
 
-WorkspaceConfiguration::WorkspaceConfiguration(const wxString &name, bool selected)
+CSolitionConfiguration::CSolitionConfiguration(const wxString &name, bool selected)
 : m_name(name)
 , m_isSelected(selected)
 {
 }
 
-WorkspaceConfiguration::WorkspaceConfiguration(wxXmlNode *node){
+CSolitionConfiguration::CSolitionConfiguration(wxXmlNode *node){
 	if(node){
 		m_name = XmlUtils::ReadString(node, wxT("Name"));
 		m_isSelected = XmlUtils::ReadBool(node, wxT("Selected"));
@@ -168,15 +168,15 @@ WorkspaceConfiguration::WorkspaceConfiguration(wxXmlNode *node){
 	}
 }
 
-WorkspaceConfiguration::~WorkspaceConfiguration(){
+CSolitionConfiguration::~CSolitionConfiguration(){
 }
 
-wxXmlNode *WorkspaceConfiguration::ToXml() const{
-	wxXmlNode *node = new wxXmlNode(NULL, wxXML_ELEMENT_NODE, wxT("WorkspaceConfiguration"));
+wxXmlNode *CSolitionConfiguration::ToXml() const{
+	wxXmlNode *node = new wxXmlNode(NULL, wxXML_ELEMENT_NODE, wxT("CSolitionConfiguration"));
 	node->AddProperty(wxT("Name"), m_name);
 	node->AddProperty(wxT("Selected"), BoolToString(m_isSelected));
 
-	WorkspaceConfiguration::ConfigMappingList::const_iterator iter = m_mappingList.begin();
+	CSolitionConfiguration::ConfigMappingList::const_iterator iter = m_mappingList.begin();
 	for(; iter  != m_mappingList.end(); iter++){
 		wxXmlNode *projNode = new wxXmlNode(NULL, wxXML_ELEMENT_NODE, wxT("Project"));
 		projNode->AddProperty(wxT("Name"), iter->m_project);

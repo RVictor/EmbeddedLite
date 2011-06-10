@@ -198,7 +198,7 @@ BuilderGnuMake::Export(const wxString &project, const wxString &confToBuild, boo
 	fn << SolutionST::Get()->GetName()  << wxT("_sol.mk");
 	wxString text;
 
-	wxFileName wspfile(SolutionST::Get()->GetWorkspaceFileName());
+	wxFileName wspfile(SolutionST::Get()->GetSolutionFileName());
 
 	PRINT_TIMESTAMP(wxT("Generating makefile...\n"));
 	text << wxT(".PHONY: clean All\n\n");
@@ -1112,11 +1112,11 @@ void BuilderGnuMake::CreateConfigsVariables(ProjectPtr proj, BuildConfigPtr bldC
 	text << wxT("ProjectName            :=") << proj->GetName() << wxT("\n");
 	text << wxT("BuildToolsBaseDir      :=") << cmp->GetBuildToolsBaseDir() << wxT("\n");
 	text << wxT("ConfigurationName      :=") << name << wxT("\n");
-	text << wxT("WorkspacePath          := ") << FixPath(SolutionST::Get()->GetWorkspaceFileName().GetPath()) << wxT("\n");
+	text << wxT("WorkspacePath          := ") << FixPath(SolutionST::Get()->GetSolutionFileName().GetPath()) << wxT("\n");
   text << wxT("ProjectPath            := ") << FixPath(proj->GetFileName().GetPath()) << wxT("\n");
-//rvv:2	text << wxT("WorkspacePath          := \"") << SolutionST::Get()->GetWorkspaceFileName().GetPath() << wxT("\"\n");
+//rvv:2	text << wxT("WorkspacePath          := \"") << SolutionST::Get()->GetSolutionFileName().GetPath() << wxT("\"\n");
 //rvv:2  text << wxT("ProjectPath            := \"") << proj->GetFileName().GetPath() << wxT("\"\n");
-//rvv		text << wxT("WorkspacePath          := \"") << SolutionST::Get()->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME, wxPATH_UNIX) << wxT("\"\n");
+//rvv		text << wxT("WorkspacePath          := \"") << SolutionST::Get()->GetSolutionFileName().GetPath(wxPATH_GET_VOLUME, wxPATH_UNIX) << wxT("\"\n");
 //rvv		text << wxT("ProjectPath            := \"") << proj->GetFileName().GetPath(wxPATH_GET_VOLUME, wxPATH_UNIX) << wxT("\"\n");
 	text << wxT("IntermediateDirectory  :=") << bldConf->GetIntermediateDirectory() << wxT("\n");
 	text << wxT("OutDir                 := $(IntermediateDirectory)\n");

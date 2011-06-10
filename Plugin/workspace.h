@@ -44,6 +44,7 @@
 class WXDLLIMPEXP_LE_SDK CSolution
 {
 	friend class Singleton<CSolution>;
+	
 	wxXmlDocument m_doc;
 	wxFileName m_fileName;
 	std::map<wxString, ProjectPtr> m_projects;
@@ -66,7 +67,7 @@ public:
 	/**
 	 * Returns the workspace file name
 	 */
-	const wxFileName& GetWorkspaceFileName() const { return m_fileName; }
+	const wxFileName& GetSolutionFileName() const { return m_fileName; }
 
 	/**
 	 * \brief
@@ -81,7 +82,7 @@ public:
 	 * \returns
 	 * true on success false otherwise
 	 */
-	bool CreateWorkspace(const wxString &name, const wxString &path, wxString &errMsg);
+	bool CreateSolution(const wxString &name, const wxString &path, wxString &errMsg);
 
 	/**
 	 * \brief
@@ -93,18 +94,18 @@ public:
 	 * \returns
 	 * true on success false otherwise
 	 */
-	bool OpenWorkspace(const wxString &fileName, wxString &errMsg);
+	bool OpenSolution(const wxString &fileName, wxString &errMsg);
 
 	/**
 	 * Close the currently opened workspace
 	 */
-	void CloseWorkspace();
+	void CloseSolution();
 
 	/**
 	 * \brief close the currently open workspace without saving any changes made to it,
 	 * and reload it again
 	 */
-	void ReloadWorkspace();
+	void ReloadSolution();
 
 	/**
 	 * \brief
@@ -213,12 +214,12 @@ public:
 	/**
 	 * Return a node pointing to any workspace-wide editor preferences
 	 */
-	wxXmlNode* GetWorkspaceEditorOptions() const;
+	wxXmlNode* GetSolutionEditorOptions() const;
 
 	/**
 	 * Add or update local workspace options
 	 */
-	void SetWorkspaceEditorOptions(LocalOptionsConfigPtr opts);
+	void SetSolutionEditorOptions(LocalOptionsConfigPtr opts);
 
 	/**
 	 * Return the configuration mapping for the workspace. 'Configuration Mapping' is
@@ -248,8 +249,8 @@ public:
 	wxString ExpandVariables(const wxString &expression) const;
 
 	/**
-	 * \brief add project to the workspace build matrix. By default EmbeddedLite will try to match the best project configuration
-	 * to the workspace configuration (i.e. Debug -> Debug, if no suitable match found, it will use the first one)
+	 * \brief add project to the solution build matrix. By default EmbeddedLite will try to match the best project configuration
+	 * to the solution configuration (i.e. Debug -> Debug, if no suitable match found, it will use the first one)
 	 * \param prj
 	 */
 	void AddProjectToBuildMatrix(ProjectPtr prj);
@@ -266,10 +267,10 @@ public:
 	/**
 	 * return/set the last modification time that was made by the editor
 	 */
-	time_t GetWorkspaceLastModifiedTime() const {
+	time_t GetSolutionLastModifiedTime() const {
 		return m_modifyTime;
 	}
-	void SetWorkspaceLastModifiedTime(time_t modificationTime) {
+	void SetSolutionLastModifiedTime(time_t modificationTime) {
 		m_modifyTime = modificationTime;
 	}
 

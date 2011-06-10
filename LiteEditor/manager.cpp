@@ -220,36 +220,36 @@ bool Manager::IsWorkspaceOpen() const
 	return SolutionST::Get()->GetName().IsEmpty() == false;
 }
 
-void Manager::CreateWorkspace ( const wxString &name, const wxString &path )
+void Manager::CreateSolution ( const wxString &name, const wxString &path )
 {
 	// make sure that the workspace pane is visible
 	ShowWorkspacePane (Frame::Get()->GetSolutionTab()->GetCaption());
 
 	wxString errMsg;
-	bool res = SolutionST::Get()->CreateWorkspace ( name, path, errMsg );
+	bool res = SolutionST::Get()->CreateSolution ( name, path, errMsg );
 	if ( !res ) {
 		wxMessageBox(errMsg, wxT("Error"), wxOK | wxICON_HAND);
 		return;
 	}
 
-	OpenWorkspace ( path + PATH_SEP + name + wxT (".") + EL_WORKSPACE_EXT );
+	OpenSolution ( path + PATH_SEP + name + wxT (".") + EL_WORKSPACE_EXT );
 }
 
-void Manager::OpenWorkspace ( const wxString &path )
+void Manager::OpenSolution ( const wxString &path )
 {
 	wxLogNull noLog;
-	CloseWorkspace();
+	CloseSolution();
 
 	wxString errMsg;
-	bool res = SolutionST::Get()->OpenWorkspace ( path, errMsg );
+	bool res = SolutionST::Get()->OpenSolution ( path, errMsg );
 	if ( !res ) {
 		// in case part of the workspace was opened, close the workspace
-		CloseWorkspace();
+		CloseSolution();
 		wxMessageBox ( errMsg, wxT ( "Error"), wxOK | wxICON_HAND );
 		return;
 	}
 	
-	// OpenWorkspace returned true, but errMsg is not empty
+	// OpenSolution returned true, but errMsg is not empty
 	// this could only mean that we removed a fauly project
 	if(errMsg.IsEmpty() == false) {
 		Frame::Get()->GetMainBook()->ShowMessage(errMsg, true, wxXmlResource::Get()->LoadBitmap(wxT("message_pane_warning")));
@@ -258,13 +258,13 @@ void Manager::OpenWorkspace ( const wxString &path )
 	DoSetupWorkspace ( path );
 }
 
-void Manager::ReloadWorkspace()
+void Manager::ReloadSolution()
 {
 	if ( !IsWorkspaceOpen() )
 		return;
 	DbgStop();
-	SolutionST::Get()->ReloadWorkspace();
-	DoSetupWorkspace ( SolutionST::Get()->GetWorkspaceFileName().GetFullPath() );
+	SolutionST::Get()->ReloadSolution();
+	DoSetupWorkspace ( SolutionST::Get()->GetSolutionFileName().GetFullPath() );
 }
 
 void Manager::DoSetupWorkspace ( const wxString &path )
@@ -300,7 +300,7 @@ void Manager::DoSetupWorkspace ( const wxString &path )
 	}
 }
 
-void Manager::CloseWorkspace()
+void Manager::CloseSolution()
 {
 	m_workspceClosing = true;
 
@@ -309,11 +309,11 @@ void Manager::CloseWorkspace()
 
 	//save the current session before closing
 	SessionEntry session;
-	session.SetWorkspaceName ( SolutionST::Get()->GetWorkspaceFileName().GetFullPath() );
+	session.SetWorkspaceName ( SolutionST::Get()->GetSolutionFileName().GetFullPath() );
 	wxArrayInt unused; 
 	Frame::Get()->GetMainBook()->SaveSession(session, unused);
 	GetBreakpointsMgr()->SaveSession(session);
-	SessionManager::Get().Save ( SolutionST::Get()->GetWorkspaceFileName().GetFullPath(), session );
+	SessionManager::Get().Save ( SolutionST::Get()->GetSolutionFileName().GetFullPath(), session );
 
 	// Delete any breakpoints belong to the current workspace
 	GetBreakpointsMgr()->DelAllBreakpoints();
@@ -324,7 +324,7 @@ void Manager::CloseWorkspace()
 	// default
 	SessionManager::Get().SetLastWorkspaceName ( wxT ( "Default") );
 
-	SolutionST::Get()->CloseWorkspace();
+	SolutionST::Get()->CloseSolution();
 	if ( !IsShutdownInProgress() ) {
 		SendCmdEvent ( wxEVT_WORKSPACE_CLOSED );
 	}
@@ -386,7 +386,7 @@ void Manager::CreateProject ( ProjectData &data )
 {
 	if ( IsWorkspaceOpen() == false ) {
 		//create a workspace before creating a project
-		CreateWorkspace ( data.m_name, data.m_path );
+		CreateSolution ( data.m_name, data.m_path );
 	}
 
 	wxString errMsg;
@@ -454,7 +454,7 @@ void Manager::AddProject ( const wxString & path )
 		wxFileName fn(path);
 
 		//create a workspace before creating a project
-		CreateWorkspace ( fn.GetName(), fn.GetPath() );
+		CreateSolution ( fn.GetName(), fn.GetPath() );
 	}
 
 	wxString errMsg;
@@ -486,7 +486,7 @@ void Manager::ImportMSVSSolution ( const wxString &path, const wxString &default
 	if ( importer.Import ( errMsg ) ) {
 		wxString wspfile;
 		wspfile << fn.GetPath() << wxT ( "/") << fn.GetName() << wxT (".") << EL_WORKSPACE_EXT;
-		OpenWorkspace ( wspfile );
+		OpenSolution ( wspfile );
 		
 		// Retag workspace
 		wxCommandEvent event( wxEVT_COMMAND_MENU_SELECTED, XRCID("retag_solution") );

@@ -133,23 +133,23 @@ public:
 	 * workspace path
 	 *
 	 */
-	void CreateWorkspace(const wxString &name, const wxString &path);
+	void CreateSolution(const wxString &name, const wxString &path);
 
 	/**
 	 * Open an existing workspace by path
 	 */
-	void OpenWorkspace(const wxString &path);
+	void OpenSolution(const wxString &path);
 
 	/**
 	 * \brief close the currently opened workspace and reload it without saving any modifications made to it, if no workspace is opened, this functiond does anything
 	 */
-	void ReloadWorkspace();
+	void ReloadSolution();
 
 	/**
 	 * Close the current workspace and save all
 	 * changes
 	 */
-	void CloseWorkspace();
+	void CloseSolution();
 
 	/**
 	 * \brief clear the recent workspaces list

@@ -290,7 +290,7 @@ bool LocalWorkspace::SaveXmlFile()
 bool LocalWorkspace::SanityCheck()
 {
 	wxLogNull noLog;
-    wxString WorkspaceFullPath = SolutionST::Get()->GetWorkspaceFileName().GetFullPath();
+    wxString WorkspaceFullPath = SolutionST::Get()->GetSolutionFileName().GetFullPath();
     if (WorkspaceFullPath.IsEmpty()) {
         return false;
     }
@@ -309,7 +309,7 @@ bool LocalWorkspace::Create()
 {
     m_doc = wxXmlDocument();
     // The idea is to make a name in the format foo.workspace.frodo
-    wxString fullpath = SolutionST::Get()->GetWorkspaceFileName().GetFullPath() + wxT('.') + clGetUserName();
+    wxString fullpath = SolutionST::Get()->GetSolutionFileName().GetFullPath() + wxT('.') + clGetUserName();
 	m_fileName = wxFileName(fullpath);
 	m_fileName.MakeAbsolute();
 

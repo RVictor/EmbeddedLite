@@ -599,7 +599,7 @@ bool App::OnInit()
 		fn.MakeAbsolute(strStartupDir);
 
 		if (fn.GetExt() == EL_WORKSPACE_EXT) {
-			ManagerST::Get()->OpenWorkspace(fn.GetFullPath());
+			ManagerST::Get()->OpenSolution(fn.GetFullPath());
 		} else {
 			Frame::Get()->GetMainBook()->OpenFile(fn.GetFullPath(), wxEmptyString, lineNumber);
 		}
@@ -705,7 +705,7 @@ void App::MacOpenFile(const wxString& fileName)
 {
 	switch (FileExtManager::GetType(fileName)) {
 	case FileExtManager::TypeWorkspace:
-		ManagerST::Get()->OpenWorkspace(fileName);
+		ManagerST::Get()->OpenSolution(fileName);
 		break;
 	default:
 		Frame::Get()->GetMainBook()->OpenFile(fileName);

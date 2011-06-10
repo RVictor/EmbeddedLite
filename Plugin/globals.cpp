@@ -300,7 +300,7 @@ DoExpandAllVariables(const wxString &expression, CSolution* workspace, const wxS
 
 			BuildConfigPtr bldConf = workspace->GetProjBuildConf(proj->GetName(), confToBuild);
 			output.Replace(wxT("$(ProjectPath)"), proj->GetFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
-			output.Replace(wxT("$(WorkspacePath)"), workspace->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
+			output.Replace(wxT("$(WorkspacePath)"), workspace->GetSolutionFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
 			output.Replace(wxT("$(ProjectName)"), project_name);
 			if (bldConf) {
 				output.Replace(wxT("$(IntermediateDirectory)"), bldConf->GetIntermediateDirectory());

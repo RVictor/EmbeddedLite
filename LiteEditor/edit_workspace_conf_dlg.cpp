@@ -96,10 +96,10 @@ void EditWorkspaceConfDlg::FillList()
 {
 	m_wspConfList->Clear();
 	BuildMatrixPtr matrix = ManagerST::Get()->GetWorkspaceBuildMatrix();
-	std::list<WorkspaceConfigurationPtr> confs;
+	std::list<CSolitionConfigurationPtr> confs;
 
 	confs = matrix->GetConfigurations();
-	std::list<WorkspaceConfigurationPtr>::iterator iter = confs.begin();
+	std::list<CSolitionConfigurationPtr>::iterator iter = confs.begin();
 
 	for(; iter != confs.end(); iter++){
 		m_wspConfList->Append((*iter)->GetName());	
@@ -140,7 +140,7 @@ void EditWorkspaceConfDlg::DoRename(const wxString &selItem)
 		TrimString(newName);
 		if(!newName.IsEmpty()){
 			BuildMatrixPtr matrix = ManagerST::Get()->GetWorkspaceBuildMatrix();
-			WorkspaceConfigurationPtr conf = matrix->GetConfigurationByName(selItem);
+			CSolitionConfigurationPtr conf = matrix->GetConfigurationByName(selItem);
 			//rename the configuration
 			conf->SetName(newName);
 			matrix->SetConfiguration(conf);

@@ -170,7 +170,7 @@ void SubversionView::CreatGUIControls()
 	tb->Realize();
 
 	if (m_plugin->GetManager()->IsWorkspaceOpen()) {
-		m_textCtrlRootDir->SetValue(m_plugin->GetManager()->GetSolution()->GetWorkspaceFileName().GetPath());
+		m_textCtrlRootDir->SetValue(m_plugin->GetManager()->GetSolution()->GetSolutionFileName().GetPath());
 	}
 	BuildTree();
 }
@@ -196,7 +196,7 @@ void SubversionView::OnWorkspaceLoaded(wxCommandEvent& event)
 	event.Skip();
 	CSolution* workspace = m_plugin->GetManager()->GetSolution();
 	if(m_plugin->GetManager()->IsWorkspaceOpen() && workspace) {
-		m_textCtrlRootDir->SetValue(workspace->GetWorkspaceFileName().GetPath());
+		m_textCtrlRootDir->SetValue(workspace->GetSolutionFileName().GetPath());
 		BuildTree();
 	}
 }

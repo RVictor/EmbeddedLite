@@ -50,7 +50,7 @@ private:
 	bool ReadLine(wxString &line);
 	bool OnProject(const wxString &firstLine, wxString &errMsg);
 	void RemoveGershaim(wxString &str);
-	void CreateWorkspace();
+	void CreateSolution();
 	void CreateProjects();
 	bool ConvertProject(VcProjectData &data);
 	void AddConfiguration(ProjectSettingsPtr settings, wxXmlNode *config);

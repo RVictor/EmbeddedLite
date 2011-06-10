@@ -243,7 +243,7 @@ public:
 	/**
 	 * @brief reload the current workspace, this function does not do anything if a workspace is not opened
 	 */
-	virtual void ReloadWorkspace() = 0;
+	virtual void ReloadSolution() = 0;
 
 	/**
 	 * @brief search for loaded plugin by its name, if the plugin is loaded returns its pointer

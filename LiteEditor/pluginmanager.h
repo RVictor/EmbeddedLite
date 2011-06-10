@@ -93,7 +93,7 @@ public:
 	virtual JobQueue *             GetJobQueue();
 	virtual wxString               GetProjectExecutionCommand(const wxString &projectName, wxString &wd);
 	virtual wxApp *                GetTheApp();
-	virtual void                   ReloadWorkspace();
+	virtual void                   ReloadSolution();
 	virtual IPlugin*               GetPlugin(const wxString &pluginName);
 	virtual wxEvtHandler *         GetOutputWindow();
 	virtual bool                   SaveAll();
