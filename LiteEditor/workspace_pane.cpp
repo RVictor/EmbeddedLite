@@ -1,27 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//
-// copyright            : (C) 2008 by Eran Ifrah
-// file name            : workspace_pane.cpp
-//
-// -------------------------------------------------------------------------
-// A
-//              _____           _      _     _ _
-//             /  __ \         | |    | |   (_) |
-//             | /  \/ ___   __| | ___| |    _| |_ ___
-//             | |    / _ \ / _  |/ _ \ |   | | __/ _ )
-//             | \__/\ (_) | (_| |  __/ |___| | ||  __/
-//              \____/\___/ \__,_|\___\_____/_|\__\___|
-//
-//                                                  F i l e
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
+/**
+  \file 
+
+  \brief EmbeddedLite file
+  \author V. Ridtchenko
+
+  \notes
+
+  Copyright: (C) 2010 by Victor Ridtchenko
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+*/
 #include <wx/app.h>
 #include <wx/xrc/xmlres.h>
 #include "parse_thread.h"
@@ -44,13 +35,15 @@
 
 #define OPEN_CONFIG_MGR_STR wxT("<Open Configuration Manager...>")
 
-CSolutionPanel::CSolutionPanel(wxWindow *parent, const wxString &caption, wxAuiManager *mgr)
-    : wxPanel(parent)
-    , m_caption(caption)
-    , m_mgr(mgr)
+CSolutionPanel::CSolutionPanel(wxWindow *parent, const wxString &caption, wxAuiManager *mgr):
+  wxPanel(parent),
+  m_caption(caption),
+  m_mgr(mgr),
+  m_pOpenWindowsPanel(NULL),
+  m_winStack(NULL)
 {
 	CreateGUIControls();
-    Connect();
+  Connect();
 }
 
 CSolutionPanel::~CSolutionPanel()
@@ -114,15 +107,17 @@ CSolutionPanel::CreateGUIControls()
 	ADD_WORKSPACE_PAGE(m_pFileSystemBrowser, m_pFileSystemBrowser->GetCaption());
 /*rvv
 	m_winStack = new WindowStack(m_book, wxID_ANY);
+  //rvv
 	ADD_WORKSPACE_PAGE(m_winStack, wxT("Outline"));
+*/
+//rvv	m_pOpenWindowsPanel = new OpenWindowsPanel(m_book, wxT("Tabs"));
+//rvv	ADD_WORKSPACE_PAGE(m_pOpenWindowsPanel, m_pOpenWindowsPanel->GetCaption());
 
-	m_pOpenWindowsPanel = new OpenWindowsPanel(m_book, wxT("Tabs"));
-	ADD_WORKSPACE_PAGE(m_pOpenWindowsPanel, m_pOpenWindowsPanel->GetCaption());
-
-	if (m_book->GetPageCount() > 0) {
+	if (m_book->GetPageCount() > 0) 
+	{
 		m_book->SetSelection((size_t)0);
 	}
-*/
+
 	m_mgr->Update();
 }
 
@@ -148,8 +143,10 @@ void CSolutionPanel::Connect()
 
 extern wxImageList* CreateSymbolTreeImages();
 
-void CSolutionPanel::ShowCurrentOutline()
+void
+CSolutionPanel::ShowCurrentOutline()
 {
+/*rvv
     LEditor *editor = Frame::Get()->GetMainBook()->GetActiveEditor();
     if (!editor || editor->GetProjectName().IsEmpty()) {
         m_winStack->SelectNone();
@@ -167,6 +164,7 @@ void CSolutionPanel::ShowCurrentOutline()
         m_winStack->Select(path);
         m_winStack->Thaw();
     }
+*/    
 }
 
 void CSolutionPanel::OnActiveEditorChanged(wxCommandEvent& e)
@@ -178,7 +176,7 @@ void CSolutionPanel::OnActiveEditorChanged(wxCommandEvent& e)
 void CSolutionPanel::OnAllEditorsClosed(wxCommandEvent& e)
 {
     e.Skip();
-    m_winStack->Clear();
+//rvv    m_winStack->Clear();
 }
 
 void CSolutionPanel::OnEditorClosing(wxCommandEvent& e)
@@ -186,12 +184,13 @@ void CSolutionPanel::OnEditorClosing(wxCommandEvent& e)
     e.Skip();
     IEditor *editor = (IEditor*) e.GetClientData();
     if (editor && !editor->GetProjectName().IsEmpty()) {
-        m_winStack->Delete(editor->GetFileName().GetFullPath());
+//rvv        m_winStack->Delete(editor->GetFileName().GetFullPath());
     }
 }
 
 void CSolutionPanel::OnFileRetagged(wxCommandEvent& e)
 {
+/*rvv
     e.Skip();
     std::vector<wxFileName> *files = (std::vector<wxFileName>*) e.GetClientData();
 	if (files && !files->empty()) {
@@ -203,6 +202,7 @@ void CSolutionPanel::OnFileRetagged(wxCommandEvent& e)
         ShowCurrentOutline(); // in case active editor's file was one of them
         m_winStack->Thaw();
     }
+*/    
 }
 
 void CSolutionPanel::OnProjectFileAdded(wxCommandEvent& e)
@@ -213,6 +213,7 @@ void CSolutionPanel::OnProjectFileAdded(wxCommandEvent& e)
 
 void CSolutionPanel::OnProjectFileRemoved(wxCommandEvent& e)
 {
+/*rvv
     e.Skip();
     wxArrayString *files = (wxArrayString*) e.GetClientData();
 	if (files && !files->IsEmpty()) {
@@ -221,10 +222,12 @@ void CSolutionPanel::OnProjectFileRemoved(wxCommandEvent& e)
         }
         ShowCurrentOutline(); // in case active editor's file is no longer tagged
     }
+*/    
 }
 
 void CSolutionPanel::OnSymbolsAdded(wxCommandEvent& e)
 {
+/*rvv
     e.Skip();
     ParseThreadEventData *data = (ParseThreadEventData*) e.GetClientData();
 	if (data && !data->GetItems().empty()) {
@@ -233,10 +236,12 @@ void CSolutionPanel::OnSymbolsAdded(wxCommandEvent& e)
             tree->AddSymbols(data->GetItems());
         }
     }
+*/    
 }
 
 void CSolutionPanel::OnSymbolsDeleted(wxCommandEvent& e)
 {
+/*rvv
     e.Skip();
     ParseThreadEventData *data = (ParseThreadEventData*) e.GetClientData();
 	if (data && !data->GetItems().empty()) {
@@ -245,10 +250,12 @@ void CSolutionPanel::OnSymbolsDeleted(wxCommandEvent& e)
             tree->DeleteSymbols(data->GetItems());
         }
     }
+*/    
 }
 
 void CSolutionPanel::OnSymbolsUpdated(wxCommandEvent& e)
 {
+/*
     e.Skip();
     ParseThreadEventData *data = (ParseThreadEventData*) e.GetClientData();
 	if (data && !data->GetItems().empty()) {
@@ -257,6 +264,7 @@ void CSolutionPanel::OnSymbolsUpdated(wxCommandEvent& e)
             tree->UpdateSymbols(data->GetItems());
         }
     }
+*/    
 }
 
 void CSolutionPanel::OnSolutionConfig(wxCommandEvent& e)
@@ -284,7 +292,7 @@ void CSolutionPanel::OnSolutionClosed(wxCommandEvent& e)
     e.Skip();
     m_pSolutionConfig->Clear();
     m_pSolutionConfig->Enable(false);
-    m_winStack->Clear();
+//rvv    m_winStack->Clear();
 }
 
 void CSolutionPanel::OnConfigurationManagerUI(wxUpdateUIEvent& e)
