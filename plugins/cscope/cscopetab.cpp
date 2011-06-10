@@ -133,7 +133,7 @@ void CscopeTab::DoItemActivated( wxTreeItemId &item, wxEvent &event )
 	if (item.IsOk()) {
 		CscopeTabClientData *data = (CscopeTabClientData*) m_treeCtrlResults->GetItemData(item);
 		if (data) {
-			wxString wsp_path = m_mgr->GetSolution()->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR);
+			wxString wsp_path = m_mgr->GetSolution()->GetSolutionFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR);
 
 			if (data->GetEntry().GetKind() == KindSingleEntry) {
 
