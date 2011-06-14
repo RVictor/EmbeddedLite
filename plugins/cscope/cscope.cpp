@@ -248,7 +248,7 @@ wxString Cscope::DoCreateListFile(bool force)
 	m_mgr->GetConfigTool()->ReadObject(wxT("CscopeSettings"), &settings);
 
 	//create temporary file and save the file there
-	wxString wspPath = m_mgr->GetSolution()->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR);
+	wxString wspPath = m_mgr->GetSolution()->GetSolutionFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR);
 	wxString list_file( wspPath );
 	list_file << wxT("cscope_file.list");
 
@@ -348,7 +348,7 @@ void Cscope::DoCscopeCommand(const wxString &command, const wxString &findWhat, 
 	req->SetCmd       (command );
 	req->SetEndMsg    (endMsg  );
 	req->SetFindWhat  (findWhat);
-	req->SetWorkingDir(m_mgr->GetSolution()->GetWorkspaceFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
+	req->SetWorkingDir(m_mgr->GetSolution()->GetSolutionFileName().GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR));
 
 	CScopeThreadST::Get()->Add( req );
 }
