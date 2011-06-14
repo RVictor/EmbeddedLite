@@ -785,6 +785,65 @@
     <Project Name="ContinuousBuild"/>
     <Project Name="Subversion2"/>
   </Dependencies>
+  <Dependencies Name="DebugUnicode">
+    <Project Name="wxscintilla"/>
+    <Project Name="sqlite3"/>
+    <Project Name="wxsqlite3"/>
+    <Project Name="EmbLite"/>
+    <Project Name="plugin_sdk"/>
+    <Project Name="CodeFormatter"/>
+    <Project Name="DebuggerGDB"/>
+    <Project Name="Gizmos"/>
+    <Project Name="Cscope"/>
+    <Project Name="Copyright"/>
+    <Project Name="wxFormBuilder"/>
+    <Project Name="abbreviation"/>
+    <Project Name="ContinuousBuild"/>
+    <Project Name="ExternalTools"/>
+    <Project Name="Interfaces"/>
+    <Project Name="Subversion2"/>
+    <Project Name="SymbolView"/>
+  </Dependencies>
+  <Dependencies Name="DebugUnicode">
+    <Project Name="wxscintilla"/>
+    <Project Name="sqlite3"/>
+    <Project Name="wxsqlite3"/>
+    <Project Name="EmbLite"/>
+    <Project Name="plugin_sdk"/>
+    <Project Name="CodeFormatter"/>
+    <Project Name="DebuggerGDB"/>
+    <Project Name="Gizmos"/>
+    <Project Name="Cscope"/>
+    <Project Name="Copyright"/>
+    <Project Name="wxFormBuilder"/>
+    <Project Name="abbreviation"/>
+    <Project Name="ContinuousBuild"/>
+    <Project Name="ExternalTools"/>
+    <Project Name="Interfaces"/>
+    <Project Name="Subversion2"/>
+    <Project Name="SymbolView"/>
+    <Project Name="emblite_indexer"/>
+  </Dependencies>
+  <Dependencies Name="ReleaseUnicode">
+    <Project Name="wxscintilla"/>
+    <Project Name="sqlite3"/>
+    <Project Name="wxsqlite3"/>
+    <Project Name="EmbLite"/>
+    <Project Name="plugin_sdk"/>
+    <Project Name="CodeFormatter"/>
+    <Project Name="DebuggerGDB"/>
+    <Project Name="Gizmos"/>
+    <Project Name="Cscope"/>
+    <Project Name="Copyright"/>
+    <Project Name="ContinuousBuild"/>
+    <Project Name="ExternalTools"/>
+    <Project Name="Subversion2"/>
+    <Project Name="Interfaces"/>
+    <Project Name="SymbolView"/>
+    <Project Name="abbreviation"/>
+    <Project Name="emblite_indexer"/>
+    <Project Name="wxFormBuilder"/>
+  </Dependencies>
   <Settings Type="Executable">
     <Configuration Name="DebugUnicode" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g;-Wall;$(shell wx-config --cxxflags --debug=yes --unicode=yes);$(shell pkg-config --cflags gtk+-2.0);-fno-strict-aliasing" Required="yes" PreCompiledHeader="">
@@ -831,8 +890,7 @@
         <CustomPostBuild/>
         <CustomPreBuild>resources.cpp
 resources.cpp: resources.xrc
-	wxrc -c -v -o resources.cpp resources.xrc
-</CustomPreBuild>
+	wxrc -c -v -o resources.cpp resources.xrc</CustomPreBuild>
       </AdditionalRules>
     </Configuration>
     <Configuration Name="ReleaseUnicode" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
@@ -856,7 +914,7 @@ resources.cpp: resources.xrc
         <Library Value="libwxsqlite3u.a"/>
         <Library Value="libsqlite3.a"/>
       </Linker>
-      <ResourceCompiler Options="$(shell wx-config --rcflags)" Required="no"/>
+      <ResourceCompiler Options="$(shell wx-config --rescomp)" Required="no"/>
       <General OutputFile="../build/$(ConfigurationName)/EmbeddedLite" IntermediateDirectory="../build/$(ConfigurationName)/obj/$(ProjectName)" Command="EmbeddedLite" CommandArguments="" WorkingDirectory="/usr/local/EmbeddedLite" PauseExecWhenProcTerminates="no"/>
       <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
         <PostConnectCommands/>
@@ -880,7 +938,8 @@ resources.cpp: resources.xrc
         <CustomPostBuild/>
         <CustomPreBuild>resources.cpp
 resources.cpp: resources.xrc
-	wxrc -c -v -o resources.cpp resources.xrc</CustomPreBuild>
+	wxrc -c -v -o resources.cpp resources.xrc
+</CustomPreBuild>
       </AdditionalRules>
     </Configuration>
     <Configuration Name="Unix" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
@@ -1227,63 +1286,4 @@ resources.cpp: resources.xrc
       <ResourceCompiler Options=""/>
     </GlobalSettings>
   </Settings>
-  <Dependencies Name="DebugUnicode">
-    <Project Name="wxscintilla"/>
-    <Project Name="sqlite3"/>
-    <Project Name="wxsqlite3"/>
-    <Project Name="EmbLite"/>
-    <Project Name="plugin_sdk"/>
-    <Project Name="CodeFormatter"/>
-    <Project Name="DebuggerGDB"/>
-    <Project Name="Gizmos"/>
-    <Project Name="Cscope"/>
-    <Project Name="Copyright"/>
-    <Project Name="wxFormBuilder"/>
-    <Project Name="abbreviation"/>
-    <Project Name="ContinuousBuild"/>
-    <Project Name="ExternalTools"/>
-    <Project Name="Interfaces"/>
-    <Project Name="Subversion2"/>
-    <Project Name="SymbolView"/>
-  </Dependencies>
-  <Dependencies Name="DebugUnicode">
-    <Project Name="wxscintilla"/>
-    <Project Name="sqlite3"/>
-    <Project Name="wxsqlite3"/>
-    <Project Name="EmbLite"/>
-    <Project Name="plugin_sdk"/>
-    <Project Name="CodeFormatter"/>
-    <Project Name="DebuggerGDB"/>
-    <Project Name="Gizmos"/>
-    <Project Name="Cscope"/>
-    <Project Name="Copyright"/>
-    <Project Name="wxFormBuilder"/>
-    <Project Name="abbreviation"/>
-    <Project Name="ContinuousBuild"/>
-    <Project Name="ExternalTools"/>
-    <Project Name="Interfaces"/>
-    <Project Name="Subversion2"/>
-    <Project Name="SymbolView"/>
-    <Project Name="emblite_indexer"/>
-  </Dependencies>
-  <Dependencies Name="ReleaseUnicode">
-    <Project Name="wxscintilla"/>
-    <Project Name="sqlite3"/>
-    <Project Name="wxsqlite3"/>
-    <Project Name="EmbLite"/>
-    <Project Name="plugin_sdk"/>
-    <Project Name="CodeFormatter"/>
-    <Project Name="DebuggerGDB"/>
-    <Project Name="Gizmos"/>
-    <Project Name="Cscope"/>
-    <Project Name="Copyright"/>
-    <Project Name="ContinuousBuild"/>
-    <Project Name="ExternalTools"/>
-    <Project Name="Subversion2"/>
-    <Project Name="Interfaces"/>
-    <Project Name="SymbolView"/>
-    <Project Name="abbreviation"/>
-    <Project Name="emblite_indexer"/>
-    <Project Name="wxFormBuilder"/>
-  </Dependencies>
 </CodeLite_Project>
